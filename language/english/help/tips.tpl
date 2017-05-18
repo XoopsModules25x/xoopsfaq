@@ -9,16 +9,16 @@
     <h2 class="even">TIPS</h2>
     <h4 class="odd">Configuration</h4><br>
 
-    <h5 class="even">Category Group Permissions</h4>
-    <p style='margin: 1.4em 0'>XOOPS FAQ allows the administrator to manage group
+    <h5 class="even">Category Group Permissions</h5>
+    <p style='margin: 1.4em 0;'>XOOPS FAQ allows the administrator to manage group
     permissions using XOOPS groups. Detailed instructions on configuring the access rights for user groups are available in the
     <a href="http://goo.gl/adT2i">XOOPS Operations Manual</a></p>
-    <p style='margin: 1.4em 0'>Selecting individual groups or categories - You
+    <p style='margin: 1.4em 0;'>Selecting individual groups or categories - You
     can select individual groups by selecting each desired group with the mouse
     while at the same time holding down the CTRL key (Windows) or the COMMAND / Apple key (MAC).</p>
     <h4 class="odd">Operating Tips</h4>
     <h5 class="even bold">Category Order (weight)</h5>
-    <p style='margin: 1.4em 0'>You can re-order the display of categories by changing the order (weight) setting for the category. A
+    <p style='margin: 1.4em 0;'>You can re-order the display of categories by changing the order (weight) setting for the category. A
     category with a lower order (weight) will be displayed prior to a category with a higher order (weight) in both category listing(s)
     and in select boxes. So, for example, a category with an order of '10' will be displayed before a category with an order of '20'. If
     multiple categories have the same order then the categories set with that order will be displayed in alphabetical order. For example
@@ -26,7 +26,7 @@
     'Pencils' category will be displayed in the categories listing (and select boxes) before the 'Pens' category.<br><br>
     <em>Categories can be arranged in alphabetical order by simply setting the order (weight) for all categories to the same value.</em></em></p>
     <h5 class="even bold">FAQ Order (weight)</h5>
-    <p style='margin: 1.4em 0'>You can re-order the display of FAQs within a category by changing the order (weight) setting for the FAQ.
+    <p style='margin: 1.4em 0;'>You can re-order the display of FAQs within a category by changing the order (weight) setting for the FAQ.
     A FAQ with a lower order (weight) will be displayed prior to a FAQ with a higher order (weight). If multiple FAQs have the same order
     then the FAQs set with that order will be displayed in alphabetical order. Using the aforementioned behavior an administrator can set
     all of the weights to the same value, or leave them at the default of zero (0), to list FAQs in alphabetical order without having to

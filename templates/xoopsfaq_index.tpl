@@ -4,7 +4,7 @@
 <h3 class="txtleft" style="margin-bottom: 1em;"><{$smarty.const._MD_XOOPSFAQ_TOC}></h3>
 <!-- start category loop -->
 <{foreach item=category from=$categories}>
-<p><a href="index.php?cat_id=<{$category.id}>"><img class="page_image" src="<{$cat_image_url}>" style="width: 16px; height: 16px; border-width: 0px; padding-right: 1em;" alt="<{$category.name}>" title="<{$category.name}>"><strong><{$category.name}></a></strong> (<{$category.questions|@count}>)</p>
+<p><a href="index.php?cat_id=<{$category.id}>"><img class="page_image" src="<{$cat_image_url}>" style="width: 16px; height: 16px; border-width: 0px; padding-right: 1em;" alt="<{$category.name}>" title="<{$category.name}>"><strong><{$category.name}></strong></a> (<{$category.questions|@count}>)</p>
 <{foreachelse}>
 <div class="center"><span class="bold italic"><{$smarty.const._MD_XOOPSFAQ_NO_CATS}></span></div>
 <{/foreach}>
