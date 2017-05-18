@@ -1,0 +1,72 @@
+v1.25 RC1 [2017-05-18] (ZySpec)
+========================================
+- version change
+- added: Metatag title and keywords generation using Xmf\Metagen
+
+v1.25 Beta1 [2017-04-23] UNRELEASED
+========================================
+- added: Group permissions support for categories
+- added: Recent FAQs block (permissions aware)
+- added: Category block (permissions aware)
+- added: Ability to select categories for Recent & Random FAQ blocks
+- added: Sitemap module plugin
+- added: XoopsFAQConstants definition interface
+- added: ./extra folder for updated bootstrap templates for XOOPS 2.5.x
+- changed: Require XOOPS 2.5.9.x minimum version
+- changed: Random FAQ block is now permissions aware
+- changed: FAQ display templates for non-bootstrap themes to use accordion jscript
+- changed: search now looks for term in category title too
+- changed: use \Xmf\Module\Admin and \Xmf\Module\Helper
+- changed: use \Xoops\Request instead of loading XoopsRequest
+- changed: Official flag from 1 to 0, module not maintained by core team
+- changed: classes to use parent::__construct()
+- changed: phpDocumentor comments updated
+- changed: standardized module language defines (admin, blocks, modinfo, main)
+- fixed: typo in category delete caused FAQs to not be deleted when deleting cats
+- fixed: sort bug in ./class/contents.php getObj() method
+- removed: pass-by-reference for non-vars
+- removed: PHP4 access methods to classes
+- removed: ./include/functions.php file, functions/methods moved to XoopsfaqUtility class
+
+v1.24 RC2 [2015-03-23] (ZySpec)
+========================================
+- changed: moved images and css to ./assets subdirectory
+- changed: templates from .html extension to .tpl
+- changed: to use XoopsEditors defined in XOOPS System Preferences
+- changed: improved html rendering in templates
+- fixed: sort bug in ./class/contents.php
+- reverted: css directory to ./assets/css
+- removed: non-English translations (out of date)
+- removed: '/' from void HTML elements (<br>, <img>, etc)
+
+v1.23 [2011-10-31] (ZySpec)
+========================================
+- added: random FAQ block
+- added: display of category for each item in ./admin/main.php for FAQs
+- added: /language/schinese_utf8/modinfo.php
+- changed: converted Add buttons to XOOPS Module GUI (Mamba)
+- changed: moved module css to language subdirectories so CSS can be modified for RTL/LTR, etc.
+- changed: adjusted files so CodeSniffer would complain less when using Zend Coding Standards tests
+- fixed: icon paths (Mamba)
+- fixed: bugs on category/item delete (Mamba)
+- fixed: use of wfp_addslashes in ./class/category.php to use module textsanitizer addSlashes
+- updated: standardized XOOPS Module GUI to "latest" version (Mamba)
+- updated: templates to be more XHTML compliant
+
+v1.22 [2011-02-24] (Mamba)
+========================================
+- changed: to standardized XOOPS Module GUI
+- fixed: adding comments
+- fixed: deleting FAQ, when deleting Category
+
+v1.21 (Mamba)
+========================================
+- changed icons for Edit/Delete
+- adjusted editor entries for TinyMCE and CKeditor, and deleted Koivi
+- Aligned titles to the left
+- adjusted language definition names
+
+v1.20 (Catzwolf)
+========================================
+- This module has been refactored nearly 99% and I have replaced all old code with new.
+  Only the templates havent changed that much
