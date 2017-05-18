@@ -144,6 +144,7 @@ class XoopsfaqCategoryHandler extends XoopsPersistableObjectHandler
     /**
      * XoopsfaqCategoryHandler::displayAdminListing()
      *
+     * @param string $sort
      * @return void
      */
     public function displayAdminListing($sort = 'id')

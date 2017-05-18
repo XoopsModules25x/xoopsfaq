@@ -111,6 +111,7 @@ define('_AM_XOOPSFAQ_ERROR_NO_CATS_EXIST', 'Error: There are no categories creat
  * Install/Uninstall/Update
  */
 define('_AM_XOOPSFAQ_ERROR_BAD_PHP', 'This module requires PHP version %s+ (%s installed)');
+define('_AM_XOOPSFAQ_ERROR_BAD_XOOPS', 'This module requires XOOPS version %s+ (%s installed)');
 define('_AM_XOOPSFAQ_ERROR_BAD_DEL_PATH', 'Could not delete %s directory');
 define('_AM_XOOPSFAQ_ERROR_BAD_REMOVE', 'Could not delete %s');
 

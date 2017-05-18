@@ -85,7 +85,7 @@ class XoopsfaqUtility
         xoops_loadLanguage('admin', $module->dirname());
         // check for minimum PHP version
         $success = true;
-        $verNum  = phpversion();
+        $verNum  = PHP_VERSION;
         $reqVer  = $module->getInfo('min_php');
         if ((false !== $reqVer) && ('' !== $reqVer)) {
             if (version_compare($verNum, (string)$reqVer, '<')) {
@@ -194,7 +194,7 @@ class XoopsfaqUtility
      *
      * @return bool true on success
      */
-    public function rmove($src, $dest)
+    public static function rmove($src, $dest)
     {
         // Only continue if user is a 'global' Admin
         if (!($GLOBALS['xoopsUser'] instanceof XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
@@ -236,7 +236,7 @@ class XoopsfaqUtility
      *
      * @return bool true on success
      */
-    public function rcopy($src, $dest)
+    public static function rcopy($src, $dest)
     {
         // Only continue if user is a 'global' Admin
         if (!($GLOBALS['xoopsUser'] instanceof XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
@@ -269,13 +269,12 @@ class XoopsfaqUtility
      * Render the icon links
      *
      * @param array $icon_array contains operation=>icon_name as key=>value
-     * @param mixed $param HTML parameter
-     * @param mixed $value HTML parameter value to set
-     * @param mixed $extra are any additional HTML attributes desired for the <a> tag
-     *
-     * @return
+     * @param mixed $param      HTML parameter
+     * @param mixed $value      HTML parameter value to set
+     * @param mixed $extra      are any additional HTML attributes desired for the <a> tag
+     * @return string
      */
-    public function renderIconLinks($icon_array = array(), $param, $value = null, $extra = null)
+    public static function renderIconLinks($icon_array = array(), $param, $value = null, $extra = null)
     {
         $moduleDirName = basename(dirname(__DIR__));
         xoops_loadLanguage('admin', $moduleDirName);

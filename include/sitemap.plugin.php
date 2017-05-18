@@ -25,7 +25,7 @@ function b_sitemap_xoopsfaq() {
 
     $myts = MyTextSanitizer::getInstance();
 
-    $moduleDirName = basename(dirname(dirname(__FILE__))) ;
+    $moduleDirName = basename(dirname(__DIR__)) ;
     $xfHelper      = Xmf\Module\Helper::getHelper($moduleDirName);
     $xfCatHandler  = $xfHelper->getHandler('category');
     $catList       = $xfCatHandler->getList();

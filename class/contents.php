@@ -264,6 +264,7 @@ class XoopsfaqContentsHandler extends XoopsPersistableObjectHandler
     /**
      * XoopsfaqContentsHandler::getPublished()
      *
+     * @param string $id
      * @return mixed array of XoopsfaqContent objects | false on failure
      */
     public function getPublished($id = '')
@@ -299,6 +300,7 @@ class XoopsfaqContentsHandler extends XoopsPersistableObjectHandler
     /**
      * XoopsfaqContentsHandler::displayAdminListing()
      *
+     * @param string $sort
      * @return void
      */
     public function displayAdminListing($sort = 'id')
@@ -311,6 +313,7 @@ class XoopsfaqContentsHandler extends XoopsPersistableObjectHandler
      *
      * @see Xmf\Module\Helper
      *
+     * @param string $sort
      * @return string html listing of Contents (FAQ) for Admin
      */
     public function renderAdminListing($sort = 'id')
