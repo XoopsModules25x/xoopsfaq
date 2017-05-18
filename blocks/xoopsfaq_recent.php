@@ -41,6 +41,9 @@ function b_xoopsfaq_recent_show($options)
 
     $myts         = MyTextSanitizer::getInstance();
 
+    /* @var $xfCatHandler XoopsfaqCategoryHandler */
+    /* @var $xfFaqHandler XoopsfaqContentsHandler */
+    /* @var $xfHelper Xmf\Module\Helper\GenericHelper */
     $xfHelper     = Xmf\Module\Helper::getHelper($moduleDirName);
     $xfFaqHandler = $xfHelper->getHandler('contents');
     $permHelper   = new Xmf\Module\Helper\Permission($moduleDirName);
@@ -116,6 +119,8 @@ function b_xoopsfaq_recent_edit($options)
     $moduleDirName = basename(dirname(__DIR__));
     xoops_load('XoopsFormSelect');
 
+    /* @var $xfCatHandler XoopsfaqCategoryHandler */
+    /* @var $xfHelper Xmf\Module\Helper\GenericHelper */
     $xfHelper      = Xmf\Module\Helper::getHelper($moduleDirName);
     $xfCatHandler  = $xfHelper->getHandler('category');
 
@@ -138,7 +143,7 @@ function b_xoopsfaq_recent_edit($options)
           . '<label for="r0">' . _NO . '</label>'
           . '<input type="radio" name="options[2]" id="r0" value="0"' . $nchck . '>&nbsp;'
           . '<label for="r1">' . _YES . '</label>'
-          . '<input type="radio" name="options[2]" id="r1" value="1"' . $ychck
+          . '<input type="radio" name="options[2]" id="r1" value="1"' . $ychck . '>'
           . '<br><br>' . _MB_XOOPSFAQ_ALL_CATS_INTRO . '&nbsp;&nbsp;' . $selectCat
           . '</div>';
     return $form;

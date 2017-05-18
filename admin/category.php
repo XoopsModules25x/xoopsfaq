@@ -27,6 +27,9 @@ use Xmf\Request;
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
+/* @var $xfCatHandler XoopsfaqCategoryHandler */
+/* @var $xfFaqHandler XoopsfaqContentsHandler */
+/* @var $xfHelper Xmf\Module\Helper\GenericHelper */
 $xfCatHandler = $xfHelper->getHandler('category');
 
 $op = Request::getCmd('op', 'default');

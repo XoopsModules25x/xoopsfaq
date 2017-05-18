@@ -23,6 +23,8 @@
  */
 function b_sitemap_xoopsfaq() {
 
+    /* @var $xfCatHandler XoopsfaqCategoryHandler */
+    /* @var $xfHelper Xmf\Module\Helper\GenericHelper */
     $myts = MyTextSanitizer::getInstance();
 
     $moduleDirName = basename(dirname(__DIR__)) ;

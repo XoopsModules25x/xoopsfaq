@@ -76,7 +76,7 @@ class XoopsfaqUtility
      *
      * Verifies PHP version meets minimum requirements for this module
      * @static
-     * @param XoopsModule
+     * @param XoopsModule $module
      *
      * @return bool true if meets requirements, false if not
      */
@@ -166,11 +166,11 @@ class XoopsfaqUtility
             return false;
         }
 
-        $success = true;
+        #$success = true;
 
         // Open the source directory to read in files
         $iterator = new DirectoryIterator($src);
-       foreach ($iterator as $fObj) {
+        foreach ($iterator as $fObj) {
             if ($fObj->isFile()) {
                 $filename = $fObj->getPathname();
                 $fObj = null; // clear this iterator object to close the file

@@ -116,13 +116,13 @@ class XoopsfaqCategoryHandler extends XoopsPersistableObjectHandler
     /**
      * XoopsfaqCategoryHandler::getObj()
      *
-     * @param string sort order ('id', order', or 'title') - default: id
+     * @param string $sort order ('id', order', or 'title') - default: id
      *
      * @return mixed XoopsfaqCategory | false on failure
      */
     public function getObj($sort = 'id')
     {
-        $myts = MyTextSanitizer::getInstance();
+        #$myts = MyTextSanitizer::getInstance();
         $obj = false;
         if ((null !== $sort) && (!$sort instanceof CriteriaElement)) {
             $criteria = new CriteriaCompo();
@@ -132,12 +132,12 @@ class XoopsfaqCategoryHandler extends XoopsPersistableObjectHandler
             $criteria->setSort($sort);
             $criteria->setStart(0);
             $criteria->setLimit(0);
+            $obj['list'] = $this->getObjects($criteria, false);
         } else {
             $criteria = $sort;
             $obj['list'] = $this->getObjects($criteria, false);
             $obj['count'] = count($obj['list']);
         }
-        $obj['list'] = $this->getObjects($criteria, false);
         return $obj;
     }
 
@@ -180,6 +180,7 @@ class XoopsfaqCategoryHandler extends XoopsPersistableObjectHandler
              . '  </thead>'
              . '  <tbody>';
         if ($objects['count'] > 0) {
+            /* @var $object XoopsObject */
             foreach ($objects['list'] as $object) {
                 $ret .= '  <tr class="xoopsCenter">'
                       . '    <td class="even txtcenter">' . $object->getVar('category_order') . '</td>'

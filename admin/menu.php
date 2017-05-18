@@ -22,7 +22,7 @@
  * @see \Xmf\Module\Admin
  */
 use Xmf\Module\Admin;
-use Xmf\Module\Helper;
+#use Xmf\Module\Helper;
 
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
@@ -30,21 +30,21 @@ $adminmenu = array(
     array('title' => _MI_XOOPSFAQ_MENU_ADMIN_INDEX,
            'link' => 'admin/index.php',
            'desc' => _MI_XOOPSFAQ_ADMIN_INDEX_DESC,
-           'icon' => Admin::menuIconPath('home.png', '32')
+           'icon' => Admin::menuIconPath('home.png')
     ),
     array('title' => _MI_XOOPSFAQ_MENU_ADMIN_CATEGORY,
            'link' => 'admin/category.php',
            'desc' => _MI_XOOPSFAQ_ADMIN_CATEGORY_DESC,
-           'icon' => Admin::menuIconPath('category.png', '32')
+           'icon' => Admin::menuIconPath('category.png')
     ),
     array('title' => _MI_XOOPSFAQ_MENU_ADMIN_FAQ,
            'link' => 'admin/main.php',
            'desc' => _MI_XOOPSFAQ_ADMIN_FAQ_DESC,
-           'icon' => Admin::menuIconPath('faq.png', '32')
+           'icon' => Admin::menuIconPath('faq.png')
     ),
     array('title' => _MI_XOOPSFAQ_MENU_ADMIN_ABOUT,
            'link' => 'admin/about.php',
            'desc' => _MI_XOOPSFAQ_ADMIN_ABOUT_DESC,
-           'icon' => Admin::menuIconPath('about.png', '32')
+           'icon' => Admin::menuIconPath('about.png')
     )
 );

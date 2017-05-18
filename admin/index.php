@@ -24,6 +24,10 @@
 include_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
+/* @var $xfCatHandler XoopsfaqCategoryHandler */
+/* @var $xfFaqHandler XoopsfaqContentsHandler */
+/* @var $xfHelper Xmf\Module\Helper\GenericHelper */
+
 //-----------------------
 $xfFaqHandler = $xfHelper->getHandler('contents');
 $totalFaqs    = $xfFaqHandler->getCount();

@@ -78,12 +78,12 @@ class XoopsfaqContents extends XoopsObject
         echo $this->renderForm();
     }
     /**
-     * Render the Content (FAQ) Editor form for Admin
-     *
-     * @return string HTML to be displayed for Admin
+     * Displays the Content (FAQ) Editor form for Admin
      */
     public function renderForm()
     {
+        /* @var $xfCatHandler XoopsfaqCategoryHandler */
+        /* @var $xfHelper Xmf\Module\Helper\GenericHelper */
         $xfHelper      = Xmf\Module\Helper::getHelper($this->dirname);
         $xfCatHandler  = $xfHelper->getHandler('category');
         $catCount      = $xfCatHandler->getCount();
@@ -129,7 +129,7 @@ class XoopsfaqContents extends XoopsObject
         // Editor
         $options_tray  = new XoopsFormElementTray(_AM_XOOPSFAQ_E_CONTENTS_CONTENT, '<br>');
         if (class_exists('XoopsFormEditor')) {
-//            $editorConfigs = array('editor' => $GLOBALS['xoopsConfig']['general_editor'],
+            // $editorConfigs = array('editor' => $GLOBALS['xoopsConfig']['general_editor'],
             $editorConfigs = array('editor' => $xfHelper->getConfig('use_wysiwyg', 'dhtmltextarea'),
                                      'rows' => 25,
                                      'cols' => '100%',
@@ -181,7 +181,7 @@ class XoopsfaqContents extends XoopsObject
 
         $form->addElement(new XoopsFormButtonTray('contents_form', _SUBMIT, 'submit'));
 
-        return $form->display();
+        $form->display();
     }
 
     /**
@@ -247,16 +247,16 @@ class XoopsfaqContentsHandler extends XoopsPersistableObjectHandler
         $obj = false;
         if (!$sort instanceof CriteriaElement) {
             $criteria = new CriteriaCompo();
-//            $obj['count'] = $this->getCount($criteria);
+            // $obj['count'] = $this->getCount($criteria);
             $sort = in_array(mb_strtolower($sort), array('id', 'cid', 'title', 'publish', 'weight')) ? 'contents_' . mb_strtolower($sort) : 'contents_id';
             $criteria->setSort($sort);
             $criteria->order = 'ASC';
             $criteria->setStart(0);
             $criteria->setLimit(0);
+            $obj['list'] = $this->getObjects($criteria, false);
         } else {
             $obj['list']  = $this->getObjects($sort, false);
         }
-        $obj['list'] = $this->getObjects($criteria, false);
         $obj['count'] = (false !== $obj['list']) ? count($obj['list']) : 0;
         return $obj;
     }
@@ -298,6 +298,26 @@ class XoopsfaqContentsHandler extends XoopsPersistableObjectHandler
     }
 
     /**
+     * Returns categories ids of categories that have content
+     */
+    public function getCategoriesIdsWithContent()
+    {
+        $ret = array();
+        $sql  = "SELECT contents_cid ";
+        $sql .= "FROM `{$this->table}` ";
+        $sql .= "WHERE (contents_active = '1') ";
+        $sql .= "GROUP BY contents_cid";
+        if (!$result = $this->db->query($sql)) {
+            return $ret;
+        }
+        while ($myrow = $this->db->fetchArray($result)) {
+            $ret[$myrow['contents_cid']] = $myrow['contents_cid'];
+        }
+
+        return $ret;
+    }
+
+    /**
      * XoopsfaqContentsHandler::displayAdminListing()
      *
      * @param string $sort
@@ -322,6 +342,7 @@ class XoopsfaqContentsHandler extends XoopsPersistableObjectHandler
             xoops_load('utility', basename(dirname(__DIR__)));
         }
 
+        /* @var $xfCatHandler XoopsfaqCategoryHandler */
         $objects      = $this->getObj($sort);
         $xfHelper     = Xmf\Module\Helper::getHelper(basename(dirname(__DIR__)));
         $xfCatHandler = $xfHelper->getHandler('category');
@@ -345,10 +366,11 @@ class XoopsfaqContentsHandler extends XoopsPersistableObjectHandler
              . '  <tbody>';
         if ($objects['count'] > 0) {
             $tdClass = 0;
+            /* @var $object \XoopsfaqContents */
             foreach ($objects['list'] as $object) {
                 $thisCatId = $object->getVar('contents_cid');
                 $thisCatTitle = $catArray[$thisCatId]['category_title'];
-                $thisContentTitle = '<a href="' . $xfHelper->url('index.php?cat_id=' . $thisCatId . '#q' . $object->getVar('contents_id')) . '" alt="' . _AM_XOOPSFAQ_CONTENTS_VIEW . '">' . $object->getVar('contents_title') . '</a>';
+                $thisContentTitle = '<a href="' . $xfHelper->url('index.php?cat_id=' . $thisCatId . '#q' . $object->getVar('contents_id')) . '" title="' . _AM_XOOPSFAQ_CONTENTS_VIEW . '">' . $object->getVar('contents_title') . '</a>';
                 ++$tdClass;
                 $dispClass = ($tdClass % 1) ? 'even' : 'odd';
                 $ret .= '  <tr class="center middle">'

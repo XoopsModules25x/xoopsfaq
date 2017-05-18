@@ -21,9 +21,9 @@
  * @since     File available since version 1.25
  */
 //use Xmf\Debug;
-use Xmf\Database\Tables;
-use Xmf\Module\Helper;
-use Xmf\Request;
+#use Xmf\Database\Tables;
+#use Xmf\Module\Helper;
+#use Xmf\Request;
 
 /**
  * @internal {Make sure you PROTECT THIS FILE}
@@ -49,6 +49,7 @@ if ((!defined('XOOPS_ROOT_PATH'))
  */
 function xoops_module_pre_update_xoopsfaq(XoopsModule $module, $prev_version)
 {
+    /* @var $utilsClass XoopsfaqUtility */
     $utilsClass = ucfirst($module->dirname()) . 'Utility';
     if (!class_exists($utilsClass)) {
         xoops_load('utility', $module->dirname());
@@ -128,7 +129,7 @@ function xoops_module_update_xoopsfaq(XoopsModule $module, $prev_version)
         // Now remove a some misc files that were renamed or deprecated
         //-----------------------------------------------------------------------
         $oldFiles = array($xfHelper->path('include/functions.php'),
-                            $xsHelper->path('class/utilities.php')
+                            $xfHelper->path('class/utilities.php')
         );
         foreach($oldFiles as $file) {
             if (is_file($file)) {

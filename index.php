@@ -22,9 +22,13 @@
  * @see Xmf\Module\Helper
  * @see Xmf\Request
  */
-use Xmf\Module\Helper;
+#use Xmf\Module\Helper;
 use Xmf\Request;
-use Xmf\Metagen;
+#use Xmf\Metagen;
+
+/* @var $xfCatHandler XoopsfaqCategoryHandler */
+/* @var $xfFaqHandler XoopsfaqContentsHandler */
+/* @var $xfHelper Xmf\Module\Helper\GenericHelper */
 
 require_once __DIR__ . '/header.php';
 
@@ -44,11 +48,11 @@ if ($catId > XoopsfaqConstants::DEFAULT_CATEGORY) {
     include_once $GLOBALS['xoops']->path('header.php');
 
     // Load jscript for accordian effect
-    $xoTheme->addStylesheet($xfHelper->url('assets/css/style.css'));
-    $xoTheme->addStylesheet($xfHelper->url('assets/css/jquery-ui.min.css'));
-    $xoTheme->addStylesheet($xfHelper->url('assets/css/jquery-ui.structure.min.css'));
-    $xoTheme->addScript('browse.php?Frameworks/jquery/jquery.js');
-    $xoTheme->addScript($xfHelper->url('assets/js/jquery-ui.min.js')); // includes core, widget, accordion, base effects
+    $GLOBALS['xoTheme']->addStylesheet($xfHelper->url('assets/css/style.css'));
+    $GLOBALS['xoTheme']->addStylesheet($xfHelper->url('assets/css/jquery-ui.min.css'));
+    $GLOBALS['xoTheme']->addStylesheet($xfHelper->url('assets/css/jquery-ui.structure.min.css'));
+    $GLOBALS['xoTheme']->addScript('browse.php?Frameworks/jquery/jquery.js');
+    $GLOBALS['xoTheme']->addScript($xfHelper->url('assets/js/jquery-ui.min.js')); // includes core, widget, accordion, base effects
 
     // Assign Cat image url & empty questions to template
     $GLOBALS['xoopsTpl']->assign('cat_image_url', Xmf\Module\Admin::iconUrl('topic.png', '16'));
@@ -64,6 +68,7 @@ if ($catId > XoopsfaqConstants::DEFAULT_CATEGORY) {
         $contentsObj = $xfFaqHandler->getPublished($catId);
         if (isset($contentsObj['count']) && (int)$contentsObj['count'] > 0) {
             $bodyWords = '';
+            /* @var $obj XoopsObject */
             foreach ($contentsObj['list'] as $obj) {
                 $question = array('id' => $obj->getVar('contents_id'),
                                'title' => $obj->getVar('contents_title'),
@@ -98,6 +103,7 @@ if ($catId > XoopsfaqConstants::DEFAULT_CATEGORY) {
     if (isset($objects['count']) && ($objects['count'] > 0)) {
         $permHelper = new Xmf\Module\Helper\Permission($moduleDirName);
         $bodyWords = '';
+        /* @var $object XoopsObject */
         foreach ($objects['list'] as $object) {
             // only list categories and/or FAQs if user has rights
             if (false !== $permHelper->checkPermission('viewcat', $object->getVar('category_id'))) {
@@ -109,6 +115,7 @@ if ($catId > XoopsfaqConstants::DEFAULT_CATEGORY) {
                 $contentsObj = $xfFaqHandler->getPublished($object->getVar('category_id'));
                 if ($contentsObj['count']) {
                     $category['questions'] = array();
+                    /* @var $content XoopsObject */
                     foreach ($contentsObj['list'] as $content) {
                         $category['questions'][] = array('link' => $content->getVar('contents_id'),
                                                         'title' => $content->getVar('contents_title')
@@ -116,9 +123,10 @@ if ($catId > XoopsfaqConstants::DEFAULT_CATEGORY) {
                         $bodyWords .= ' ' . $content->getVar('contents_title');
                     }
                 }
+                $GLOBALS['xoopsTpl']->append_by_ref('categories', $category);
+                unset($category);
             }
-            $GLOBALS['xoopsTpl']->append_by_ref('categories', $category);
-            unset($category);
+
         }
         $keywords = Xmf\Metagen::generateKeywords($bodyWords);
         Xmf\Metagen::assignKeywords($keywords);
