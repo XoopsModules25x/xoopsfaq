@@ -123,7 +123,7 @@ class XoopsfaqUtility
                 $fileInfo = new SplFileInfo($src . '/' . $v);
                 if ($fileInfo->isDir()) {
                     // recursively handle subdirectories
-                    if (!$success = self::deleteDirectory($fileInfo->getRealPath())) {
+                    if (!$success = static::deleteDirectory($fileInfo->getRealPath())) {
                         break;
                     }
                 } else {
@@ -179,7 +179,7 @@ class XoopsfaqUtility
                 }
             } elseif (!$fObj->isDot() && $fObj->isDir()) {
                 // Try recursively on directory
-                self::rrmdir($fObj->getPathname());
+                static::rrmdir($fObj->getPathname());
             }
         }
         $iterator = null;   // clear iterator Obj to close file/directory
@@ -218,7 +218,7 @@ class XoopsfaqUtility
                 rename($fObj->getPathname(), $dest . '/' . $fObj->getFilename());
             } elseif (!$fObj->isDot() && $fObj->isDir()) {
                 // Try recursively on directory
-                self::rmove($fObj->getPathname(), $dest . '/' . $fObj->getFilename());
+                static::rmove($fObj->getPathname(), $dest . '/' . $fObj->getFilename());
             }
         }
         $iterator = null;   // clear iterator Obj to close file/directory
@@ -259,7 +259,7 @@ class XoopsfaqUtility
             if($fObj->isFile()) {
                 copy($fObj->getPathname(), $dest . '/' . $fObj->getFilename());
             } else if(!$fObj->isDot() && $fObj->isDir()) {
-                self::rcopy($fObj->getPathname(), $dest . '/' . $fObj-getFilename());
+                static::rcopy($fObj->getPathname(), $dest . '/' . $fObj-getFilename());
             }
         }
         return true;
