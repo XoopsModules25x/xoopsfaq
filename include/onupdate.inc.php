@@ -49,7 +49,7 @@ if ((!defined('XOOPS_ROOT_PATH'))
  */
 function xoops_module_pre_update_xoopsfaq(XoopsModule $module, $prev_version)
 {
-    /* @var $utilsClass XoopsfaqUtility */
+    /** @var XoopsfaqUtility $utilsClass */
     $utilsClass = ucfirst($module->dirname()) . 'Utility';
     if (!class_exists($utilsClass)) {
         xoops_load('utility', $module->dirname());

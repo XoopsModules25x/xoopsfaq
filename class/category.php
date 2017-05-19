@@ -180,7 +180,7 @@ class XoopsfaqCategoryHandler extends XoopsPersistableObjectHandler
              . '  </thead>'
              . '  <tbody>';
         if ($objects['count'] > 0) {
-            /* @var $object XoopsObject */
+            /** @var XoopsObject $object */
             foreach ($objects['list'] as $object) {
                 $ret .= '  <tr class="xoopsCenter">'
                       . '    <td class="even txtcenter">' . $object->getVar('category_order') . '</td>'

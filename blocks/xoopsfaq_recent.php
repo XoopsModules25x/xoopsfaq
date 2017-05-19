@@ -41,9 +41,9 @@ function b_xoopsfaq_recent_show($options)
 
     $myts         = MyTextSanitizer::getInstance();
 
-    /* @var $xfCatHandler XoopsfaqCategoryHandler */
-    /* @var $xfFaqHandler XoopsfaqContentsHandler */
-    /* @var $xfHelper Xmf\Module\Helper\GenericHelper */
+    /** @var XoopsfaqCategoryHandler $xfCatHandler */
+    /** @var XoopsfaqContentsHandler $xfFaqHandler */
+    /** @var Xmf\Module\Helper\GenericHelper $xfHelper */
     $xfHelper     = Xmf\Module\Helper::getHelper($moduleDirName);
     $xfFaqHandler = $xfHelper->getHandler('contents');
     $permHelper   = new Xmf\Module\Helper\Permission($moduleDirName);
@@ -119,8 +119,8 @@ function b_xoopsfaq_recent_edit($options)
     $moduleDirName = basename(dirname(__DIR__));
     xoops_load('XoopsFormSelect');
 
-    /* @var $xfCatHandler XoopsfaqCategoryHandler */
-    /* @var $xfHelper Xmf\Module\Helper\GenericHelper */
+    /** @var XoopsfaqCategoryHandler $xfCatHandler */
+    /** @var Xmf\Module\Helper\GenericHelper $xfHelper */
     $xfHelper      = Xmf\Module\Helper::getHelper($moduleDirName);
     $xfCatHandler  = $xfHelper->getHandler('category');
 

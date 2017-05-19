@@ -82,8 +82,8 @@ class XoopsfaqContents extends XoopsObject
      */
     public function renderForm()
     {
-        /* @var $xfCatHandler XoopsfaqCategoryHandler */
-        /* @var $xfHelper Xmf\Module\Helper\GenericHelper */
+        /** @var XoopsfaqCategoryHandler $xfCatHandler */
+        /** @var Xmf\Module\Helper\GenericHelper $xfHelper */
         $xfHelper      = Xmf\Module\Helper::getHelper($this->dirname);
         $xfCatHandler  = $xfHelper->getHandler('category');
         $catCount      = $xfCatHandler->getCount();
@@ -342,7 +342,7 @@ class XoopsfaqContentsHandler extends XoopsPersistableObjectHandler
             xoops_load('utility', basename(dirname(__DIR__)));
         }
 
-        /* @var $xfCatHandler XoopsfaqCategoryHandler */
+        /** @var XoopsfaqCategoryHandler $xfCatHandler */
         $objects      = $this->getObj($sort);
         $xfHelper     = Xmf\Module\Helper::getHelper(basename(dirname(__DIR__)));
         $xfCatHandler = $xfHelper->getHandler('category');
@@ -366,7 +366,7 @@ class XoopsfaqContentsHandler extends XoopsPersistableObjectHandler
              . '  <tbody>';
         if ($objects['count'] > 0) {
             $tdClass = 0;
-            /* @var $object \XoopsfaqContents */
+            /** @var \XoopsfaqContents $object */
             foreach ($objects['list'] as $object) {
                 $thisCatId = $object->getVar('contents_cid');
                 $thisCatTitle = $catArray[$thisCatId]['category_title'];

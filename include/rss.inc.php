@@ -28,9 +28,9 @@ function xoopsfaq_rss($max = 10)
     $moduleDirName = basename(dirname(__DIR__));
     xoops_load('constants', $moduleDirName);
 
-    /* @var $xfCatHandler XoopsfaqCategoryHandler */
-    /* @var $xfFaqHandler XoopsfaqContentsHandler */
-    /* @var $xfHelper Xmf\Module\Helper\GenericHelper */
+    /** @var XoopsfaqCategoryHandler $xfCatHandler */
+    /** @var XoopsfaqContentsHandler $xfFaqHandler */
+    /** @var Xmf\Module\Helper\GenericHelper $xfHelper */
     $xfHelper      = Xmf\Module\Helper::getHelper($moduleDirName);
     $xfCatHandler  = $xfHelper->getHandler('category');
     $xfFaqHandler  = $xfHelper->getHandler('contents');
@@ -56,7 +56,7 @@ function xoopsfaq_rss($max = 10)
 
     $retVal = array();
 
-    /* @var $contentObj XoopsObject */
+    /** @var XoopsObject $contentObj */
     foreach ($contentObjs as $contentObj) {
         $retVal[] = array ('image' => '',
                            'title' => $contentObj->getVar('contents_title'),

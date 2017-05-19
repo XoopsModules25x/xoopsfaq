@@ -24,9 +24,9 @@
 include_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
-/* @var $xfCatHandler XoopsfaqCategoryHandler */
-/* @var $xfFaqHandler XoopsfaqContentsHandler */
-/* @var $xfHelper Xmf\Module\Helper\GenericHelper */
+/** @var XoopsfaqCategoryHandler $xfCatHandler */
+/** @var XoopsfaqContentsHandler $xfFaqHandler */
+/** @var Xmf\Module\Helper\GenericHelper $xfHelper */
 
 //-----------------------
 $xfFaqHandler = $xfHelper->getHandler('contents');

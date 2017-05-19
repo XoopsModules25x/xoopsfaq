@@ -46,9 +46,9 @@ function xoopsfaq_search($queryarray, $andor, $limit, $offset, $userid) {
     $moduleDirName = basename(dirname(__DIR__)) ;
     xoops_load('constants', $moduleDirName);
 
-    /* @var $xfCatHandler XoopsfaqCategoryHandler */
-    /* @var $xfFaqHandler XoopsfaqContentsHandler */
-    /* @var $xfHelper Xmf\Module\Helper\GenericHelper */
+    /** @var XoopsfaqCategoryHandler $xfCatHandler */
+    /** @var XoopsfaqContentsHandler $xfFaqHandler */
+    /** @var Xmf\Module\Helper\GenericHelper $xfHelper */
 
     $xfHelper = Xmf\Module\Helper::getHelper($moduleDirName);
 

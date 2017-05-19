@@ -26,9 +26,9 @@
 use Xmf\Request;
 #use Xmf\Metagen;
 
-/* @var $xfCatHandler XoopsfaqCategoryHandler */
-/* @var $xfFaqHandler XoopsfaqContentsHandler */
-/* @var $xfHelper Xmf\Module\Helper\GenericHelper */
+/** @var XoopsfaqCategoryHandler $xfCatHandler */
+/** @var XoopsfaqContentsHandler $xfFaqHandler */
+/** @var Xmf\Module\Helper\GenericHelper $xfHelper */
 
 require_once __DIR__ . '/header.php';
 
@@ -68,7 +68,7 @@ if ($catId > XoopsfaqConstants::DEFAULT_CATEGORY) {
         $contentsObj = $xfFaqHandler->getPublished($catId);
         if (isset($contentsObj['count']) && (int)$contentsObj['count'] > 0) {
             $bodyWords = '';
-            /* @var $obj XoopsObject */
+            /** @var XoopsObject $obj */
             foreach ($contentsObj['list'] as $obj) {
                 $question = array('id' => $obj->getVar('contents_id'),
                                'title' => $obj->getVar('contents_title'),
@@ -103,7 +103,7 @@ if ($catId > XoopsfaqConstants::DEFAULT_CATEGORY) {
     if (isset($objects['count']) && ($objects['count'] > 0)) {
         $permHelper = new Xmf\Module\Helper\Permission($moduleDirName);
         $bodyWords = '';
-        /* @var $object XoopsObject */
+        /** @var XoopsObject $object */
         foreach ($objects['list'] as $object) {
             // only list categories and/or FAQs if user has rights
             if (false !== $permHelper->checkPermission('viewcat', $object->getVar('category_id'))) {
@@ -115,7 +115,7 @@ if ($catId > XoopsfaqConstants::DEFAULT_CATEGORY) {
                 $contentsObj = $xfFaqHandler->getPublished($object->getVar('category_id'));
                 if ($contentsObj['count']) {
                     $category['questions'] = array();
-                    /* @var $content XoopsObject */
+                    /** @var XoopsObject $content */
                     foreach ($contentsObj['list'] as $content) {
                         $category['questions'][] = array('link' => $content->getVar('contents_id'),
                                                         'title' => $content->getVar('contents_title')
