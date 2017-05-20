@@ -122,7 +122,6 @@ class XoopsfaqCategoryHandler extends XoopsPersistableObjectHandler
      */
     public function getObj($sort = 'id')
     {
-        #$myts = MyTextSanitizer::getInstance();
         $obj = false;
         if ((null !== $sort) && (!$sort instanceof CriteriaElement)) {
             $criteria = new CriteriaCompo();
@@ -195,7 +194,6 @@ class XoopsfaqCategoryHandler extends XoopsPersistableObjectHandler
             $ret .= '  <tr class="txtcenter"><td colspan="4" class="even">' . _AM_XOOPSFAQ_NOLISTING . '</td></tr>';
         }
         $ret .= '  </tbody>'
-//              . '  <tfoot><tr class="txtcenter"><td colspan="4" class="head">&nbsp;</td></tr></tfoot>'
               . '</table>';
         return $ret;
     }

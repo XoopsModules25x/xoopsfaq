@@ -22,7 +22,6 @@
  * @see \Xmf\Module\Admin
  */
 use Xmf\Module\Admin;
-#use Xmf\Module\Helper;
 
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 

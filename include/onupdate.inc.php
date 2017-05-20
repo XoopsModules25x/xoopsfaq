@@ -20,14 +20,8 @@
  * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @since     File available since version 1.25
  */
-//use Xmf\Debug;
-#use Xmf\Database\Tables;
-#use Xmf\Module\Helper;
-#use Xmf\Request;
 
-/**
- * @internal {Make sure you PROTECT THIS FILE}
- */
+/* @internal {Make sure you PROTECT THIS FILE} */
 
 if ((!defined('XOOPS_ROOT_PATH'))
    || !($GLOBALS['xoopsUser'] instanceof XoopsUser)

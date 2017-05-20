@@ -247,7 +247,6 @@ class XoopsfaqContentsHandler extends XoopsPersistableObjectHandler
         $obj = false;
         if (!$sort instanceof CriteriaElement) {
             $criteria = new CriteriaCompo();
-            // $obj['count'] = $this->getCount($criteria);
             $sort = in_array(mb_strtolower($sort), array('id', 'cid', 'title', 'publish', 'weight')) ? 'contents_' . mb_strtolower($sort) : 'contents_id';
             $criteria->setSort($sort);
             $criteria->order = 'ASC';
@@ -389,7 +388,6 @@ class XoopsfaqContentsHandler extends XoopsPersistableObjectHandler
             $ret .= '  <tr class="center"><td colspan="7" class="even">' . _AM_XOOPSFAQ_NOLISTING . '</td></tr>';
         }
         $ret .= '  </tbody>'
-//             . '  <tr class="center"><td colspan="7" class="foot">&nbsp;</td></tr>'
               . '</table>';
         return $ret;
     }

@@ -166,8 +166,6 @@ class XoopsfaqUtility
             return false;
         }
 
-        #$success = true;
-
         // Open the source directory to read in files
         $iterator = new DirectoryIterator($src);
         foreach ($iterator as $fObj) {

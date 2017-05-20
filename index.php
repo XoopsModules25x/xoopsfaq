@@ -22,9 +22,7 @@
  * @see Xmf\Module\Helper
  * @see Xmf\Request
  */
-#use Xmf\Module\Helper;
 use Xmf\Request;
-#use Xmf\Metagen;
 
 /** @var XoopsfaqCategoryHandler $xfCatHandler */
 /** @var XoopsfaqContentsHandler $xfFaqHandler */

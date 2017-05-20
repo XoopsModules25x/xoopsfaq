@@ -22,7 +22,6 @@
  * @see Xmf\Module\Admin
  */
 use Xmf\Request;
-#use Xmf\Module\Admin;
 
 include __DIR__ . '/admin_header.php';
 xoops_cp_header();

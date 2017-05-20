@@ -68,7 +68,6 @@ $modversion['tables']              = array('xoopsfaq_contents',
 // Scripts to run upon installation or update
 $modversion['onInstall']           = "include/oninstall.inc.php";
 $modversion['onUpdate']            = "include/onupdate.inc.php";
-//$modversion['onUninstall']         = "include/action.module.php";
 
 // Module Admin
 $modversion['hasAdmin']            = 1;
