@@ -64,8 +64,6 @@ function b_xoopsfaq_category_show($options)
     $criteria->order = 'ASC';
     if (!isset($options[0]) || 0 === (int)$options[0]) { // only show cats with FAQs
         $xfFaqHandler = $xfHelper->getHandler('contents');
-        $faqCriteria = new CriteriaCompo(new Criteria('contents_active', XoopsfaqConstants::ACTIVE));
-        $faqCriteria->setGroupBy('contents_cid');
         $faqCountArray = $xfFaqHandler->getCategoriesIdsWithContent();
         if (is_array($faqCountArray) && !empty($faqCountArray)) {
             $catsToShow = array_intersect($catsToUse, array_keys($faqCountArray));
@@ -74,7 +72,7 @@ function b_xoopsfaq_category_show($options)
             // there are no categories to show
             return $block;
         }
-        unset($xfFaqHandler, $faqCriteria, $faqCountArray, $catsToShow);
+        unset($xfFaqHandler, $faqCountArray, $catsToShow);
     } else {
         $criteria->add(new Criteria('category_id', '(' . implode(',', $catsToUse) . ')', 'IN'));
     }

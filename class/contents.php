@@ -181,7 +181,7 @@ class XoopsfaqContents extends XoopsObject
 
         $form->addElement(new XoopsFormButtonTray('contents_form', _SUBMIT, 'submit'));
 
-        $form->display();
+        return $form->render();
     }
 
     /**
@@ -252,10 +252,10 @@ class XoopsfaqContentsHandler extends XoopsPersistableObjectHandler
             $criteria->order = 'ASC';
             $criteria->setStart(0);
             $criteria->setLimit(0);
-            $obj['list'] = $this->getObjects($criteria, false);
         } else {
-            $obj['list']  = $this->getObjects($sort, false);
+            $criteria = $sort;
         }
+        $obj['list']  = $this->getObjects($criteria, false);
         $obj['count'] = (false !== $obj['list']) ? count($obj['list']) : 0;
         return $obj;
     }
@@ -282,30 +282,25 @@ class XoopsfaqContentsHandler extends XoopsPersistableObjectHandler
         $criteria->add($criteriaPublished);
         $criteria->order = 'ASC';
         $criteria->setSort('contents_weight');
-/*
-        $obj['count'] = $this->getCount($criteria);
-        if (!empty($args[0])) {
-            $criteria->order = 'ASC';
-            $criteria->setSort('contents_title');
-            $criteria->setStart(0);
-            $criteria->setLimit(0);
-        }
-*/
+
         $obj['list'] = $this->getObjects($criteria, false);
         $obj['count'] = (false !== $obj['list']) ? count($obj['list']) : 0;
+
         return $obj;
     }
 
     /**
-     * Returns categories ids of categories that have content
+     * Returns category ids of categories that have content
+     *
+     * @return array contains category ids
      */
     public function getCategoriesIdsWithContent()
     {
         $ret = array();
-        $sql  = "SELECT contents_cid ";
-        $sql .= "FROM `{$this->table}` ";
-        $sql .= "WHERE (contents_active = '1') ";
-        $sql .= "GROUP BY contents_cid";
+        $sql  = 'SELECT contents_cid ';
+        $sql .= 'FROM `' . $this->table . '` ';
+        $sql .= 'WHERE (contents_active =\''. XoopsfaqConstants::ACTIVE . '\') ';
+        $sql .= 'GROUP BY contents_cid';
         if (!$result = $this->db->query($sql)) {
             return $ret;
         }

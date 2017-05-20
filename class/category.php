@@ -131,12 +131,11 @@ class XoopsfaqCategoryHandler extends XoopsPersistableObjectHandler
             $criteria->setSort($sort);
             $criteria->setStart(0);
             $criteria->setLimit(0);
-            $obj['list'] = $this->getObjects($criteria, false);
         } else {
             $criteria = $sort;
-            $obj['list'] = $this->getObjects($criteria, false);
-            $obj['count'] = count($obj['list']);
         }
+        $obj['list'] = $this->getObjects($criteria, false);
+        $obj['count'] = (false !== $obj['list']) ? count($obj['list']) : 0;
         return $obj;
     }
 
