@@ -22,10 +22,14 @@
  * @see Xmf\Module\Admin
  */
 use Xmf\Request;
-use Xmf\Module\Admin;
+#use Xmf\Module\Admin;
 
 include __DIR__ . '/admin_header.php';
 xoops_cp_header();
+
+/** @var XoopsfaqCategoryHandler $xfCatHandler */
+/** @var XoopsfaqContentsHandler $xfFaqHandler */
+/** @var Xmf\Module\Helper\GenericHelper $xfHelper */
 
 $xfFaqHandler = $xfHelper->getHandler('contents');
 $adminObject  = Xmf\Module\Admin::getInstance();
@@ -89,8 +93,8 @@ switch ($op) {
             if ($ret) {
                 $xfHelper->redirect('admin/main.php', XoopsfaqConstants::REDIRECT_DELAY_MEDIUM, _AM_XOOPSFAQ_DBSUCCESS);
             }
+            $xfFaqHandler->displayError($ret);
         }
-        $xfFaqHandler->displayError($ret);
         break;
 
     case 'default':

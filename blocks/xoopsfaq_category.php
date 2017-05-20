@@ -40,6 +40,9 @@ function b_xoopsfaq_category_show($options)
 
     $myts         = MyTextSanitizer::getInstance();
 
+    /** @var XoopsfaqCategoryHandler $xfCatHandler */
+    /** @var XoopsfaqContentsHandler $xfFaqHandler */
+    /** @var Xmf\Module\Helper\GenericHelper $xfHelper */
     $xfHelper     = Xmf\Module\Helper::getHelper($moduleDirName);
     $permHelper   = new Xmf\Module\Helper\Permission($moduleDirName);
     $xfCatHandler = $xfHelper->getHandler('category');
@@ -63,7 +66,7 @@ function b_xoopsfaq_category_show($options)
         $xfFaqHandler = $xfHelper->getHandler('contents');
         $faqCriteria = new CriteriaCompo(new Criteria('contents_active', XoopsfaqConstants::ACTIVE));
         $faqCriteria->setGroupBy('contents_cid');
-        $faqCountArray = $xfFaqHandler->getCount($faqCriteria, null, false, false);
+        $faqCountArray = $xfFaqHandler->getCategoriesIdsWithContent();
         if (is_array($faqCountArray) && !empty($faqCountArray)) {
             $catsToShow = array_intersect($catsToUse, array_keys($faqCountArray));
             $criteria->add(new Criteria('category_id', '(' . implode(',', $catsToShow) . ')', 'IN'));
@@ -102,6 +105,6 @@ function b_xoopsfaq_category_edit($options)
 {
     $ychck = (isset($options[0]) && ($options[0] > 0)) ? ' checked' : '';
     $nchck = !empty($ychck) ? '' : ' checked';
-    $form = '<div class="line140">' . _MB_XOOPSFAQ_SHOW_EMPTY . '&nbsp;<label for="r0">' . _NO . '</label><input type="radio" name="options[2]" id="r0" value="0"' . $nchck . '>&nbsp;<label for="r1">' . _YES . '</label><input type="radio" name="options[2]" id="r1" value="1"' . $ychck . '></div>' . "\n";
+    $form = '<div class="line140">' . _MB_XOOPSFAQ_SHOW_EMPTY . '&nbsp;<label for="r0">' . _NO . '</label><input type="radio" name="options[0]" id="r0" value="0"' . $nchck . '>&nbsp;<label for="r1">' . _YES . '</label><input type="radio" name="options[0]" id="r1" value="1"' . $ychck . '></div>' . "\n";
     return $form;
 }

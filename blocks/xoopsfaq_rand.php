@@ -38,6 +38,9 @@ function b_xoopsfaq_random_show($options)
 
     $myts          = MyTextSanitizer::getInstance();
 
+    /** @var XoopsfaqCategoryHandler $xfCatHandler */
+    /** @var XoopsfaqContentsHandler $xfFaqHandler */
+    /** @var Xmf\Module\Helper\GenericHelper $xfHelper */
     $xfHelper      = Xmf\Module\Helper::getHelper($moduleDirName);
     $permHelper    = new Xmf\Module\Helper\Permission($moduleDirName);
     $xfFaqHandler  = $xfHelper->getHandler('contents');
@@ -105,6 +108,8 @@ function b_xoopsfaq_rand_edit($options)
     $moduleDirName = basename(dirname(__DIR__));
     xoops_load('XoopsFormSelect');
 
+    /** @var XoopsfaqCategoryHandler $xfCatHandler */
+    /** @var Xmf\Module\Helper\GenericHelper $xfHelper */
     $xfHelper      = Xmf\Module\Helper::getHelper($moduleDirName);
     $xfCatHandler  = $xfHelper->getHandler('category');
 

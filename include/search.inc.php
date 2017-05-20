@@ -46,6 +46,10 @@ function xoopsfaq_search($queryarray, $andor, $limit, $offset, $userid) {
     $moduleDirName = basename(dirname(__DIR__)) ;
     xoops_load('constants', $moduleDirName);
 
+    /** @var XoopsfaqCategoryHandler $xfCatHandler */
+    /** @var XoopsfaqContentsHandler $xfFaqHandler */
+    /** @var Xmf\Module\Helper\GenericHelper $xfHelper */
+
     $xfHelper = Xmf\Module\Helper::getHelper($moduleDirName);
 
     // Find the search term in the Category
