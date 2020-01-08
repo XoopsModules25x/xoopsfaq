@@ -1,8 +1,11 @@
 <?php
+
+namespace XoopsModules\Xoopsfaq;
+
 /*
                XOOPS - PHP Content Management System
                    Copyright (c) 2000 XOOPS.org
-                      <http://www.xoops.org/>
+                      <https://xoops.org>
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation; either version 2 of the License, or
@@ -33,12 +36,12 @@
  * work correctly if trying to upgrade if these values have been changed.
  *
  * @copyright::  {@link http://sourceforge.net/projects/xoops/ The XOOPS Project}
- * @license::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
- * @author::     zyspec <owners@zyspec.com>
- * @package::    xoopsfaq
- * @since::      1.40
+ * @license  ::    {@link https://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
+ * @author   ::     zyspec <owners@zyspec.com>
+ * @package  ::    xoopsfaq
+ * @since    ::      1.40
  **/
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Constants interface definitions
@@ -51,11 +54,11 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access');
  * @author ZySpec <owners@zyspec.com>
  *
  */
-interface XoopsfaqConstants
+interface Constants
 {
-/**#@+
- * Constant definition
- */
+    /**#@+
+     * Constant definition
+     */
     /**
      * default category
      */
@@ -128,5 +131,5 @@ interface XoopsfaqConstants
      * Exclude Annon Group
      */
     const EXCLUDE_ANNON = 0;
-/**#@-*/
+    /**#@-*/
 }

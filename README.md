@@ -1,7 +1,9 @@
-![alt XOOPS CMS](http://xoops.org/images/logoXoops4GithubRepository.png)
+![alt XOOPS CMS](https://xoops.org/images/logoXoops4GithubRepository.png)
 ## XoopsFaq module for  [XOOPS CMS 2.5.9+](https://xoops.org)
-[![Software License](https://img.shields.io/badge/license-GPL-brightgreen.svg?style=flat)](LICENSE)
-[![XOOPS CMS Module](https://img.shields.io/badge/XOOPS%20CMS-Module-blue.svg)](http://xoops.org)
+[![XOOPS CMS Module](https://img.shields.io/badge/XOOPS%20CMS-Module-blue.svg)](https://xoops.org)
+[![Software License](https://img.shields.io/badge/license-GPL-brightgreen.svg?style=flat)](https://www.gnu.org/licenses/gpl-2.0.html)
+
+
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/XoopsModules25x/xoopsfaq.svg?style=flat)](https://scrutinizer-ci.com/g/XoopsModules25x/xoopsfaq/?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2c1ce57c3e6f4d5b9b55198b4305cd14)](https://www.codacy.com/app/XoopsModules25x/xoopsfaq_2)
 [![Code Climate](https://img.shields.io/codeclimate/github/XoopsModules25x/xoopsfaq.svg?style=flat)](https://codeclimate.com/github/XoopsModules25x/xoopsfaq)
@@ -9,7 +11,7 @@
 [![Latest Pre-Release](https://img.shields.io/github/tag/XoopsModules25x/xoopsfaq.svg?style=flat)](https://github.com/XoopsModules25x/xoopsfaq/tags/)
 [![Latest Version](https://img.shields.io/github/release/XoopsModules25x/xoopsfaq.svg?style=flat)](https://github.com/XoopsModules25x/xoopsfaq/releases/)
 
-XOOPS FAQ is a [XOOPS](http://xoops.org) module to create Frequently Asked Questions (FAQs) and organize
+**XOOPS FAQ** is a [XOOPS](https://xoops.org) module to create Frequently Asked Questions (FAQs) and organize
     them by categories. Each category allows the administrator to create an unlimited number of questions and answers.
 
     *FAQs can be organized into a virtually unlimited number of categories
@@ -22,6 +24,6 @@ XOOPS FAQ is a [XOOPS](http://xoops.org) module to create Frequently Asked Quest
     *Three (3) cloneable blocks are available to display Categories, Random FAQ, and most Recent FAQ(s)
     *Blocks allow varying visibility based on group permissions
 
-[![Translations on Transifex](http://xoops.org/images/translations-transifex-blue.svg)](https://www.transifex.com/xoops)
+[![Translations on Transifex](https://xoops.org/images/translations-transifex-blue.svg)](https://www.transifex.com/xoops)
 
 Current and upcoming "next generation" versions of XOOPS CMS are being crafted on GitHub at: https://github.com/XOOPS

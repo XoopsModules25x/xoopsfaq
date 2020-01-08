@@ -9,6 +9,7 @@
  WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * XoopsFAQ module
  * Description: Xoops FAQ module user language defines
@@ -20,7 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  *
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Xoops FAQ Main Page
@@ -35,12 +36,4 @@ define('_MD_XOOPSFAQ_NO_FAQS', 'There are no FAQs in this category.');
 define('_MD_XOOPSFAQ_NO_CATS', 'There are no categories defined');
 define('_MD_XOOPSFAQ_CAT_LISTING', 'FAQ Category Listing');
 
-/**
- * Admin Defines
- */
-define('_MD_XOOPSFAQ_FAQ_CONF', 'Xoops FAQ Dashboard');
-define('_MD_XOOPSFAQ_TOTAL_PUBLISHED', 'Total Published FAQs: %s');
-define('_MD_XOOPSFAQ_TOTAL_INACTIVE', 'Total Inactive FAQs: %s');
-define('_MD_XOOPSFAQ_TOTAL_FAQS', 'Total FAQs: %s');
-define('_MD_XOOPSFAQ_TOTAL_CATEGORIES', 'Total Categories: %s');
-define('_MD_XOOPSFAQ_INVALID_SECURITY_TOKEN', 'Invalid security token. Please try again.');
+

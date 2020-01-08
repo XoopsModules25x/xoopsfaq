@@ -12,29 +12,29 @@
 *}>
 <!-- start question and answer loop -->
 <div id="accordion">
-<{foreach item=question from=$questions}>
-  <h3><{$question.title}></h3>
-  <div><p><{$question.answer}></p></div>
-<{foreachelse}>
-<div class="center"><span class="bold italic"><{$smarty.const._MD_XOOPSFAQ_NO_FAQS}></span></div>
-<{/foreach}>
+    <{foreach item=question from=$questions}>
+        <h3><{$question.title}></h3>
+        <div><p><{$question.answer}></p></div>
+        <{foreachelse}>
+        <div class="center"><span class="bold italic"><{$smarty.const._MD_XOOPSFAQ_NO_FAQS}></span></div>
+    <{/foreach}>
 </div>
 <!-- end question and answer loop -->
 <div class="center pad3 marg3">
-  <{$commentsnav}>
-  <{$lang_notice}><br><a href="index.php"><{$smarty.const._MD_XOOPSFAQ_BACK_TO_INDEX}></a>
+    <{$commentsnav}>
+    <{$lang_notice}><br><a href="index.php"><{$smarty.const._MD_XOOPSFAQ_BACK_TO_INDEX}></a>
 </div>
 <div class="marg3 pad3">
-<!-- start comments loop -->
-<{if $comment_mode == "flat"}>
-  <{include file="db:system_comments_flat.html"}>
-<{elseif $comment_mode == "thread"}>
-  <{include file="db:system_comments_thread.html"}>
-<{elseif $comment_mode == "nest"}>
-  <{include file="db:system_comments_nest.html"}>
-<{/if}>
-<!-- end comments loop -->
+    <!-- start comments loop -->
+    <{if $comment_mode == "flat"}>
+        <{include file="db:system_comments_flat.tpl"}>
+    <{elseif $comment_mode == "thread"}>
+        <{include file="db:system_comments_thread.tpl"}>
+    <{elseif $comment_mode == "nest"}>
+        <{include file="db:system_comments_nest.tpl"}>
+    <{/if}>
+    <!-- end comments loop -->
 </div>
 <script>
-$( "#accordion" ).accordion({ collapsible: true, active: false});
+    $("#accordion").accordion({collapsible: true, active: false});
 </script>

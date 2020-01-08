@@ -9,6 +9,7 @@
  WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * Admin display footer file
  *
@@ -16,21 +17,30 @@
  * @author    XOOPS Module Development Team
  * @copyright Copyright (c) 2001-2017 {@link http://xoops.org XOOPS Project}
  * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
- * @since::   1.23
+ * @since     ::   1.23
  *
- * @see Xmf\Module\Admin
- * @see Xmf\Module\Helper
+ * @see       Xmf\Module\Admin
+ * @see       \XoopsModules\Xoopsfaq\Helper
  */
 
-$moduleDirName = basename(dirname(__DIR__));
-require_once dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
-require_once $GLOBALS['xoops']->path('include/cp_header.php');
+use XoopsModules\Xoopsfaq;
 
-$xfHelper    = Xmf\Module\Helper::getHelper($moduleDirName);
-$adminObject = Xmf\Module\Admin::getInstance();
-xoops_load('constants', $moduleDirName);
+require dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
+require dirname(dirname(dirname(__DIR__))) . '/class/xoopsformloader.php';
+
+require dirname(__DIR__) . '/include/common.php';
+
+require dirname(__DIR__) . '/preloads/autoloader.php';
+
+$moduleDirName = basename(dirname(__DIR__));
+
+/** @var \XoopsModules\Xoopsfaq\Helper $helper */
+$helper = \XoopsModules\Xoopsfaq\Helper::getInstance();
+/** @var Xmf\Module\Admin $adminObject */
+$adminObject = \Xmf\Module\Admin::getInstance();
 
 // Load language files
-$xfHelper->loadLanguage('admin');
-$xfHelper->loadLanguage('modinfo');
-$xfHelper->loadLanguage('main');
+$helper->loadLanguage('admin');
+$helper->loadLanguage('modinfo');
+$helper->loadLanguage('common');
+

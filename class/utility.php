@@ -1,4 +1,7 @@
 <?php
+
+namespace XoopsModules\Xoopsfaq;
+
 /*
  Xoopsfaq Utility Class Definition
 
@@ -11,39 +14,48 @@
  WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * Module:  myQuiz
  *
- * @package::    \module\xoopsfaq\class
- * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @package      ::    \module\xoopsfaq\class
+ * @license      http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @copyright    http://xoops.org 2001-2017 &copy; XOOPS Project
  * @author       zyspec
  * @author       Mamba
- * @since::      File available since version 4.10
+ * @since        ::      File available since version 4.10
  */
 
- /**
-  * XoopsfaqUtility
-  *
-  * Static utility class to provide common functionality
-  *
-  */
-class XoopsfaqUtility
+use XoopsModules\Xoopsfaq;
+
+/**
+ * Xoopsfaq\Utility
+ *
+ * Static utility class to provide common functionality
+ *
+ */
+class Utility
 {
+    use Common\VersionChecks; //checkVerXoops, checkVerPhp Traits
+
+    use Common\ServerStats; // getServerStats Trait
+
+    use Common\FilesManagement; // Files Management Trait
+
     /**
      *
      * Verifies XOOPS version meets minimum requirements for this module
      * @static
-     * @param XoopsModule
+     * @param \XoopsModule $module
      *
      * @return bool true if meets requirements, false if not
      */
     public static function checkVerXoops($module)
     {
-        $currentVersion = strtolower(str_replace('XOOPS ', '', XOOPS_VERSION));
+        $currentVersion  = strtolower(str_replace('XOOPS ', '', XOOPS_VERSION));
         $requiredVersion = strtolower($module->getInfo('min_xoops'));
-        $vc = version_compare ($currentVersion , $requiredVersion);
-        $success = ($vc>=0);
+        $vc              = version_compare($currentVersion, $requiredVersion);
+        $success         = ($vc >= 0);
         if (false === $success) {
             xoops_loadLanguage('admin', $module->dirname());
             $module->setErrors(sprintf(_AM_XOOPSFAQ_ERROR_BAD_XOOPS, $requiredVersion, $currentVersion));
@@ -51,11 +63,12 @@ class XoopsfaqUtility
 
         return $success;
     }
+
     /**
      *
      * Verifies PHP version meets minimum requirements for this module
      * @static
-     * @param XoopsModule $module
+     * @param \XoopsModule $module
      *
      * @return bool true if meets requirements, false if not
      */
@@ -74,42 +87,40 @@ class XoopsfaqUtility
         }
         return $success;
     }
+
     /**
      *
      * Remove files and (sub)directories
      *
      * @param string $src source directory to delete
      *
-     * @see Xmf\Module\Helper::getHelper()
-     * @see Xmf\Module\Helper::isUserAdmin()
-     *
      * @return bool true on success
+     * @see \XoopsModules\Xoopsfaq\Helper::isUserAdmin()
+     *
+     * @see \XoopsModules\Xoopsfaq\Helper::getHelper()
      */
     public static function deleteDirectory($src)
     {
         // Only continue if user is a 'global' Admin
-        if (!($GLOBALS['xoopsUser'] instanceof XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
+        if (!($GLOBALS['xoopsUser'] instanceof \XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
             return false;
         }
 
         $success = true;
         // remove old files
-        $dirInfo = new SplFileInfo($src);
+        $dirInfo = new \SplFileInfo($src);
         // validate is a directory
         if ($dirInfo->isDir()) {
-            $fileList = array_diff(scandir($src), array('..', '.'));
+            $fileList = array_diff(scandir($src), ['..', '.']);
             foreach ($fileList as $k => $v) {
-                $fileInfo = new SplFileInfo($src . '/' . $v);
+                $fileInfo = new \SplFileInfo($src . '/' . $v);
                 if ($fileInfo->isDir()) {
                     // recursively handle subdirectories
                     if (!$success = static::deleteDirectory($fileInfo->getRealPath())) {
                         break;
                     }
-                } else {
-                    // delete the file
-                    if (!($success = unlink($fileInfo->getRealPath()))) {
-                        break;
-                    }
+                } elseif (!($success = unlink($fileInfo->getRealPath()))) {
+                    break;
                 }
             }
             // now delete this (sub)directory if all the files are gone
@@ -136,7 +147,7 @@ class XoopsfaqUtility
     public static function rrmdir($src)
     {
         // Only continue if user is a 'global' Admin
-        if (!($GLOBALS['xoopsUser'] instanceof XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
+        if (!($GLOBALS['xoopsUser'] instanceof \XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
             return false;
         }
 
@@ -146,11 +157,11 @@ class XoopsfaqUtility
         }
 
         // Open the source directory to read in files
-        $iterator = new DirectoryIterator($src);
+        $iterator = new \DirectoryIterator($src);
         foreach ($iterator as $fObj) {
             if ($fObj->isFile()) {
                 $filename = $fObj->getPathname();
-                $fObj = null; // clear this iterator object to close the file
+                $fObj     = null; // clear this iterator object to close the file
                 if (!unlink($filename)) {
                     return false; // couldn't delete the file
                 }
@@ -166,7 +177,7 @@ class XoopsfaqUtility
     /**
      * Recursively move files from one directory to another
      *
-     * @param String $src - Source of files being moved
+     * @param String $src  - Source of files being moved
      * @param String $dest - Destination of files being moved
      *
      * @return bool true on success
@@ -174,7 +185,7 @@ class XoopsfaqUtility
     public static function rmove($src, $dest)
     {
         // Only continue if user is a 'global' Admin
-        if (!($GLOBALS['xoopsUser'] instanceof XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
+        if (!($GLOBALS['xoopsUser'] instanceof \XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
             return false;
         }
 
@@ -189,7 +200,7 @@ class XoopsfaqUtility
         }
 
         // Open the source directory to read in files
-        $iterator = new DirectoryIterator($src);
+        $iterator = new \DirectoryIterator($src);
         foreach ($iterator as $fObj) {
             if ($fObj->isFile()) {
                 rename($fObj->getPathname(), $dest . '/' . $fObj->getFilename());
@@ -208,15 +219,15 @@ class XoopsfaqUtility
      * @param string $src  - Source of files being moved
      * @param string $dest - Destination of files being moved
      *
-     * @see Xmf\Module\Helper::getHelper()
-     * @see Xmf\Module\Helper::isUserAdmin()
-     *
      * @return bool true on success
+     * @see \XoopsModules\Xoopsfaq\Helper::isUserAdmin()
+     *
+     * @see \XoopsModules\Xoopsfaq\Helper::getHelper()
      */
     public static function rcopy($src, $dest)
     {
         // Only continue if user is a 'global' Admin
-        if (!($GLOBALS['xoopsUser'] instanceof XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
+        if (!($GLOBALS['xoopsUser'] instanceof \XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
             return false;
         }
 
@@ -231,12 +242,12 @@ class XoopsfaqUtility
         }
 
         // Open the source directory to read in files
-        $iterator = new DirectoryIterator($src);
-        foreach($iterator as $fObj) {
-            if($fObj->isFile()) {
+        $iterator = new \DirectoryIterator($src);
+        foreach ($iterator as $fObj) {
+            if ($fObj->isFile()) {
                 copy($fObj->getPathname(), $dest . '/' . $fObj->getFilename());
-            } else if(!$fObj->isDot() && $fObj->isDir()) {
-                static::rcopy($fObj->getPathname(), $dest . '/' . $fObj-getFilename());
+            } elseif (!$fObj->isDot() && $fObj->isDir()) {
+                static::rcopy($fObj->getPathname(), $dest . '/' . $fObj->getFilename());
             }
         }
         return true;
@@ -251,30 +262,27 @@ class XoopsfaqUtility
      * @param mixed $extra      are any additional HTML attributes desired for the <a> tag
      * @return string
      */
-    public static function renderIconLinks($icon_array = array(), $param, $value = null, $extra = null)
+    public static function renderIconLinks($icon_array = [], $param, $value = null, $extra = null)
     {
         $moduleDirName = basename(dirname(__DIR__));
         xoops_loadLanguage('admin', $moduleDirName);
         $ret = '';
         if (null !== $value) {
-            foreach($icon_array as $_op => $icon) {
+            foreach ($icon_array as $_op => $icon) {
                 if (false === strpos($icon, '.')) {
                     $iconName = $icon;
-                    $iconExt = 'png';
+                    $iconExt  = 'png';
                 } else {
-                    $iconName = substr($icon, 0, strlen($icon)-strrchr($icon, '.'));
+                    $iconName = substr($icon, 0, strlen($icon) - strrchr($icon, '.'));
                     $iconExt  = substr(strrchr($icon, '.'), 1);
                 }
-                $url = (!is_numeric($_op)) ? $_op . '?' . $param . '=' . $value : xoops_getenv('PHP_SELF') . '?op=' . $iconName . '&amp;' . $param . '=' . $value;
+                $url = (!is_numeric($_op)) ? $_op . '?' . $param . '=' . $value : xoops_getenv('SCRIPT_NAME') . '?op=' . $iconName . '&amp;' . $param . '=' . $value;
                 if (null !== $extra) {
                     $url .= ' ' . $extra;
                 }
-                $title = constant (htmlspecialchars(mb_strtoupper('_XO_LA_' . $iconName)));
-                $img = '<img src="' . Xmf\Module\Admin::iconUrl($iconName . '.' . $iconExt, '16') . '"'
-                     . ' title ="' . $title . '"'
-                     . ' alt = "' . $title . '"'
-                     . ' class="bnone middle">';
-                $ret .= '<a href="' . $url . '"' . $extra . '>' . $img . '</a>';
+                $title = constant(htmlspecialchars(mb_strtoupper('_XO_LA_' . $iconName), ENT_QUOTES | ENT_HTML5));
+                $img   = '<img src="' . \Xmf\Module\Admin::iconUrl($iconName . '.' . $iconExt, '16') . '"' . ' title ="' . $title . '"' . ' alt = "' . $title . '"' . ' class="bnone middle">';
+                $ret   .= '<a href="' . $url . '"' . $extra . '>' . $img . '</a>';
             }
         }
         return $ret;

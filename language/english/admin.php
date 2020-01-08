@@ -9,6 +9,7 @@
  WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * XoopsFAQ module
  * Description: Xoops FAQ module admin language defines
@@ -20,7 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  *
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Bootstrap Defines
@@ -32,8 +33,6 @@ define('_XO_LA_BACKTOINDEX', 'Back to Index');
 define('_XO_LA_XOOPSFAQ', 'FAQs');
 define('_XO_LA_MAIN', 'Main');
 define('_XO_LA_TOC', 'Table of Contents');
-
-
 
 /**
  * Content
@@ -136,3 +135,25 @@ define('_AM_XOOPSFAQ_ERROR_BAD_REMOVE', 'Could not delete %s');
 
 // Text for Admin footer
 //define('_AM_XOOPSFAQ_ADMIN_FOOTER', '<div class='center smallsmall italic pad5'>XOOPS FAQ is maintained by the <a class="tooltip" rel="external" href="http://xoops.org/" title="Visit XOOPS Community">XOOPS Community</a></div>');
+
+define('_AM_XOOPSFAQ_ACTIVE_TOGGLE_SUCCESS', 'Successfully Changed Active Status');
+define('_AM_XOOPSFAQ_ACTIVE_TOGGLE_FAILED', 'Changing Active Status Failed');
+
+//1.25
+define('_AM_XOOPSFAQ_UPGRADEFAILED0', "Update failed - couldn't rename field '%s'");
+define('_AM_XOOPSFAQ_UPGRADEFAILED1', "Update failed - couldn't add new fields");
+define('_AM_XOOPSFAQ_UPGRADEFAILED2', "Update failed - couldn't rename table '%s'");
+define('_AM_XOOPSFAQ_ERROR_COLUMN', 'Could not create column in database : %s');
+//define('_AM_XOOPSFAQ_ERROR_BAD_XOOPS', 'This module requires XOOPS %s+ (%s installed)');
+//define('_AM_XOOPSFAQ_ERROR_BAD_PHP', 'This module requires PHP version %s+ (%s installed)');
+define('_AM_XOOPSFAQ_ERROR_TAG_REMOVAL', 'Could not remove tags from Tag Module');
+
+/**
+ * Admin Defines
+ */
+define('_AM_XOOPSFAQ_FAQ_CONF', 'Xoops FAQ Dashboard');
+define('_AM_XOOPSFAQ_TOTAL_PUBLISHED', 'Total Published FAQs: %s');
+define('_AM_XOOPSFAQ_TOTAL_INACTIVE', 'Total Inactive FAQs: %s');
+define('_AM_XOOPSFAQ_TOTAL_FAQS', 'Total FAQs: %s');
+define('_AM_XOOPSFAQ_TOTAL_CATEGORIES', 'Total Categories: %s');
+define('_AM_XOOPSFAQ_INVALID_SECURITY_TOKEN', 'Invalid security token. Please try again.');

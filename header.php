@@ -9,6 +9,7 @@
  WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * XoopsFAQ module
  * Description: Header display for Front Side Display
@@ -19,11 +20,9 @@
  * @copyright Copyright (c) 2001-2017 {@link http://xoops.org XOOPS Project}
  * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  *
- * @see Xmf\Module\Helper;
+ * @see       \XoopsModules\Xoopsfaq\Helper;
  */
 
-include_once dirname(dirname(__DIR__)) . '/mainfile.php';
-$moduleDirName = basename(__DIR__);
-xoops_load('constants', $moduleDirName);
+require_once dirname(dirname(__DIR__)) . '/mainfile.php';
 
-$xfHelper = Xmf\Module\Helper::getHelper($moduleDirName);
+$helper = \XoopsModules\Xoopsfaq\Helper::getInstance();
