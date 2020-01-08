@@ -62,6 +62,7 @@ function xoopsfaq_search($queryarray, $andor, $limit, $offset, $userid) {
     $criteria->setLimit((int)$limit);
     $criteria->setStart((int)$offset);
 
+    $queryarrayHold = $queryarray;
     if ((is_array($queryarray)) && !empty($queryarray)) {
         $criteria->add(new Criteria('category_title', '%' . $queryarray[0] . '%', 'LIKE'));
         array_shift($queryarray); //get rid of first element
@@ -82,6 +83,7 @@ function xoopsfaq_search($queryarray, $andor, $limit, $offset, $userid) {
 
 
     // Find the search term in the FAQ
+    $queryarray = $queryarrayHold;
     $xfFaqHandler  = $xfHelper->getHandler('contents');
     $contentFields = array('contents_id', 'contents_cid', 'contents_title', 'contents_contents', 'contents_publish');
     $criteria      = new CriteriaCompo();
