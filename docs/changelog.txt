@@ -1,3 +1,9 @@
+<h5>2.01 Alpha 1   [WORK IN PROGRESS - NOT RELEASED]</h5>  Dev: XOOPS 2.5.11, PHP 7.4.1
+<hr>
+- namespaces (mamba)
+- class autoloading (mamba)
+- test data (mamba)
+
 v1.25 RC1 [2017-05-18] (ZySpec)
 ========================================
 - version change
@@ -10,13 +16,13 @@ v1.25 Beta1 [2017-04-23] UNRELEASED
 - added: Category block (permissions aware)
 - added: Ability to select categories for Recent & Random FAQ blocks
 - added: Sitemap module plugin
-- added: XoopsFAQConstants definition interface
+- added: Xoopsfaq\Constants definition interface
 - added: ./extra folder for updated bootstrap templates for XOOPS 2.5.x
 - changed: Require XOOPS 2.5.9.x minimum version
 - changed: Random FAQ block is now permissions aware
 - changed: FAQ display templates for non-bootstrap themes to use accordion jscript
 - changed: search now looks for term in category title too
-- changed: use \Xmf\Module\Admin and \Xmf\Module\Helper
+- changed: use \Xmf\Module\Admin and \\XoopsModules\Xoopsfaq\Helper
 - changed: use \Xoops\Request instead of loading XoopsRequest
 - changed: Official flag from 1 to 0, module not maintained by core team
 - changed: classes to use parent::__construct()
@@ -26,7 +32,7 @@ v1.25 Beta1 [2017-04-23] UNRELEASED
 - fixed: sort bug in ./class/contents.php getObj() method
 - removed: pass-by-reference for non-vars
 - removed: PHP4 access methods to classes
-- removed: ./include/functions.php file, functions/methods moved to XoopsfaqUtility class
+- removed: ./include/functions.php file, functions/methods moved to Xoopsfaq\Utility class
 
 v1.24 RC2 [2015-03-23] (ZySpec)
 ========================================
@@ -41,16 +47,16 @@ v1.24 RC2 [2015-03-23] (ZySpec)
 
 v1.23 [2011-10-31] (ZySpec)
 ========================================
+- fixed: icon paths (Mamba)
+- fixed: bugs on category/item delete (Mamba)
+- changed: converted Add buttons to XOOPS Module GUI (Mamba)
+- updated: standardized XOOPS Module GUI to "latest" version (Mamba)
 - added: random FAQ block
 - added: display of category for each item in ./admin/main.php for FAQs
 - added: /language/schinese_utf8/modinfo.php
-- changed: converted Add buttons to XOOPS Module GUI (Mamba)
 - changed: moved module css to language subdirectories so CSS can be modified for RTL/LTR, etc.
 - changed: adjusted files so CodeSniffer would complain less when using Zend Coding Standards tests
-- fixed: icon paths (Mamba)
-- fixed: bugs on category/item delete (Mamba)
 - fixed: use of wfp_addslashes in ./class/category.php to use module textsanitizer addSlashes
-- updated: standardized XOOPS Module GUI to "latest" version (Mamba)
 - updated: templates to be more XHTML compliant
 
 v1.22 [2011-02-24] (Mamba)

@@ -9,6 +9,7 @@
  WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * Admin page footer file
  *
@@ -17,17 +18,17 @@
  * @author    XOOPS Module Development Team
  * @copyright Copyright (c) 2001-2017 {@link http://xoops.org XOOPS Project}
  * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
- * @since::   1.23
+ * @since     ::   1.23
  *
- * @see Xmf\Module\Admin
  */
-echo "<div class='adminfooter'>\n"
-    . "<div class='center'>\n"
-    . "<a href='http://www.xoops.org' rel='external' target='_blank'>"
-    . "<img src='" . Xmf\Module\Admin::iconUrl('xoopsmicrobutton.gif', '32') . "' "
-    . "alt='XOOPS' title='XOOPS'></a>\n"
-    . "</div>\n"
-    . _AM_MODULEADMIN_ADMIN_FOOTER . "\n"
-    . "</div>\n";
+
+$pathIcon32 = Xmf\Module\Admin::iconUrl('', 32);
+
+echo "<div class='adminfooter'>
+" . "  <div style='text-align: center;'>
+" . "    <a href='https://xoops.org' rel='external'><img src='{$pathIcon32}/xoopsmicrobutton.gif' alt='XOOPS' title='XOOPS'></a>
+" . '  </div>' . '
+' . '  ' . _AM_MODULEADMIN_ADMIN_FOOTER . '
+' . '</div>';
 
 xoops_cp_footer();

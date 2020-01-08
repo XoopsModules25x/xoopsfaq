@@ -9,6 +9,7 @@
  WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * Module: XoopsFAQ
  *
@@ -21,36 +22,31 @@
  * @since     File available since version 1.25
  */
 
+use XoopsModules\Xoopsfaq;
+
 /* @internal {Make sure you PROTECT THIS FILE} */
 
 if ((!defined('XOOPS_ROOT_PATH'))
-   || !($GLOBALS['xoopsUser'] instanceof XoopsUser)
-   || !($GLOBALS['xoopsUser']->isAdmin()))
-{
-     exit("Restricted access" . PHP_EOL);
+    || !($GLOBALS['xoopsUser'] instanceof XoopsUser)
+    || !($GLOBALS['xoopsUser']->isAdmin())) {
+    exit('Restricted access' . PHP_EOL);
 }
 
 /**
  * Pre-installation checks before installation of Xoopsfaq
  *
- * @param XoopsModule $module
- * @param string $prev_version version * 100
- *
- * @see XoopsfaqUtility
+ * @param \XoopsModule $module
+ * @param string       $prev_version version * 100
  *
  * @return bool success ok to install
  *
+ * @see Xoopsfaq\Utility
+ *
  */
-function xoops_module_pre_update_xoopsfaq(XoopsModule $module, $prev_version)
+function xoops_module_pre_update_xoopsfaq(\XoopsModule $module, $prev_version)
 {
-    /** @var XoopsfaqUtility $utilsClass */
-    $utilsClass = ucfirst($module->dirname()) . 'Utility';
-    if (!class_exists($utilsClass)) {
-        xoops_load('utility', $module->dirname());
-    }
-
-    $xoopsSuccess = $utilsClass::checkVerXoops($module);
-    $phpSuccess   = $utilsClass::checkVerPHP($module);
+    $xoopsSuccess = Xoopsfaq\Utility::checkVerXoops($module);
+    $phpSuccess   = Xoopsfaq\Utility::checkVerPHP($module);
     return $xoopsSuccess && $phpSuccess;
 }
 
@@ -58,19 +54,19 @@ function xoops_module_pre_update_xoopsfaq(XoopsModule $module, $prev_version)
  * Upgrade works to update Xoopsfaq from previous versions
  *
  * @param XoopsModule $module
- * @param string $prev_version version * 100
- *
- * @see Xmf\Module\Admin
- * @see XoopsfaqUtility
+ * @param string      $prev_version version * 100
  *
  * @return bool
  *
+ * @see Xoopsfaq\Utility
+ *
+ * @see Xmf\Module\Admin
  */
 function xoops_module_update_xoopsfaq(XoopsModule $module, $prev_version)
 {
     $moduleDirName = $module->getVar('dirname');
-    $xfHelper = Xmf\Module\Helper::getHelper($moduleDirName);
-    if (!class_exists('XoopsfaqUtility')) {
+    $helper        = \XoopsModules\Xoopsfaq\Helper::getInstance();
+    if (!class_exists('Xoopsfaq\Utility')) {
         xoops_load('utility', $moduleDirName);
     }
 
@@ -79,23 +75,24 @@ function xoops_module_update_xoopsfaq(XoopsModule $module, $prev_version)
     //----------------------------------------------------------------
     $success = true;
 
-    $xfHelper->loadLanguage('modinfo');
-    $xfHelper->loadLanguage('admin');
+    $helper->loadLanguage('modinfo');
+    $helper->loadLanguage('admin');
 
     if ($prev_version < 125) {
         //----------------------------------------------------------------
         // Remove previous .css, .js and .images directories since they've
         // been relocated to ./assets
         //----------------------------------------------------------------
-        $old_directories = array($xfHelper->path('css/'),
-                                 $xfHelper->path('js/'),
-                                 $xfHelper->path('images/')
-        );
+        $old_directories = [
+            $helper->path('css/'),
+            $helper->path('js/'),
+            $helper->path('images/'),
+        ];
         foreach ($old_directories as $old_dir) {
             $dirInfo = new SplFileInfo($old_dir);
             if ($dirInfo->isDir()) {
                 // The directory exists so delete it
-                if (false === XoopsfaqUtility::rrmdir($old_dir)) {
+                if (false === Xoopsfaq\Utility::rrmdir($old_dir)) {
                     $module->setErrors(sprintf(_AM_XOOPSFAQ_ERROR_BAD_DEL_PATH, $old_dir));
                     return false;
                 }
@@ -107,7 +104,7 @@ function xoops_module_update_xoopsfaq(XoopsModule $module, $prev_version)
         // Remove ./template/*.html (except index.html) files since they've
         // been replaced by *.tpl files
         //-----------------------------------------------------------------------
-        $path       = $xfHelper->path('templates/');
+        $path       = $helper->path('templates/');
         $unfiltered = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
         $iterator   = new RegexIterator($unfiltered, "/.*\.html/");
         foreach ($iterator as $name => $fObj) {
@@ -122,10 +119,11 @@ function xoops_module_update_xoopsfaq(XoopsModule $module, $prev_version)
         //-----------------------------------------------------------------------
         // Now remove a some misc files that were renamed or deprecated
         //-----------------------------------------------------------------------
-        $oldFiles = array($xfHelper->path('include/functions.php'),
-                            $xfHelper->path('class/utilities.php')
-        );
-        foreach($oldFiles as $file) {
+        $oldFiles = [
+            $helper->path('include/functions.php'),
+            $helper->path('class/utilities.php'),
+        ];
+        foreach ($oldFiles as $file) {
             if (is_file($file)) {
                 if (false === ($delOk = unlink($file))) {
                     $module->setErrors(sprintf(_AM_XOOPSFAQ_ERROR_BAD_REMOVE, $file));

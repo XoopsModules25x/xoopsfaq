@@ -9,6 +9,7 @@
  WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * Module: XoopsFaq
  *
@@ -17,27 +18,34 @@
  * @package         module\xoopsfaq\plugins
  * @author          ZySpec
  * @author          XOOPS Module Development Team
- * @copyright       http://xoops.org 2001-2017 &copy; XOOPS Project
- * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @copyright       https://xoops.org 2001-2017 &copy; XOOPS Project
+ * @license         https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @since           1.2.5
  */
-function b_sitemap_xoopsfaq() {
 
-    /** @var XoopsfaqCategoryHandler $xfCatHandler */
-    /** @var Xmf\Module\Helper\GenericHelper $xfHelper */
-    $myts = MyTextSanitizer::getInstance();
+use XoopsModules\Xoopsfaq;
 
-    $moduleDirName = basename(dirname(__DIR__)) ;
-    $xfHelper      = Xmf\Module\Helper::getHelper($moduleDirName);
-    $xfCatHandler  = $xfHelper->getHandler('category');
-    $catList       = $xfCatHandler->getList();
+/**
+ * @return array
+ */
+function b_sitemap_xoopsfaq()
+{
+    /** @var Xoopsfaq\CategoryHandler $categoryHandler */
+    /** @var Xoopsfaq\Helper $helper */
+    $myts = \MyTextSanitizer::getInstance();
 
-    $retVal = array() ;
-    foreach ($catList as $id=>$title){
-        $retVal['parent'][] = array('id' => $id,
-                                 'title' => $myts->htmlSpecialChars($title),
-                                   'url' => $xfHelper->url('index.php?cat_id=' . $id)
-        );
+    $moduleDirName   = basename(dirname(__DIR__));
+    $helper          = \XoopsModules\Xoopsfaq\Helper::getInstance();
+    $categoryHandler = $helper->getHandler('Category');
+    $catList         = $categoryHandler->getList();
+
+    $retVal = [];
+    foreach ($catList as $id => $title) {
+        $retVal['parent'][] = [
+            'id'    => $id,
+            'title' => $myts->htmlSpecialChars($title),
+            'url'   => $helper->url('index.php?cat_id=' . $id),
+        ];
     }
     return $retVal;
 }

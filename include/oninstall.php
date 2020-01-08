@@ -9,6 +9,7 @@
  WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * XoopsFaq installation scripts
  *
@@ -21,15 +22,16 @@
  * @since     1.25
  */
 
+use XoopsModules\Xoopsfaq;
+
 /**
  * @internal {Make sure you PROTECT THIS FILE}
  */
 
 if ((!defined('XOOPS_ROOT_PATH'))
-   || !($GLOBALS['xoopsUser'] instanceof XoopsUser)
-   || !($GLOBALS['xoopsUser']->isAdmin()))
-{
-     exit("Restricted access" . PHP_EOL);
+    || !($GLOBALS['xoopsUser'] instanceof XoopsUser)
+    || !($GLOBALS['xoopsUser']->isAdmin())) {
+    exit('Restricted access' . PHP_EOL);
 }
 
 /**
@@ -42,14 +44,9 @@ if ((!defined('XOOPS_ROOT_PATH'))
  */
 function xoops_module_pre_install_xoopsfaq(XoopsModule $module)
 {
-    /** @var XoopsfaqUtility $utilsClass */
-    $utilsClass = ucfirst($module->dirname()) . 'Utility';
-    if (!class_exists($utilsClass)) {
-        xoops_load('utility', $module->dirname());
-    }
-
-    $xoopsSuccess = $utilsClass::checkVerXoops($module);
-    $phpSuccess   = $utilsClass::checkVerPHP($module);
+    /** @var Xoopsfaq\Utility $utilsClass */
+    $xoopsSuccess = Xoopsfaq\Utility::checkVerXoops($module);
+    $phpSuccess   = Xoopsfaq\Utility::checkVerPHP($module);
     return $xoopsSuccess && $phpSuccess;
 }
 
@@ -61,6 +58,7 @@ function xoops_module_pre_install_xoopsfaq(XoopsModule $module)
  *
  * @return bool true if installation successful, false if not
  */
-function xoops_module_install_xoopsfaq($module) {
+function xoops_module_install_xoopsfaq($module)
+{
     return true;
 }

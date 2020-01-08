@@ -9,6 +9,7 @@
  WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * Module: XoopsFaq
  *
@@ -18,61 +19,73 @@
  * @author          John Neill
  * @author          XOOPS Module Development Team
  * @copyright       http://xoops.org 2001-2017 &copy; XOOPS Project
- * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  */
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
-$moduleDirName = basename(__DIR__);
+require_once __DIR__ . '/preloads/autoloader.php';
+
+$moduleDirName      = basename(__DIR__);
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 // Module configs
-$modversion['version']             = 1.25;
-$modversion['module_status']       = 'RC1';
-$modversion['release_date']        = '2017/05/18';
-$modversion['name']                = _MI_XOOPSFAQ_NAME;
-$modversion['description']         = _MI_XOOPSFAQ_DESC;
-$modversion['author']              = 'John Neill, Kazumi Ono';
-$modversion['credits']             = 'The XOOPS Module Development Team, ZySpec, Mamba';
-$modversion['license']             = 'GNU GPL 2.0';
-$modversion['license_url']         = "www.gnu.org/licenses/gpl-2.0.html";
-$modversion['official']            = 0;
-$modversion['image']               = 'assets/images/slogo.png';
-$modversion['dirname']             = $moduleDirName;
+$modversion = [
+    'version'             => 2.01,
+    'module_status'       => 'Alpha 1',
+    'release_date'        => '2020/01/07',
+    'name'                => _MI_XOOPSFAQ_NAME,
+    'description'         => _MI_XOOPSFAQ_DESC,
+    'author'              => 'John Neill, Kazumi Ono',
+    'credits'             => 'The Xoops Module Development Team, ZySpec, Mamba',
+    'license'             => 'GNU GPL 2.0',
+    'license_url'         => 'www.gnu.org/licenses/gpl-2.0.html/',
+    'official'            => 0,
+    'image'               => 'assets/images/logoModule.png',
+    'dirname'             => basename(__DIR__),
 
-// About
-$modversion['author_website_url']  = 'http://xoops.org';
-$modversion['author_website_name'] = 'XOOPS';
-$modversion['module_website_url']  = 'http://xoops.org';
-$modversion['module_website_name'] = 'XOOPS';
-$modversion['min_php']             = '5.3.7';
-$modversion['min_xoops']           = '2.5.9';
-$modversion['min_db']              = array('mysql'=>'5.0.7', 'mysqli'=>'5.0.7');
-$modversion['min_admin']           = '1.2';
+    // Local path icons
+    'modicons16'          => 'assets/images/icons/16',
+    'modicons32'          => 'assets/images/icons/32',
 
-// Help Files
-$modversion['help']                = 'page=help';
-$modversion['helpsection']         = array(array('name' => _MI_XOOPSFAQ_HELP_OVERVIEW,
-                                                 'link' => 'page=help'),
-                                           array('name' => _MI_XOOPSFAQ_HELP_TIPS,
-                                                 'link' => 'page=tips')
-);
+    //about
+    'author_website_url'  => 'https://xoops.org',
+    'author_website_name' => 'XOOPS',
+    'module_website_url'  => 'https://xoops.org',
+    'module_website_name' => 'XOOPS',
+    'min_php'             => '5.5',
+    'min_xoops'           => '2.5.10',
+    'min_db'              => ['mysql' => '5.5'],
+    'min_admin'           => '1.1',
+];
 
-// Module Sql
-$modversion['sqlfile']['mysql']    = 'sql/mysql.sql';
+// ------------------- Help files ------------------- //
+$modversion['help']        = 'page=help';
+$modversion['helpsection'] = [
+    ['name' => _MI_XOOPSFAQ_HELP_OVERVIEW, 'link' => 'page=help'],
+    ['name' => _MI_XOOPSFAQ_HELP_TIPS, 'link' => 'page=tips'],
+    ['name' => _MI_XOOPSFAQ_DISCLAIMER, 'link' => 'page=disclaimer'],
+    ['name' => _MI_XOOPSFAQ_LICENSE, 'link' => 'page=license'],
+    ['name' => _MI_XOOPSFAQ_SUPPORT, 'link' => 'page=support'],
+];
 
-// Module SQL Tables
-$modversion['tables']              = array('xoopsfaq_contents',
-                                         'xoopsfaq_categories'
-) ;
+// ------------------- Mysql -----------------------------
+$modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
+// ------------------- Tables ----------------------------
+$modversion['tables'] = [
+    'xoopsfaq_contents',
+    'xoopsfaq_categories',
+];
 
+// ------------------- Install/Update -------------------
 // Scripts to run upon installation or update
-$modversion['onInstall']           = "include/oninstall.inc.php";
-$modversion['onUpdate']            = "include/onupdate.inc.php";
+$modversion['onInstall'] = 'include/oninstall.php';
+$modversion['onUpdate']  = 'include/onupdate.php';
 
 // Module Admin
-$modversion['hasAdmin']            = 1;
-$modversion['adminindex']          = 'admin/index.php';
-$modversion['adminmenu']           = 'admin/menu.php';
+$modversion['hasAdmin']   = 1;
+$modversion['adminindex'] = 'admin/index.php';
+$modversion['adminmenu']  = 'admin/menu.php';
 
 /*
  * Admin Menu
@@ -80,66 +93,104 @@ $modversion['adminmenu']           = 'admin/menu.php';
  *    0 if you do not want to display menu generated by system module
  *    1 if you want to display menu generated by system module
  */
-$modversion['system_menu']         = 1;
+$modversion['system_menu'] = 1;
 
 // Module Main
-$modversion['hasMain']             = 1;
+$modversion['hasMain'] = 1;
 
 // Blocks
-$modversion['blocks']              = array(array('file' => 'xoopsfaq_rand.php',
-                                                 'name' => _MI_XOOPSFAQ_BNAME1,
-                                          'description' => _MI_XOOPSFAQ_BNAME1_DESC,
-                                            'show_func' => 'b_xoopsfaq_random_show',
-                                            'edit_func' => 'b_xoopsfaq_rand_edit',
-                                              'options' => '100|0',
-                                             'template' => 'xoopsfaq_block_rand.tpl'),
+$modversion['blocks'] = [
+    [
+        'file'        => 'xoopsfaq_rand.php',
+        'name'        => _MI_XOOPSFAQ_BNAME1,
+        'description' => _MI_XOOPSFAQ_BNAME1_DESC,
+        'show_func'   => 'b_xoopsfaq_random_show',
+        'edit_func'   => 'b_xoopsfaq_rand_edit',
+        'options'     => '100|0',
+        'template'    => 'xoopsfaq_block_rand.tpl',
+    ],
 
-                                           array('file' => 'xoopsfaq_recent.php',
-                                                 'name' => _MI_XOOPSFAQ_BNAME2,
-                                          'description' => _MI_XOOPSFAQ_BNAME2_DESC,
-                                            'show_func' => 'b_xoopsfaq_recent_show',
-                                            'edit_func' => 'b_xoopsfaq_recent_edit',
-                                              'options' => '10|100|1|0',
-                                             'template' => 'xoopsfaq_block_recent.tpl'),
+    [
+        'file'        => 'xoopsfaq_recent.php',
+        'name'        => _MI_XOOPSFAQ_BNAME2,
+        'description' => _MI_XOOPSFAQ_BNAME2_DESC,
+        'show_func'   => 'b_xoopsfaq_recent_show',
+        'edit_func'   => 'b_xoopsfaq_recent_edit',
+        'options'     => '10|100|1|0',
+        'template'    => 'xoopsfaq_block_recent.tpl',
+    ],
 
-                                           array('file' => 'xoopsfaq_category.php',
-                                                 'name' => _MI_XOOPSFAQ_BNAME3,
-                                          'description' => _MI_XOOPSFAQ_BNAME3_DESC,
-                                            'show_func' => 'b_xoopsfaq_category_show',
-                                            'edit_func' => 'b_xoopsfaq_category_edit',
-                                              'options' => '1',
-                                             'template' => 'xoopsfaq_block_category.tpl')
-);
+    [
+        'file'        => 'xoopsfaq_category.php',
+        'name'        => _MI_XOOPSFAQ_BNAME3,
+        'description' => _MI_XOOPSFAQ_BNAME3_DESC,
+        'show_func'   => 'b_xoopsfaq_category_show',
+        'edit_func'   => 'b_xoopsfaq_category_edit',
+        'options'     => '1',
+        'template'    => 'xoopsfaq_block_category.tpl',
+    ],
+];
 
 // Module Search
-$modversion['hasSearch']           = 1;
-$modversion['search']['file']      = 'include/search.inc.php';
-$modversion['search']['func']      = 'xoopsfaq_search';
+$modversion['hasSearch']      = 1;
+$modversion['search']['file'] = 'include/search.inc.php';
+$modversion['search']['func'] = 'xoopsfaq_search';
 
 // Module Templates
-$modversion["templates"]           = array(array('file' => "{$moduleDirName}_index.tpl",
-                                          'description' => _MI_XOOPSFAQ_TPL_INDEX_DESC),
+$modversion['templates'] = [
+    [
+        'file'        => "{$moduleDirName}_index.tpl",
+        'description' => _MI_XOOPSFAQ_TPL_INDEX_DESC,
+    ],
 
-                                           array('file' => "{$moduleDirName}_category.tpl",
-                                          'description' => _MI_XOOPSFAQ_TPL_CATEGORY_DESC)
-);
+    [
+        'file'        => "{$moduleDirName}_category.tpl",
+        'description' => _MI_XOOPSFAQ_TPL_CATEGORY_DESC,
+    ],
+];
 
 // Module Comments
-$modversion['hasComments']         = 1;
-$modversion['comments']            = array('itemName' => 'cat_id',
-                                           'pageName' => 'index.php'
-);
+$modversion['hasComments'] = 1;
+$modversion['comments']    = [
+    'itemName' => 'cat_id',
+    'pageName' => 'index.php',
+];
 
 // Module Configs
 xoops_load('XoopsEditorHandler');
-$editor_handler = XoopsEditorHandler::getInstance();
-$editorList     = array_flip($editor_handler->getList());
+$editorHandler = XoopsEditorHandler::getInstance();
+$editorList    = array_flip($editorHandler->getList());
 
-$modversion['config']              = array(array('name' => 'use_wysiwyg',
-                                                'title' => '_MI_XOOPSFAQ_EDITORS',
-                                          'description' => '_MI_XOOPSFAQ_EDITORS_DESC',
-                                             'formtype' => 'select',
-                                            'valuetype' => 'text',
-                                              'options' => $editorList,
-                                              'default' => 'dhtmltextarea')
-);
+$modversion['config'][] = [
+    'name'        => 'use_wysiwyg',
+    'title'       => '_MI_XOOPSFAQ_EDITORS',
+    'description' => '_MI_XOOPSFAQ_EDITORS_DESC',
+    'formtype'    => 'select',
+    'valuetype'   => 'text',
+    'options'     => $editorList,
+    'default'     => 'dhtmltextarea',
+];
+
+/**
+ * Make Sample button visible?
+ */
+$modversion['config'][] = [
+    'name'        => 'displaySampleButton',
+    'title'       => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_SAMPLE_BUTTON',
+    'description' => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_SAMPLE_BUTTON_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1,
+];
+
+/**
+ * Show Developer Tools?
+ */
+$modversion['config'][] = [
+    'name'        => 'displayDeveloperTools',
+    'title'       => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS',
+    'description' => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 0,
+];

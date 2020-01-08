@@ -9,6 +9,7 @@
  WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * Admin Main Process File for Xoops FAQ Admin
  *
@@ -18,94 +19,99 @@
  * @copyright Copyright (c) 2001-2017 {@link http://xoops.org XOOPS Project}
  * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  *
- * @see Xmf\Request
- * @see Xmf\Module\Admin
+ * @see       Xmf\Request
+ * @see       Xmf\Module\Admin
  */
-use Xmf\Request;
 
-include __DIR__ . '/admin_header.php';
+use Xmf\Request;
+use XoopsModules\Xoopsfaq;
+
+require __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
-/** @var XoopsfaqCategoryHandler $xfCatHandler */
-/** @var XoopsfaqContentsHandler $xfFaqHandler */
-/** @var Xmf\Module\Helper\GenericHelper $xfHelper */
+/** @var Xoopsfaq\CategoryHandler $categoryHandler */
+/** @var Xoopsfaq\ContentsHandler $contentsHandler */
+/** @var Xoopsfaq\Helper $helper */
 
-$xfFaqHandler = $xfHelper->getHandler('contents');
-$adminObject  = Xmf\Module\Admin::getInstance();
+$contentsHandler = $helper->getHandler('Contents');
+$adminObject     = Xmf\Module\Admin::getInstance();
 
 $op = Request::getCmd('op', 'default');
 switch ($op) {
     case 'edit':
-        $faqId = Request::getInt('contents_id', XoopsfaqConstants::INVALID_FAQ_ID);
-        $obj   = $xfFaqHandler->get($faqId); // creates obj if faqId is 0, else gets it
-        if ($obj instanceof XoopsfaqContents) {
+        $faqId = Request::getInt('contents_id', Xoopsfaq\Constants::INVALID_FAQ_ID);
+        $obj   = $contentsHandler->get($faqId); // creates obj if faqId is 0, else gets it
+        if ($obj instanceof Xoopsfaq\Contents) {
             $adminObject->displayNavigation(basename(__FILE__));
             $obj->displayForm();
         } else {
-            $xfFaqHandler->displayError(_AM_XOOPSFAQ_ERROR_COULD_NOT_EDIT_CAT);
+            $contentsHandler->displayError(_AM_XOOPSFAQ_ERROR_COULD_NOT_EDIT_CAT);
         }
         break;
 
     case 'delete':
-        $ok    = Request::getInt('ok', XoopsfaqConstants::CONFIRM_NOT_OK);
-        $faqId = Request::getInt('contents_id', XoopsfaqConstants::INVALID_FAQ_ID);
-        if (XoopsfaqConstants::CONFIRM_OK === (int)$ok) {
-            $obj = $xfFaqHandler->get($faqId);
-            if ($obj instanceof XoopsfaqContents) {
+        $ok    = Request::getInt('ok', Xoopsfaq\Constants::CONFIRM_NOT_OK);
+        $faqId = Request::getInt('contents_id', Xoopsfaq\Constants::INVALID_FAQ_ID);
+        if (Xoopsfaq\Constants::CONFIRM_OK === (int)$ok) {
+            $obj = $contentsHandler->get($faqId);
+            if ($obj instanceof Xoopsfaq\Contents) {
                 // Delete this FAQ
-                if (true === $xfFaqHandler->delete($obj)) {
+                if (true === $contentsHandler->delete($obj)) {
                     // Delete comments
-                    xoops_comment_delete($xfHelper->getModule()->getVar('mid'), $faqId);
-                    $xfHelper->redirect('admin/main.php', XoopsfaqConstants::REDIRECT_DELAY_MEDIUM, _AM_XOOPSFAQ_DBSUCCESS);
+                    xoops_comment_delete($helper->getModule()->getVar('mid'), $faqId);
+                    $helper->redirect('admin/main.php', Xoopsfaq\Constants::REDIRECT_DELAY_MEDIUM, _AM_XOOPSFAQ_DBSUCCESS);
                 }
             }
-            $xfFaqHandler->displayError(_AM_XOOPSFAQ_ERROR_COULD_NOT_DEL_CONTENTS);
+            $contentsHandler->displayError(_AM_XOOPSFAQ_ERROR_COULD_NOT_DEL_CONTENTS);
         } else {
             $adminObject->displayNavigation(basename(__FILE__));
-            xoops_confirm(array('op' => 'delete', 'contents_id' => $faqId, 'ok' => XoopsfaqConstants::CONFIRM_OK), basename(__FILE__), _AM_XOOPSFAQ_RUSURE_CONTENTS);
+            xoops_confirm(['op' => 'delete', 'contents_id' => $faqId, 'ok' => Xoopsfaq\Constants::CONFIRM_OK], basename(__FILE__), _AM_XOOPSFAQ_RUSURE_CONTENTS);
         }
         break;
 
     case 'save':
         if (!$GLOBALS['xoopsSecurity']->check()) {
-            $xfHelper->redirect('admin/main.php', XoopsfaqConstants::REDIRECT_DELAY_MEDIUM, $GLOBALS['xoopsSecurity']->getErrors(true));
+            $helper->redirect('admin/main.php', Xoopsfaq\Constants::REDIRECT_DELAY_MEDIUM, $GLOBALS['xoopsSecurity']->getErrors(true));
         }
-        $faqId = Request::getInt('contents_id', XoopsfaqConstants::INVALID_FAQ_ID);
-        $obj = (XoopsfaqConstants::INVALID_FAQ_ID == $faqId) ? $xfFaqHandler->create() : $xfFaqHandler->get($faqId);
-// @todo - change MASK_ALLOW_RAW to MASK_ALLOW_HTML once module 'requires' XOOPS 2.5.9.1 FINAL with bug fixed
+        $faqId = Request::getInt('contents_id', Xoopsfaq\Constants::INVALID_FAQ_ID);
+        $obj   = (Xoopsfaq\Constants::INVALID_FAQ_ID == $faqId) ? $contentsHandler->create() : $contentsHandler->get($faqId);
+        // @todo - change MASK_ALLOW_RAW to MASK_ALLOW_HTML once module 'requires' XOOPS 2.5.9.1 FINAL with bug fixed
         $contents_contents = Request::getString('contents_contents', '', 'POST', Request::MASK_ALLOW_RAW);
-        if (is_object($obj) && $obj instanceof XoopsfaqContents) {
+        if (is_object($obj) && $obj instanceof Xoopsfaq\Contents) {
             $contents_publish = strtotime(Request::getString('contents_publish', time(), 'POST'));
-            $obj->setVars(array('contents_cid' => Request::getInt('contents_cid', XoopsfaqConstants::DEFAULT_CATEGORY, 'POST'),
-                              'contents_title' => Request::getString('contents_title', '', 'POST'),
-                           'contents_contents' => $contents_contents,
-                             'contents_weight' => Request::getInt('contents_weight', XoopsfaqConstants::DEFAULT_WEIGHT, 'POST'),
-                             'contents_active' => Request::getInt('contents_active', XoopsfaqConstants::ACTIVE, 'POST'),
-                            'contents_publish' => $contents_publish,
-                                      'dohtml' => isset($_POST['dohtml']) ? XoopsfaqConstants::SET : XoopsfaqConstants::NOTSET,
-                                    'dosmiley' => isset($_POST['dosmiley']) ? XoopsfaqConstants::SET : XoopsfaqConstants::NOTSET,
-                                     'doxcode' => isset($_POST['doxcode']) ? XoopsfaqConstants::SET : XoopsfaqConstants::NOTSET,
-                                     'doimage' => isset($_POST['doimage']) ? XoopsfaqConstants::SET : XoopsfaqConstants::NOTSET,
-                                        'dobr' => isset($_POST['dobr']) ? XoopsfaqConstants::SET : XoopsfaqConstants::NOTSET)
+            $obj->setVars(
+                [
+                    'contents_cid'      => Request::getInt('contents_cid', Xoopsfaq\Constants::DEFAULT_CATEGORY, 'POST'),
+                    'contents_title'    => Request::getString('contents_title', '', 'POST'),
+                    'contents_contents' => $contents_contents,
+                    'contents_weight'   => Request::getInt('contents_weight', Xoopsfaq\Constants::DEFAULT_WEIGHT, 'POST'),
+                    'contents_active'   => Request::getInt('contents_active', Xoopsfaq\Constants::ACTIVE, 'POST'),
+                    'contents_publish'  => $contents_publish,
+                    'dohtml'            => isset($_POST['dohtml']) ? Xoopsfaq\Constants::SET : Xoopsfaq\Constants::NOTSET,
+                    'dosmiley'          => isset($_POST['dosmiley']) ? Xoopsfaq\Constants::SET : Xoopsfaq\Constants::NOTSET,
+                    'doxcode'           => isset($_POST['doxcode']) ? Xoopsfaq\Constants::SET : Xoopsfaq\Constants::NOTSET,
+                    'doimage'           => isset($_POST['doimage']) ? Xoopsfaq\Constants::SET : Xoopsfaq\Constants::NOTSET,
+                    'dobr'              => isset($_POST['dobr']) ? Xoopsfaq\Constants::SET : Xoopsfaq\Constants::NOTSET,
+                ]
             );
-            $ret = $xfFaqHandler->insert($obj, true);
+            $ret = $contentsHandler->insert($obj, true);
             if ($ret) {
-                $xfHelper->redirect('admin/main.php', XoopsfaqConstants::REDIRECT_DELAY_MEDIUM, _AM_XOOPSFAQ_DBSUCCESS);
+                $helper->redirect('admin/main.php', Xoopsfaq\Constants::REDIRECT_DELAY_MEDIUM, _AM_XOOPSFAQ_DBSUCCESS);
             }
-            $xfFaqHandler->displayError($ret);
+            $contentsHandler->displayError($ret);
         }
         break;
 
     case 'default':
     default:
-        $xfCatHandler = $xfHelper->getHandler('category');
-        $catCount = $xfCatHandler->getCount();
+        $categoryHandler = $helper->getHandler('Category');
+        $catCount        = $categoryHandler->getCount();
         $adminObject->displayNavigation(basename(__FILE__));
         if (!empty($catCount)) {
-            $adminObject->addItemButton(_AM_XOOPSFAQ_CREATE_NEW, basename(__FILE__) . '?op=edit', 'add' , '');
+            $adminObject->addItemButton(_AM_XOOPSFAQ_CREATE_NEW, basename(__FILE__) . '?op=edit', 'add', '');
             $adminObject->displayButton('left');
         }
-        $xfFaqHandler->displayAdminListing('weight');
+        $contentsHandler->displayAdminListing('weight');
         break;
 }
-include_once __DIR__ . '/admin_footer.php';
+require_once __DIR__ . '/admin_footer.php';

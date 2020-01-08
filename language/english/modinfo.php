@@ -9,6 +9,7 @@
  WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * XoopsFAQ module
  * Description: Module Init Language Definitions
@@ -20,15 +21,15 @@
  * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  *
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Module Version
  */
 define('_MI_XOOPSFAQ_NAME', 'XOOPS FAQ');
-define('_MI_XOOPSFAQ_DESC', 'This module is used to create Frequently Asked Questions (FAQs). You can use it to '
-                          . 'provide information on your website for your users. The module if very simple, but '
-                          . 'flexible enough to use for other purposes as well.'
+define(
+    '_MI_XOOPSFAQ_DESC',
+    'This module is used to create Frequently Asked Questions (FAQs). You can use it to ' . 'provide information on your website for your users. The module if very simple, but ' . 'flexible enough to use for other purposes as well.'
 );
 
 /**
@@ -41,6 +42,7 @@ define('_MI_XOOPSFAQ_DESC', 'This module is used to create Frequently Asked Ques
 define('_MI_XOOPSFAQ_MENU_ADMIN_INDEX', 'Home');
 define('_MI_XOOPSFAQ_MENU_ADMIN_CATEGORY', 'Category');
 define('_MI_XOOPSFAQ_MENU_ADMIN_FAQ', 'FAQ');
+define('_MI_XOOPSFAQ_MENU_ADMIN_MIGRATE', 'Migrate');
 define('_MI_XOOPSFAQ_MENU_ADMIN_ABOUT', 'About');
 
 // index.php
@@ -87,3 +89,16 @@ define('_MI_XOOPSFAQ_TPL_CATEGORY_DESC', '');
  */
 define('_MI_XOOPSFAQ_EDITORS', 'Select Editor:');
 define('_MI_XOOPSFAQ_EDITORS_DESC', 'Please select the editor you would like to use.');
+//1.25
+//Help
+define('_MI_XOOPSFAQ_DIRNAME', basename(dirname(dirname(__DIR__))));
+define('_MI_XOOPSFAQ_HELP_HEADER', __DIR__ . '/help/helpheader.tpl');
+define('_MI_XOOPSFAQ_BACK_2_ADMIN', 'Back to Administration of ');
+define('_MI_XOOPSFAQ_OVERVIEW', 'Overview');
+
+//define('_MI_XOOPSFAQ_HELP_DIR', __DIR__);
+
+//help multi-page
+define('_MI_XOOPSFAQ_DISCLAIMER', 'Disclaimer');
+define('_MI_XOOPSFAQ_LICENSE', 'License');
+define('_MI_XOOPSFAQ_SUPPORT', 'Support');

@@ -9,6 +9,7 @@
  WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * XoopsFAQ module
  * Description: Xoops FAQ module block language defines
@@ -21,7 +22,7 @@
  *
  */
 define('_MB_XOOPSFAQ_ALL_CATS', 'ALL Categories');
-define('_MB_XOOPSFAQ_ALL_CATS_INTRO', 'Select FAQ from the selected categories:');
+define('_MB_XOOPSFAQ_ALL_CATS_INTRO', 'SELECT FAQ FROM the selected categories:');
 define('_MB_XOOPSFAQ_CATTITLE', 'Categories');
 define('_MB_XOOPSFAQ_CHARS', 'Display');
 define('_MB_XOOPSFAQ_LENGTH', 'characters of the FAQ answer');

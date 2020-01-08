@@ -9,6 +9,7 @@
  WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * XoopsFAQ module
  * Description: New Comments file
@@ -20,5 +21,5 @@
  * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  */
 
-include dirname(dirname(__DIR__)) . '/mainfile.php';
-include $GLOBALS['xoops']->path('include/comment_new.php');
+require dirname(dirname(__DIR__)) . '/mainfile.php';
+require $GLOBALS['xoops']->path('include/comment_new.php');
