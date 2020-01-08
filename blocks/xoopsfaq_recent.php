@@ -54,6 +54,7 @@ function b_xoopsfaq_recent_show($options)
     $criteria->add(new \Criteria('contents_active', Xoopsfaq\Constants::ACTIVE, '='));
     $criteria->setSort('contents_publish DESC, contents_weight');
     $criteria->order = 'ASC';
+    $criteria->setLimit($options[0]);
 
     $options[3] = isset($options[3]) ? $options[3] : [0];
     $cTu        = $catsToUse = (false === strpos($options[3], ',')) ? (array)$options[3] : explode(',', $options[3]);
@@ -100,6 +101,8 @@ function b_xoopsfaq_recent_show($options)
                 'title'     => $faqTitle,
                 'ans'       => $faqAns,
                 'published' => $faqObj->getPublished(_SHORTDATESTRING),
+                'id'        => $faqObj->getVar('contents_id'),
+                'cid'       => $faqObj->getVar('contents_cid'),
             ];
         }
     }
