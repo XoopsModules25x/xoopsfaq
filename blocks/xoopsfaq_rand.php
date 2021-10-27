@@ -55,7 +55,7 @@ function b_xoopsfaq_random_show($options)
     $criteria->add(new \Criteria('contents_active', Constants::ACTIVE, '='));
 
     // Filter out cats based on group permissions
-    $options[1] = isset($options[1]) ? $options[1] : [0];
+    $options[1] = $options[1] ?? [0];
     $cTu        = $catsToUse = (false === strpos($options[1], ',')) ? (array)$options[1] : explode(',', $options[1]);
     if (in_array(0, $catsToUse) || empty($catsToUse)) {
         // Get a list of all cats

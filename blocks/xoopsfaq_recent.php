@@ -61,7 +61,7 @@ function b_xoopsfaq_recent_show($options)
     $criteria->order = 'ASC';
     $criteria->setLimit($options[0]);
 
-    $options[3] = isset($options[3]) ? $options[3] : [0];
+    $options[3] = $options[3] ?? [0];
     $cTu        = $catsToUse = (false === strpos($options[3], ',')) ? (array)$options[3] : explode(',', $options[3]);
     if (in_array(0, $catsToUse) || empty($catsToUse)) {
         // Get a list of all cats
