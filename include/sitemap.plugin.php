@@ -46,7 +46,7 @@ function b_sitemap_xoopsfaq()
     foreach ($catList as $id => $title) {
         $retVal['parent'][] = [
             'id'    => $id,
-            'title' => htmlspecialchars($title),
+            'title' => htmlspecialchars($title, ENT_QUOTES | ENT_HTML5),
             'url'   => $helper->url('index.php?cat_id=' . $id),
         ];
     }
