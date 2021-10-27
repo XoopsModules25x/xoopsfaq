@@ -22,6 +22,9 @@ namespace XoopsModules\Xoopsfaq\Common;
 
 use Xmf\Module\Helper;
 
+/**
+ *
+ */
 trait VersionChecks
 {
     /**

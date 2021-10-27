@@ -38,7 +38,6 @@ require \dirname(__DIR__) . '/preloads/autoloader.php';
 
 $moduleDirName = \basename(\dirname(__DIR__));
 
-/** @var \XoopsModules\Xoopsfaq\Helper $helper */
 $helper = Helper::getInstance();
 /** @var Xmf\Module\Admin $adminObject */
 $adminObject = Admin::getInstance();

@@ -39,7 +39,6 @@ function xoopsfaq_rss($max = 10)
 {
     /** @var Xoopsfaq\CategoryHandler $categoryHandler */
     /** @var Xoopsfaq\ContentsHandler $contentsHandler */
-    /** @var Xoopsfaq\Helper $helper */
     $helper          = Helper::getInstance();
     $categoryHandler = $helper->getHandler('Category');
     $contentsHandler = $helper->getHandler('Contents');

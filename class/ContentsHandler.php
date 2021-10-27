@@ -58,7 +58,7 @@ class ContentsHandler extends XoopsPersistableObjectHandler
      *
      * @param \CriteriaElement|string sort order ('id', 'cid', 'title', 'publish', or 'weight') default: 'id'
      *
-     * @return mixed Contents object | false on failure
+     * @return false Contents object | false on failure
      */
     public function getObj($sort = 'id')
     {
@@ -82,7 +82,7 @@ class ContentsHandler extends XoopsPersistableObjectHandler
      * ContentsHandler::getPublished()
      *
      * @param string $id
-     * @return mixed array of XoopsfaqContent objects | false on failure
+     * @return false array of XoopsfaqContent objects | false on failure
      */
     public function getPublished($id = '')
     {

@@ -226,7 +226,7 @@ class Contents extends XoopsObject
      *
      * @param int|string Unix timestamp
      *
-     * @return string|bool formatted timestamp on success, false on failure
+     * @return string formatted timestamp on success, false on failure
      */
     public function getPublished($timestamp = '')
     {

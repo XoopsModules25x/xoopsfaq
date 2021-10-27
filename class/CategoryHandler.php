@@ -51,7 +51,7 @@ class CategoryHandler extends \XoopsPersistableObjectHandler
      *
      * @param string $sort order ('id', order', or 'title') - default: id
      *
-     * @return mixed Category | false on failure
+     * @return false Category | false on failure
      */
     public function getObj($sort = 'id')
     {
