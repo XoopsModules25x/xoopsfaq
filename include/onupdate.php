@@ -49,7 +49,7 @@ if ((!defined('XOOPS_ROOT_PATH'))
 function xoops_module_pre_update_xoopsfaq(\XoopsModule $module, $prev_version)
 {
     $xoopsSuccess = Utility::checkVerXoops($module);
-    $phpSuccess   = Utility::checkVerPHP($module);
+    $phpSuccess   = Utility::checkVerPhp($module);
     return $xoopsSuccess && $phpSuccess;
 }
 

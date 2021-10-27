@@ -49,7 +49,7 @@ function xoops_module_pre_install_xoopsfaq(XoopsModule $module)
 {
     /** @var Xoopsfaq\Utility $utilsClass */
     $xoopsSuccess = Utility::checkVerXoops($module);
-    $phpSuccess   = Utility::checkVerPHP($module);
+    $phpSuccess   = Utility::checkVerPhp($module);
     return $xoopsSuccess && $phpSuccess;
 }
 
