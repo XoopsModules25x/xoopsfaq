@@ -91,7 +91,7 @@ function xoopsfaq_search($queryarray, $andor, $limit, $offset, $userid)
     $contentsHandler = $helper->getHandler('Contents');
     $contentFields   = ['contents_id', 'contents_cid', 'contents_title', 'contents_contents', 'contents_publish'];
     $criteria        = new \CriteriaCompo();
-    $criteria->add(new \Criteria('contents_active', Xoopsfaq\Constants::ACTIVE, '='));
+    $criteria->add(new \Criteria('contents_active', Constants::ACTIVE, '='));
     $criteria->setSort('contents_id');
     $criteria->order = 'DESC';
     $criteria->setLimit((int)$totalLimit);
