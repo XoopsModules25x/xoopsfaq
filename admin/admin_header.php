@@ -15,29 +15,33 @@
  *
  * @package   module\xoopsfaq\admin
  * @author    XOOPS Module Development Team
- * @copyright Copyright (c) 2001-2017 {@link http://xoops.org XOOPS Project}
- * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @copyright Copyright (c) 2001-2017 {@link https://xoops.org XOOPS Project}
+ * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @since     ::   1.23
  *
  * @see       Xmf\Module\Admin
  * @see       \XoopsModules\Xoopsfaq\Helper
  */
 
-use XoopsModules\Xoopsfaq;
+use Xmf\Module\Admin;
+use XoopsModules\Xoopsfaq\{
+    Helper
+};
 
-require dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
-require dirname(dirname(dirname(__DIR__))) . '/class/xoopsformloader.php';
 
-require dirname(__DIR__) . '/include/common.php';
+require \dirname(__DIR__, 3) . '/include/cp_header.php';
+require_once \dirname(__DIR__, 3) . '/class/xoopsformloader.php';
 
-require dirname(__DIR__) . '/preloads/autoloader.php';
+require \dirname(__DIR__) . '/include/common.php';
 
-$moduleDirName = basename(dirname(__DIR__));
+require \dirname(__DIR__) . '/preloads/autoloader.php';
+
+$moduleDirName = \basename(\dirname(__DIR__));
 
 /** @var \XoopsModules\Xoopsfaq\Helper $helper */
-$helper = \XoopsModules\Xoopsfaq\Helper::getInstance();
+$helper = Helper::getInstance();
 /** @var Xmf\Module\Admin $adminObject */
-$adminObject = \Xmf\Module\Admin::getInstance();
+$adminObject = Admin::getInstance();
 
 // Load language files
 $helper->loadLanguage('admin');

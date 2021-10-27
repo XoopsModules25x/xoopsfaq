@@ -17,15 +17,18 @@
  * @package   module\xoopsfaq\search
  * @author    John Neill
  * @author    XOOPS Module Development Team
- * @copyright Copyright (c) 2001-2017 {@link http://xoops.org XOOPS Project}
- * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @copyright Copyright (c) 2001-2017 {@link https://xoops.org XOOPS Project}
+ * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  *
  * @see       \XoopsModules\Xoopsfaq\Helper
  */
 
-use XoopsModules\Xoopsfaq;
+use XoopsModules\Xoopsfaq\{
+    Constants,
+    Helper
+};
 
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * xoopsfaq_search()
@@ -47,14 +50,15 @@ function xoopsfaq_search($queryarray, $andor, $limit, $offset, $userid)
         return $ret;
     }
 
-    /** @var Xoopsfaq\CategoryHandler $categoryHandler */ /** @var Xoopsfaq\ContentsHandler $contentsHandler */
+    /** @var Xoopsfaq\CategoryHandler $categoryHandler */
+    /** @var Xoopsfaq\ContentsHandler $contentsHandler */
     /** @var Xoopsfaq\Helper $helper */
 
-    $helper = \XoopsModules\Xoopsfaq\Helper::getInstance();
+    $helper = Helper::getInstance();
 
     // Find the search term in the Category
     // Find the search term in the FAQ
-    $contentsHandler = $helper->getHandler('Category');
+    $categoryHandler = $helper->getHandler('Category');
     $contentFields   = ['category_id', 'category_title'];
     $criteria        = new \CriteriaCompo();
     $criteria->setSort('category_title');
@@ -70,7 +74,7 @@ function xoopsfaq_search($queryarray, $andor, $limit, $offset, $userid)
             $criteria->add(new \Criteria('category_title', '%' . $query . '%', 'LIKE'), $andor);
         }
     }
-    $catArray   = $contentsHandler->getAll($criteria, $contentFields, false);
+    $catArray   = $categoryHandler->getAll($criteria, $contentFields, false);
     $catCount   = !empty($catArray) ? count($catArray) : 0;
     $totalLimit = (int)$limit - $catCount;
     foreach ($catArray as $cId => $cat) {
@@ -87,7 +91,7 @@ function xoopsfaq_search($queryarray, $andor, $limit, $offset, $userid)
     $contentsHandler = $helper->getHandler('Contents');
     $contentFields   = ['contents_id', 'contents_cid', 'contents_title', 'contents_contents', 'contents_publish'];
     $criteria        = new \CriteriaCompo();
-    $criteria->add(new \Criteria('contents_active', Xoopsfaq\Constants::ACTIVE, '='));
+    $criteria->add(new \Criteria('contents_active', Constants::ACTIVE, '='));
     $criteria->setSort('contents_id');
     $criteria->order = 'DESC';
     $criteria->setLimit((int)$totalLimit);

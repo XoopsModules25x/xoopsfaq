@@ -24,7 +24,10 @@
  * @see       \MyTextSanitizer
  */
 
-use XoopsModules\Xoopsfaq;
+use Xmf\Module\Helper\Permission;
+use XoopsModules\Xoopsfaq\{
+    Helper
+};
 
 /**
  * Show FAQ Categories Block
@@ -38,14 +41,15 @@ use XoopsModules\Xoopsfaq;
  */
 function b_xoopsfaq_category_show($options)
 {
-    $moduleDirName = basename(dirname(__DIR__));
+    $moduleDirName = \basename(\dirname(__DIR__));
 
     $myts = \MyTextSanitizer::getInstance();
 
-    /** @var Xoopsfaq\CategoryHandler $categoryHandler */ /** @var Xoopsfaq\ContentsHandler $contentsHandler */
+    /** @var Xoopsfaq\CategoryHandler $categoryHandler */
+    /** @var Xoopsfaq\ContentsHandler $contentsHandler */
     /** @var Xoopsfaq\Helper $helper */
-    $helper          = \XoopsModules\Xoopsfaq\Helper::getInstance();
-    $permHelper      = new \Xmf\Module\Helper\Permission($moduleDirName);
+    $helper          = Helper::getInstance();
+    $permHelper      = new Permission($moduleDirName);
     $categoryHandler = $helper->getHandler('Category');
     $block           = [];
 

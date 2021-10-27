@@ -8,7 +8,10 @@
  * @link            https://xoops.org XOOPS
  */
 
-use XoopsModules\Xoopsfaq;
+use XoopsModules\Xoopsfaq\{
+    Helper,
+    Utility
+};
 
 /**
  * Prepares system prior to attempting to uninstall module
@@ -32,13 +35,13 @@ function xoops_module_uninstall_xoopsfaq(\XoopsModule $module)
 {
     //    return true;
 
-    $moduleDirName      = basename(dirname(__DIR__));
-    $moduleDirNameUpper = mb_strtoupper($moduleDirName);
+    $moduleDirName      = \basename(\dirname(__DIR__));
+    $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
     /** @var Xoopsfaq\Helper $helper */
-    $helper = Xoopsfaq\Helper::getInstance();
+    $helper = Helper::getInstance();
 
     /** @var Xoopsfaq\Utility $utility */
-    $utility = new Xoopsfaq\Utility();
+    $utility = new Utility();
 
     $success = true;
     $helper->loadLanguage('admin');

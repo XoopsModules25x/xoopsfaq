@@ -1,11 +1,7 @@
 <?php
 
-$moduleDirName      = basename(dirname(__DIR__));
-$moduleDirNameUpper = mb_strtoupper($moduleDirName);
-
-/** @var \XoopsModules\Xoopsfaq\Helper $helper */
-$helper = \XoopsModules\Xoopsfaq\Helper::getInstance();
-$helper->loadLanguage('common');
+$moduleDirName      = \basename(\dirname(__DIR__));
+$moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
 // extra module configs
 $modversion['config'][] = [

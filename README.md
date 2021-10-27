@@ -1,5 +1,5 @@
-![alt XOOPS CMS](https://xoops.org/images/logoXoops4GithubRepository.png)
-## XoopsFaq module for  [XOOPS CMS 2.5.9+](https://xoops.org)
+![alt XOOPS CMS](https://xoops.org/images/logoXoopsPhp8.png)
+## XoopsFaq module for  [XOOPS CMS 2.5.10+](https://xoops.org)
 [![XOOPS CMS Module](https://img.shields.io/badge/XOOPS%20CMS-Module-blue.svg)](https://xoops.org)
 [![Software License](https://img.shields.io/badge/license-GPL-brightgreen.svg?style=flat)](https://www.gnu.org/licenses/gpl-2.0.html)
 
@@ -7,7 +7,6 @@
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/XoopsModules25x/xoopsfaq.svg?style=flat)](https://scrutinizer-ci.com/g/XoopsModules25x/xoopsfaq/?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2c1ce57c3e6f4d5b9b55198b4305cd14)](https://www.codacy.com/app/XoopsModules25x/xoopsfaq_2)
 [![Code Climate](https://img.shields.io/codeclimate/github/XoopsModules25x/xoopsfaq.svg?style=flat)](https://codeclimate.com/github/XoopsModules25x/xoopsfaq)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/67dff878-c997-4264-a709-7dede15759d6/mini.png)](https://insight.sensiolabs.com/projects/67dff878-c997-4264-a709-7dede15759d6)
 [![Latest Pre-Release](https://img.shields.io/github/tag/XoopsModules25x/xoopsfaq.svg?style=flat)](https://github.com/XoopsModules25x/xoopsfaq/tags/)
 [![Latest Version](https://img.shields.io/github/release/XoopsModules25x/xoopsfaq.svg?style=flat)](https://github.com/XoopsModules25x/xoopsfaq/releases/)
 
@@ -26,4 +25,4 @@
 
 [![Translations on Transifex](https://xoops.org/images/translations-transifex-blue.svg)](https://www.transifex.com/xoops)
 
-Current and upcoming "next generation" versions of XOOPS CMS are being crafted on GitHub at: https://github.com/XOOPS
+Current and upcoming "next generation" versions of XOOPS CMS are crafted on GitHub at: https://github.com/XOOPS

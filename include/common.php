@@ -10,26 +10,27 @@
  */
 
 /**
- * @copyright    XOOPS Project https://xoops.org/
- * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package
- * @since
- * @author       XOOPS Development Team
+ * @copyright    XOOPS Project (https://xoops.org)
+ * @license      GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
+ * @author      XOOPS Development Team
  */
 
-use XoopsModules\Xoopsfaq;
+use XoopsModules\Xoopsfaq\{
+    Helper,
+    Utility
+};
 
-require dirname(__DIR__) . '/preloads/autoloader.php';
+require \dirname(__DIR__) . '/preloads/autoloader.php';
 
-$moduleDirName      = basename(dirname(__DIR__));
-$moduleDirNameUpper = mb_strtoupper($moduleDirName);
+$moduleDirName      = \basename(\dirname(__DIR__));
+$moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
 /** @var \XoopsDatabase $db */
 /** @var \XoopsModules\Xoopsfaq\Helper $helper */
 /** @var \XoopsModules\Xoopsfaq\Utility $utility */
 $db      = \XoopsDatabaseFactory::getDatabaseConnection();
-$helper  = \XoopsModules\Xoopsfaq\Helper::getInstance();
-$utility = new \XoopsModules\Xoopsfaq\Utility();
+$helper  = Helper::getInstance();
+$utility = new Utility();
 //$configurator = new \XoopsModules\Xoopsfaq\Common\Configurator();
 
 $helper->loadLanguage('common');
@@ -39,8 +40,8 @@ $contentsHandler = $helper->getHandler('Contents');
 /** @var \XoopsPersistableObjectHandler $categoriesHandler */
 $categoriesHandler = $helper->getHandler('Category');
 
-$pathIcon16 = Xmf\Module\Admin::iconUrl('', 16);
-$pathIcon32 = Xmf\Module\Admin::iconUrl('', 32);
+$pathIcon16 = Xmf\Module\Admin::iconUrl('', '16');
+$pathIcon32 = Xmf\Module\Admin::iconUrl('', '32');
 //$pathModIcon16 = $helper->getModule()->getInfo('modicons16');
 //$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
 

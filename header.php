@@ -17,12 +17,16 @@
  * @package   module\xoopsfaq\frontside
  * @author    John Neill
  * @author    XOOPS Module Development Team
- * @copyright Copyright (c) 2001-2017 {@link http://xoops.org XOOPS Project}
- * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @copyright Copyright (c) 2001-2017 {@link https://xoops.org XOOPS Project}
+ * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  *
  * @see       \XoopsModules\Xoopsfaq\Helper;
  */
 
-require_once dirname(dirname(__DIR__)) . '/mainfile.php';
+use XoopsModules\Xoopsfaq\{
+    Helper
+};
 
-$helper = \XoopsModules\Xoopsfaq\Helper::getInstance();
+require_once \dirname(__DIR__, 2) . '/mainfile.php';
+
+$helper = Helper::getInstance();

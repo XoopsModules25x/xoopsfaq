@@ -15,21 +15,24 @@
  *
  * @package   module\xoopspoll\includes
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @author    ZySpec <owners@zyspec.com>
- * @copyright http://xoops.org 2001-2017 XOOPS Project
- * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
- * @link      http://xoops.org XOOPS
+ * @author    ZySpec <zyspec@yahoo.com>
+ * @copyright https://xoops.org 2001-2017 XOOPS Project
+ * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @link      https://xoops.org XOOPS
  * @since     1.25
  */
 
-use XoopsModules\Xoopsfaq;
+use XoopsModules\Xoopsfaq\{
+    Helper,
+    Utility
+};
 
 /**
  * @internal {Make sure you PROTECT THIS FILE}
  */
 
 if ((!defined('XOOPS_ROOT_PATH'))
-    || !($GLOBALS['xoopsUser'] instanceof XoopsUser)
+    || !($GLOBALS['xoopsUser'] instanceof \XoopsUser)
     || !($GLOBALS['xoopsUser']->isAdmin())) {
     exit('Restricted access' . PHP_EOL);
 }
@@ -45,8 +48,8 @@ if ((!defined('XOOPS_ROOT_PATH'))
 function xoops_module_pre_install_xoopsfaq(XoopsModule $module)
 {
     /** @var Xoopsfaq\Utility $utilsClass */
-    $xoopsSuccess = Xoopsfaq\Utility::checkVerXoops($module);
-    $phpSuccess   = Xoopsfaq\Utility::checkVerPHP($module);
+    $xoopsSuccess = Utility::checkVerXoops($module);
+    $phpSuccess   = Utility::checkVerPHP($module);
     return $xoopsSuccess && $phpSuccess;
 }
 

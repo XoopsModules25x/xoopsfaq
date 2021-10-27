@@ -24,6 +24,9 @@
  */
 
 use XoopsModules\Xoopsfaq;
+use XoopsModules\Xoopsfaq\{
+    Helper
+};
 
 /**
  * @return array
@@ -34,8 +37,8 @@ function b_sitemap_xoopsfaq()
     /** @var Xoopsfaq\Helper $helper */
     $myts = \MyTextSanitizer::getInstance();
 
-    $moduleDirName   = basename(dirname(__DIR__));
-    $helper          = \XoopsModules\Xoopsfaq\Helper::getInstance();
+    $moduleDirName   = \basename(\dirname(__DIR__));
+    $helper          = Helper::getInstance();
     $categoryHandler = $helper->getHandler('Category');
     $catList         = $categoryHandler->getList();
 
@@ -43,7 +46,7 @@ function b_sitemap_xoopsfaq()
     foreach ($catList as $id => $title) {
         $retVal['parent'][] = [
             'id'    => $id,
-            'title' => $myts->htmlSpecialChars($title),
+            'title' => htmlspecialchars($title),
             'url'   => $helper->url('index.php?cat_id=' . $id),
         ];
     }

@@ -17,14 +17,18 @@
  * @author    hsalazar
  * @author    ZySpec
  * @author    XOOPS Module Development Team
- * @copyright Copyright (c) 2001-2017 {@link http://xoops.org XOOPS Project}
- * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @copyright Copyright (c) 2001-2017 {@link https://xoops.org XOOPS Project}
+ * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @since     ::   1.23
  *
  * @see       \XoopsModules\Xoopsfaq\Helper
  */
 
-use \XoopsModules\Xoopsfaq;
+use Xmf\Module\Helper\Permission;
+use XoopsModules\Xoopsfaq\{
+    Constants,
+    Helper
+};
 
 /**
  * Display Random FAQ Block
@@ -36,18 +40,19 @@ use \XoopsModules\Xoopsfaq;
  */
 function b_xoopsfaq_random_show($options)
 {
-    $moduleDirName = basename(dirname(__DIR__));
+    $moduleDirName = \basename(\dirname(__DIR__));
     $myts          = \MyTextSanitizer::getInstance();
 
-    /** @var Xoopsfaq\CategoryHandler $categoryHandler */ /** @var Xoopsfaq\ContentsHandler $contentsHandler */
+    /** @var Xoopsfaq\CategoryHandler $categoryHandler */
+    /** @var Xoopsfaq\ContentsHandler $contentsHandler */
     /** @var Xoopsfaq\Helper $helper */
-    $helper          = \XoopsModules\Xoopsfaq\Helper::getInstance();
-    $permHelper      = new \Xmf\Module\Helper\Permission($moduleDirName);
+    $helper          = Helper::getInstance();
+    $permHelper      = new Permission($moduleDirName);
     $contentsHandler = $helper->getHandler('Contents');
     $block           = [];
 
     $criteria = new \CriteriaCompo();
-    $criteria->add(new \Criteria('contents_active', Xoopsfaq\Constants::ACTIVE, '='));
+    $criteria->add(new \Criteria('contents_active', Constants::ACTIVE, '='));
 
     // Filter out cats based on group permissions
     $options[1] = isset($options[1]) ? $options[1] : [0];
@@ -106,12 +111,12 @@ function b_xoopsfaq_random_show($options)
  */
 function b_xoopsfaq_rand_edit($options)
 {
-    $moduleDirName = basename(dirname(__DIR__));
+    $moduleDirName = \basename(\dirname(__DIR__));
     xoops_load('XoopsFormSelect');
 
     /** @var Xoopsfaq\CategoryHandler $categoryHandler */
     /** @var Xoopsfaq\Helper $helper */
-    $helper          = \XoopsModules\Xoopsfaq\Helper::getInstance();
+    $helper          = Helper::getInstance();
     $categoryHandler = $helper->getHandler('Category');
 
     $catList     = $categoryHandler->getList();

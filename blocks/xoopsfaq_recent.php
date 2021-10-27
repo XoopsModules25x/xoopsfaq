@@ -24,7 +24,11 @@
  * @see       MyTextSanitizer
  */
 
-use XoopsModules\Xoopsfaq;
+use Xmf\Module\Helper\Permission;
+use XoopsModules\Xoopsfaq\{
+    Constants,
+    Helper
+};
 
 /**
  * Display the most recent FAQs added
@@ -39,19 +43,20 @@ use XoopsModules\Xoopsfaq;
  */
 function b_xoopsfaq_recent_show($options)
 {
-    $moduleDirName = basename(dirname(__DIR__));
+    $moduleDirName = \basename(\dirname(__DIR__));
 
     $myts = \MyTextSanitizer::getInstance();
 
-    /** @var Xoopsfaq\CategoryHandler $categoryHandler */ /** @var Xoopsfaq\ContentsHandler $contentsHandler */
+    /** @var Xoopsfaq\CategoryHandler $categoryHandler */
+    /** @var Xoopsfaq\ContentsHandler $contentsHandler */
     /** @var Xoopsfaq\Helper $helper */
-    $helper          = \XoopsModules\Xoopsfaq\Helper::getInstance();
+    $helper          = Helper::getInstance();
     $contentsHandler = $helper->getHandler('Contents');
-    $permHelper      = new \Xmf\Module\Helper\Permission($moduleDirName);
+    $permHelper      = new Permission($moduleDirName);
     $block           = [];
 
     $criteria = new \CriteriaCompo();
-    $criteria->add(new \Criteria('contents_active', Xoopsfaq\Constants::ACTIVE, '='));
+    $criteria->add(new \Criteria('contents_active', Constants::ACTIVE, '='));
     $criteria->setSort('contents_publish DESC, contents_weight');
     $criteria->order = 'ASC';
     $criteria->setLimit($options[0]);
@@ -122,12 +127,12 @@ function b_xoopsfaq_recent_show($options)
  */
 function b_xoopsfaq_recent_edit($options)
 {
-    $moduleDirName = basename(dirname(__DIR__));
+    $moduleDirName = \basename(\dirname(__DIR__));
     xoops_load('XoopsFormSelect');
 
     /** @var Xoopsfaq\CategoryHandler $categoryHandler */
     /** @var Xoopsfaq\Helper $helper */
-    $helper          = \XoopsModules\Xoopsfaq\Helper::getInstance();
+    $helper          = Helper::getInstance();
     $categoryHandler = $helper->getHandler('Category');
 
     $catList     = $categoryHandler->getList();

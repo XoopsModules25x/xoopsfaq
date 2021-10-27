@@ -17,11 +17,11 @@
  * @package   module\xoopsfaq\language
  * @author    John Neill
  * @author    XOOPS Module Development Team
- * @copyright Copyright (c) 2001-2017 {@link http://xoops.org XOOPS Project}
- * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @copyright Copyright (c) 2001-2017 {@link https://xoops.org XOOPS Project}
+ * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  *
  */
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * Bootstrap Defines
@@ -134,7 +134,7 @@ define('_AM_XOOPSFAQ_ERROR_BAD_REMOVE', 'Could not delete %s');
 //define('_AM_XOOPSFAQ_ADMIN_INDEX_TXT1', 'The XoopsFAQ module is used to create a list of Frequently Asked Questions (FAQs) for your website. It is typically used to create a list of common questions about your website, service or product(s), but you could use it to list questions and answers about anything really. FAQs can be organized into categories.');
 
 // Text for Admin footer
-//define('_AM_XOOPSFAQ_ADMIN_FOOTER', '<div class='center smallsmall italic pad5'>XOOPS FAQ is maintained by the <a class="tooltip" rel="external" href="http://xoops.org/" title="Visit XOOPS Community">XOOPS Community</a></div>');
+//define('_AM_XOOPSFAQ_ADMIN_FOOTER', '<div class='center smallsmall italic pad5'>XOOPS FAQ is maintained by the <a class="tooltip" rel="external" href="https://xoops.org/" title="Visit XOOPS Community">XOOPS Community</a></div>');
 
 define('_AM_XOOPSFAQ_ACTIVE_TOGGLE_SUCCESS', 'Successfully Changed Active Status');
 define('_AM_XOOPSFAQ_ACTIVE_TOGGLE_FAILED', 'Changing Active Status Failed');

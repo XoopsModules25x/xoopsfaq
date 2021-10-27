@@ -17,11 +17,11 @@
  * @package   module\xoopsfaq\language
  * @author    John Neill
  * @author    XOOPS Module Development Team
- * @copyright Copyright (c) 2001-2017 {@link http://xoops.org XOOPS Project}
- * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @copyright Copyright (c) 2001-2017 {@link https://xoops.org XOOPS Project}
+ * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  *
  */
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * Module Version
@@ -91,7 +91,7 @@ define('_MI_XOOPSFAQ_EDITORS', 'Select Editor:');
 define('_MI_XOOPSFAQ_EDITORS_DESC', 'Please select the editor you would like to use.');
 //1.25
 //Help
-define('_MI_XOOPSFAQ_DIRNAME', basename(dirname(dirname(__DIR__))));
+define('_MI_XOOPSFAQ_DIRNAME', basename(dirname(__DIR__, 2)));
 define('_MI_XOOPSFAQ_HELP_HEADER', __DIR__ . '/help/helpheader.tpl');
 define('_MI_XOOPSFAQ_BACK_2_ADMIN', 'Back to Administration of ');
 define('_MI_XOOPSFAQ_OVERVIEW', 'Overview');

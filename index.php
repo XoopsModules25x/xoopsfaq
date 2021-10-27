@@ -17,15 +17,21 @@
  * @package   module\xoopsfaq\frontside
  * @author    John Neill
  * @author    XOOPS Module Development Team
- * @copyright Copyright (c) 2001-2017 {@link http://xoops.org XOOPS Project}
- * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @copyright Copyright (c) 2001-2017 {@link https://xoops.org XOOPS Project}
+ * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  *
  * @see       \XoopsModules\Xoopsfaq\Helper
  * @see       Xmf\Request
  */
 
+use Xmf\Module\Helper\Permission;
 use Xmf\Request;
-use XoopsModules\Xoopsfaq;
+use XoopsModules\Xoopsfaq\{
+    Category,
+    CategoryHandler,
+    Constants,
+    Helper
+};
 
 /** @var Xoopsfaq\CategoryHandler $categoryHandler */
 /** @var Xoopsfaq\ContentsHandler $contentsHandler */
@@ -40,11 +46,11 @@ $contentsHandler = $helper->getHandler('Contents');
 
 $helper->loadLanguage('admin');
 
-$catId = Request::getInt('cat_id', Xoopsfaq\Constants::DEFAULT_CATEGORY, 'GET');
-if ($catId > Xoopsfaq\Constants::DEFAULT_CATEGORY) {
+$catId = Request::getInt('cat_id', Constants::DEFAULT_CATEGORY, 'GET');
+if ($catId > Constants::DEFAULT_CATEGORY) {
     // Check to see if user has permission to view
-    $permHelper = new \Xmf\Module\Helper\Permission($moduleDirName);
-    $permHelper->checkPermissionRedirect('viewcat', $catId, 'index.php', Xoopsfaq\Constants::REDIRECT_DELAY_MEDIUM, _NOPERM);
+    $permHelper = new Permission($moduleDirName);
+    $permHelper->checkPermissionRedirect('viewcat', $catId, 'index.php', Constants::REDIRECT_DELAY_MEDIUM, _NOPERM);
 
     // Prepare the theme/template
     $GLOBALS['xoopsOption']['template_main'] = 'xoopsfaq_category.tpl';
@@ -84,10 +90,10 @@ if ($catId > Xoopsfaq\Constants::DEFAULT_CATEGORY) {
             $keywords = Xmf\Metagen::generateKeywords($bodyWords);
             Xmf\Metagen::assignKeywords($keywords);
         }
-        include $GLOBALS['xoops']->path('include/comment_view.php');
+        require $GLOBALS['xoops']->path('include/comment_view.php');
     } else {
         // Passed an invalid cat_id so exit
-        $helper->redirect('index.php', Xoopsfaq\Constants::REDIRECT_DELAY_MEDIUM, _NOPERM);
+        $helper->redirect('index.php', Constants::REDIRECT_DELAY_MEDIUM, _NOPERM);
     }
 } else {
     $GLOBALS['xoopsOption']['template_main'] = 'xoopsfaq_index.tpl';
@@ -105,7 +111,7 @@ if ($catId > Xoopsfaq\Constants::DEFAULT_CATEGORY) {
     $catCriteria->order = 'ASC';
     $objects            = $categoryHandler->getObj($catCriteria);
     if (isset($objects['count']) && ($objects['count'] > 0)) {
-        $permHelper = new \Xmf\Module\Helper\Permission($moduleDirName);
+        $permHelper = new Permission($moduleDirName);
         $bodyWords  = '';
         /** @var \XoopsObject $object */
         foreach ($objects['list'] as $object) {

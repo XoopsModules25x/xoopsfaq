@@ -37,11 +37,10 @@ namespace XoopsModules\Xoopsfaq;
  *
  * @copyright::  {@link http://sourceforge.net/projects/xoops/ The XOOPS Project}
  * @license  ::    {@link https://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
- * @author   ::     zyspec <owners@zyspec.com>
+ * @author   ::     zyspec <zyspec@yahoo.com>
  * @package  ::    xoopsfaq
  * @since    ::      1.40
  **/
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Constants interface definitions
@@ -51,7 +50,7 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
  * class ensures these are set at module initialization and cannot be overwritten
  * during operation.
  *
- * @author ZySpec <owners@zyspec.com>
+ * @author ZySpec <zyspec@yahoo.com>
  *
  */
 interface Constants
