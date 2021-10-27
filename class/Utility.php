@@ -30,8 +30,7 @@ namespace XoopsModules\Xoopsfaq;
 
 use Xmf\Module\Admin;
 use XoopsModules\Xoopsfaq\{
-    Common,
-    Constants
+    Common
 };
 
 /**
