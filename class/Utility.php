@@ -52,23 +52,23 @@ class Utility extends Common\SysUtility
      */
     public static function renderIconLinks($icon_array = [], $param, $value = null, $extra = null)
     {
-        $moduleDirName = basename(dirname(__DIR__));
+        $moduleDirName = \basename(\dirname(__DIR__));
         xoops_loadLanguage('admin', $moduleDirName);
         $ret = '';
         if (null !== $value) {
             foreach ($icon_array as $_op => $icon) {
-                if (false === strpos($icon, '.')) {
+                if (false === \strpos($icon, '.')) {
                     $iconName = $icon;
                     $iconExt  = 'png';
                 } else {
-                    $iconName = substr($icon, 0, strlen($icon) - strrchr($icon, '.'));
-                    $iconExt  = substr(strrchr($icon, '.'), 1);
+                    $iconName = \substr($icon, 0, \strlen($icon) - \strrchr($icon, '.'));
+                    $iconExt  = \substr(\strrchr($icon, '.'), 1);
                 }
-                $url = (!is_numeric($_op)) ? $_op . '?' . $param . '=' . $value : xoops_getenv('SCRIPT_NAME') . '?op=' . $iconName . '&amp;' . $param . '=' . $value;
+                $url = (!\is_numeric($_op)) ? $_op . '?' . $param . '=' . $value : \xoops_getenv('SCRIPT_NAME') . '?op=' . $iconName . '&amp;' . $param . '=' . $value;
                 if (null !== $extra) {
                     $url .= ' ' . $extra;
                 }
-                $title = constant(htmlspecialchars(mb_strtoupper('_XO_LA_' . $iconName), ENT_QUOTES | ENT_HTML5));
+                $title = \constant(\htmlspecialchars(mb_strtoupper('_XO_LA_' . $iconName), \ENT_QUOTES | \ENT_HTML5));
                 $img   = '<img src="' . \Xmf\Module\Admin::iconUrl($iconName . '.' . $iconExt, '16') . '"' . ' title ="' . $title . '"' . ' alt = "' . $title . '"' . ' class="bnone middle">';
                 $ret   .= '<a href="' . $url . '"' . $extra . '>' . $img . '</a>';
             }
