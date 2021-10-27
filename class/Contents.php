@@ -224,7 +224,7 @@ class Contents extends XoopsObject
     /**
      * Get the timestamp for when Content (FAQ) was published
      *
-     * @param int|string Unix timestamp
+     * @param int|string $timestamp Unix timestamp
      *
      * @return string formatted timestamp on success, false on failure
      */

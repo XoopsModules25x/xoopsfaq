@@ -56,7 +56,7 @@ class ContentsHandler extends XoopsPersistableObjectHandler
     /**
      * ContentsHandler::getObj()
      *
-     * @param \CriteriaElement|string sort order ('id', 'cid', 'title', 'publish', or 'weight') default: 'id'
+     * @param \CriteriaElement|string $sort sort order ('id', 'cid', 'title', 'publish', or 'weight') default: 'id'
      *
      * @return false Contents object | false on failure
      */

@@ -34,20 +34,6 @@ use XoopsObject;
 use XoopsThemeForm;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
  * Category
  *
