@@ -61,74 +61,74 @@ interface Constants
     /**
      * default category
      */
-    const DEFAULT_CATEGORY = 0;
+    public const DEFAULT_CATEGORY = 0;
     /**
      * not published
      */
-    const NOT_PUBLISHED = 0;
+    public const NOT_PUBLISHED = 0;
     /**
      * is published
      */
-    const PUBLISHED = 1;
+    public const PUBLISHED = 1;
     /**
      * FAQ inactive
      */
-    const INACTIVE = 0;
+    public const INACTIVE = 0;
     /**
      * FAQ active
      */
-    const ACTIVE = 1;
+    public const ACTIVE = 1;
     /**
      * Invalid FAQ ID
      */
-    const INVALID_FAQ_ID = 0;
+    public const INVALID_FAQ_ID = 0;
     /**
      * no delay XOOPS redirect delay (in seconds)
      */
-    const REDIRECT_DELAY_NONE = 0;
+    public const REDIRECT_DELAY_NONE = 0;
     /**
      * short XOOPS redirect delay (in seconds)
      */
-    const REDIRECT_DELAY_SHORT = 1;
+    public const REDIRECT_DELAY_SHORT = 1;
     /**
      * medium XOOPS redirect delay (in seconds)
      */
-    const REDIRECT_DELAY_MEDIUM = 3;
+    public const REDIRECT_DELAY_MEDIUM = 3;
     /**
      * long XOOPS redirect delay (in seconds)
      */
-    const REDIRECT_DELAY_LONG = 7;
+    public const REDIRECT_DELAY_LONG = 7;
     /**
      * default category order for display order
      */
-    const DEFAULT_ORDER = 0;
+    public const DEFAULT_ORDER = 0;
     /**
      * default contents order for display weight
      */
-    const DEFAULT_WEIGHT = 0;
+    public const DEFAULT_WEIGHT = 0;
     /**
      * confirm not ok to take action
      */
-    const CONFIRM_NOT_OK = 0;
+    public const CONFIRM_NOT_OK = 0;
     /**
      * confirm ok to take action
      */
-    const CONFIRM_OK = 1;
+    public const CONFIRM_OK = 1;
     /**
      * Set content editing flag
      */
-    const SET = 1;
+    public const SET = 1;
     /**
      * Unset content editing flag
      */
-    const NOTSET = 0;
+    public const NOTSET = 0;
     /**
      * Include Annon Group
      */
-    const INCLUDE_ANNON = 1;
+    public const INCLUDE_ANNON = 1;
     /**
      * Exclude Annon Group
      */
-    const EXCLUDE_ANNON = 0;
+    public const EXCLUDE_ANNON = 0;
     /**#@-*/
 }
