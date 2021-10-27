@@ -68,7 +68,7 @@ class Utility extends Common\SysUtility
                     $url .= ' ' . $extra;
                 }
                 $title = \constant(\htmlspecialchars(mb_strtoupper('_XO_LA_' . $iconName), \ENT_QUOTES | \ENT_HTML5));
-                $img   = '<img src="' . \Xmf\Module\Admin::iconUrl($iconName . '.' . $iconExt, '16') . '"' . ' title ="' . $title . '"' . ' alt = "' . $title . '"' . ' class="bnone middle">';
+                $img   = '<img src="' . Admin::iconUrl($iconName . '.' . $iconExt, '16') . '"' . ' title ="' . $title . '"' . ' alt = "' . $title . '"' . ' class="bnone middle">';
                 $ret   .= '<a href="' . $url . '"' . $extra . '>' . $img . '</a>';
             }
         }
