@@ -31,7 +31,7 @@ $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
 // Module configs
 $modversion = [
-    'version'             => 2.01,
+    'version'             => '2.1.0',
     'module_status'       => 'Alpha 2 NOT RELEASED',
     'release_date'        => '2021/10/27',
     'name'                => _MI_XOOPSFAQ_NAME,
