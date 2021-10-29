@@ -27,6 +27,7 @@
 use Xmf\Module\Helper\Permission;
 use Xmf\Request;
 use XoopsModules\Xoopsfaq\{
+    Common\Jsonld,
     Category,
     CategoryHandler,
     Constants,
@@ -86,9 +87,24 @@ if ($catId > Constants::DEFAULT_CATEGORY) {
                 ];
                 $GLOBALS['xoopsTpl']->append('questions', $question);
                 $bodyWords .= ' ' . $obj->getVar('contents_title') . ' ' . $obj->getVar('contents_contents');
+
+                //get data for JSON-LD
+                if ($helper->getConfig('generate_jsonld')) {
+                    $content[] =  [
+                        'title'  => $obj->getVar('contents_title'),
+                        'answer' => $obj->getVar('contents_contents'),
+                    ];
+                }
             }
+
             $keywords = Xmf\Metagen::generateKeywords($bodyWords);
             Xmf\Metagen::assignKeywords($keywords);
+
+            // generate JSON-LD and add to page
+            if ($helper->getConfig('generate_jsonld')) {
+                $jsonld = Jsonld::getJsonld($content);
+                echo $jsonld;
+            }
         }
         require $GLOBALS['xoops']->path('include/comment_view.php');
     } else {

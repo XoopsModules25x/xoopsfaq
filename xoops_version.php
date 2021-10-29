@@ -171,6 +171,15 @@ $modversion['config'][] = [
     'default'     => 'dhtmltextarea',
 ];
 
+$modversion['config'][] = [
+    'name'        => 'generate_jsonld',
+    'title'       => 'CO_' . $moduleDirNameUpper . '_' . 'GENERATE_JSONLD',
+    'description' => 'CO_' . $moduleDirNameUpper . '_' . 'GENERATE_JSONLD_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1,
+];
+
 /**
  * Make Sample button visible?
  */

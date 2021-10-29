@@ -2,6 +2,7 @@
 <hr>
 - various updates/cosmetics (mamba)
 - PHP 8 template defaults (mamba)
+- added JSON-LD for FAQ (mamba)
 
 
 <h5>2.01 Alpha 1   [NOT RELEASED]</h5>  Dev: XOOPS 2.5.11, PHP 7.4.10, PHP 8.0 Beta 3
