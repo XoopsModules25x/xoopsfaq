@@ -32,8 +32,8 @@ $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 // Module configs
 $modversion = [
     'version'             => '2.1.0',
-    'module_status'       => 'Alpha 2 NOT RELEASED',
-    'release_date'        => '2021/10/27',
+    'module_status'       => 'alpha.2',
+    'release_date'        => '2021/10/29',
     'name'                => _MI_XOOPSFAQ_NAME,
     'description'         => _MI_XOOPSFAQ_DESC,
     'author'              => 'John Neill, Kazumi Ono',
