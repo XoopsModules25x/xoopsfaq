@@ -69,7 +69,7 @@ if ($catId > Constants::DEFAULT_CATEGORY) {
 
     // Display FAQs in a specific category
     $catObj = $categoryHandler->get($catId);
-    if (!empty($catObj) && !$catObj->isNew()) {
+    if ($catObj !== null && !$catObj->isNew()) {
         Xmf\Metagen::assignTitle($catObj->getVar('category_title'));
         $GLOBALS['xoopsTpl']->assign('category_name', $catObj->getVar('category_title'));
 
