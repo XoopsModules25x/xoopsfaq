@@ -48,9 +48,9 @@ final class CategoryHandler extends \XoopsPersistableObjectHandler
      *
      * @param string|null $sort order ('id', order', or 'title') - default: id
      *
-     * @return array Category | false on failure
+     * @return array Category
      */
-    public function getObj($sort = null)
+    public function getObj($sort = null): array
     {
         $obj = [];
         if ((null !== $sort) && (!$sort instanceof \CriteriaElement)) {
@@ -88,7 +88,7 @@ final class CategoryHandler extends \XoopsPersistableObjectHandler
      *
      * @return string HTML listing for Admin
      */
-    public function renderAdminListing($sort = null)
+    public function renderAdminListing($sort = null): string
     {
         $sort ??= 'id';
         //        if (!\class_exists('Xoopsfaq\Utility')) {

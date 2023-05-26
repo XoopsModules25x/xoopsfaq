@@ -9,7 +9,7 @@ use XoopsModules\Xoopsfaq\{
 
 class Jsonld
 {
-    public static function getJsonld(?array $data, $settings = null)
+    public static function getJsonld(?array $data, $settings = null): string
     {
         $out    = '';
         $jsonld = [];

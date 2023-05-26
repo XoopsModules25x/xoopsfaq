@@ -78,7 +78,7 @@ final class Category extends XoopsObject
      *
      * @return string HTML entities used to edit the catagory object
      */
-    public function renderForm()
+    public function renderForm(): string
     {
         require_once $GLOBALS['xoops']->path('class/xoopsformloader.php');
         $permHelper = new Permission();

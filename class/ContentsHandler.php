@@ -54,9 +54,9 @@ final class ContentsHandler extends XoopsPersistableObjectHandler
      *
      * @param \CriteriaElement|string|null $sort sort order ('id', 'cid', 'title', 'publish', or 'weight') default: 'id'
      *
-     * @return array Contents object | false on failure
+     * @return array Contents object
      */
-    public function getObj($sort = null)
+    public function getObj($sort = null): array
     {
         $sort ??= 'id';
         $obj = [];
@@ -82,7 +82,7 @@ final class ContentsHandler extends XoopsPersistableObjectHandler
      * @param string|null $id
      * @return array array of XoopsfaqContent objects
      */
-    public function getPublished(?string $id = null)
+    public function getPublished(?string $id = null): array
     {
         $id ??= '';
         \xoops_load('constants', \basename(\dirname(__DIR__)));
@@ -111,7 +111,7 @@ final class ContentsHandler extends XoopsPersistableObjectHandler
      *
      * @return array contains category ids
      */
-    public function getCategoriesIdsWithContent()
+    public function getCategoriesIdsWithContent(): array
     {
         $ret    = [];
         $sql    = 'SELECT contents_cid ';
@@ -146,7 +146,7 @@ final class ContentsHandler extends XoopsPersistableObjectHandler
      * @return string html listing of Contents (FAQ) for Admin
      * @see \XoopsModules\Xoopsfaq\Helper
      */
-    public function renderAdminListing($sort = null)
+    public function renderAdminListing($sort = null): string
     {
         $sort ??= 'id';
         //        if (!\class_exists('Xoopsfaq\Utility')) {

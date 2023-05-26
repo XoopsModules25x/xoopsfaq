@@ -206,7 +206,7 @@ final class Contents extends \XoopsObject
      *
      * @return string HTML <img> tag representing current active status
      */
-    public function getActiveIcon()
+    public function getActiveIcon(): string
     {
         if ($this->getVar('contents_active') > Constants::INACTIVE) {
             $icon = '<img src="' . Admin::iconUrl('green.gif', '16') . '" alt="' . _YES . '">';
@@ -224,7 +224,7 @@ final class Contents extends \XoopsObject
      *
      * @return string formatted timestamp on success, false on failure
      */
-    public function getPublished($timestamp = '')
+    public function getPublished($timestamp = ''): string
     {
         if (!$this->getVar('contents_publish')) {
             return '';
