@@ -25,7 +25,7 @@
 - contents_id: '3'
   contents_cid: '1'
   contents_title: 'What is XOOPS?'
-  contents_contents: "[b]XOOPS is a web application platform written in PHP for the MySQL database. Its object orientation makes it an ideal tool for developing small or large community websites, intra company and corporate portals, weblogs and much more.[/b]\r\n\r\nThe Project websites are, but not limited to:\r\n\r\nProject development: http://sourceforge.net/projects/xoops\r\nProject and community support: https://xoops.org\r\nThird-party development support: http://dev.xoops.org\r\n\r\nXOOPS is released under the terms of the [b]GNU General Public License (GPL)[/b] and is free to use and modify. It is free to redistribute as long as you abide by the distribution terms of the GPL."
+  contents_contents: "[b]XOOPS is a web application platform written in PHP for the MySQL database. Its object orientation makes it an ideal tool for developing small or large community websites, intra company and corporate portals, weblogs and much more.[/b]\r\n\r\nThe Project websites are, but not limited to:\r\n\r\nProject development: https://sourceforge.net/projects/xoops\r\nProject and community support: https://xoops.org\r\nThird-party development support: http://dev.xoops.org\r\n\r\nXOOPS is released under the terms of the [b]GNU General Public License (GPL)[/b] and is free to use and modify. It is free to redistribute as long as you abide by the distribution terms of the GPL."
   contents_publish: '1578441600'
   contents_weight: '0'
   contents_active: '1'

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace XoopsModules\Xoopsfaq\Common;
 
@@ -15,11 +15,11 @@ namespace XoopsModules\Xoopsfaq\Common;
  * Breadcrumb Class
  *
  * @copyright   XOOPS Project (https://xoops.org)
- * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license     GNU GPL 2.0 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @author      lucio <lucio.rota@gmail.com>
  *
  * Example:
- * $breadcrumb = new PedigreeBreadcrumb();
+ * $breadcrumb = new Breadcrumb();
  * $breadcrumb->addLink( 'bread 1', 'index1.php' );
  * $breadcrumb->addLink( 'bread 2', '' );
  * $breadcrumb->addLink( 'bread 3', 'index3.php' );
@@ -44,7 +44,6 @@ class Breadcrumb
 
     /**
      * Add link to breadcrumb
-     *
      */
     public function addLink(string $title = '', string $link = ''): void
     {

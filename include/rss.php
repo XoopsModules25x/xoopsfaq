@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -21,7 +21,6 @@
  *
  * @see       Xmf\Request
  * @see       \XoopsModules\Xoopsfaq\Helper
- * @package   module\xoopsfaq\rss
  * @author    XOOPS Module Development Team
  */
 
@@ -76,5 +75,6 @@ function xoopsfaq_rss($max = 10)
         ];
     }
     unset($contentsHandler, $contentObjs);
+
     return $retVal;
 }

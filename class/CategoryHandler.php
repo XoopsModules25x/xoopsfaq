@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace XoopsModules\Xoopsfaq;
 
@@ -16,13 +16,11 @@ namespace XoopsModules\Xoopsfaq;
 /**
  * XOOPS FAQ Category & Category Handler Class Definitions
  *
- * @package   module\xoopsfaq\class
  * @author    John Neill
  * @author    XOOPS Module Development Team
  * @copyright Copyright (c) 2001-2017 {@link https://xoops.org XOOPS Project}
  * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @since     ::   1.23
- *
  */
 
 use Xmf\Module\Admin;
@@ -30,7 +28,6 @@ use Xmf\Module\Admin;
 /**
  * CategoryHandler
  *
- * @package  ::   xoopsfaq
  * @author   ::    John Neill
  * @copyright:: Copyright (c) 2009
  */
@@ -51,16 +48,16 @@ class CategoryHandler extends \XoopsPersistableObjectHandler
      *
      * @param string $sort order ('id', order', or 'title') - default: id
      *
-     * @return false Category | false on failure
+     * @return array|false Category | false on failure
      */
     public function getObj($sort = 'id')
     {
-        $obj = false;
+        $obj = [];
         if ((null !== $sort) && (!$sort instanceof \CriteriaElement)) {
             $criteria        = new \CriteriaCompo();
             $obj['count']    = $this->getCount($criteria);
             $criteria->order = 'ASC';
-            $sort            = \in_array(mb_strtolower($sort), ['id', 'order', 'title']) ? 'category_' . \mb_strtolower($sort) : 'category_id';
+            $sort            = \in_array(mb_strtolower($sort), ['id', 'order', 'title'], true) ? 'category_' . \mb_strtolower($sort) : 'category_id';
             $criteria->setSort($sort);
             $criteria->setStart(0);
             $criteria->setLimit(0);
@@ -69,6 +66,7 @@ class CategoryHandler extends \XoopsPersistableObjectHandler
         }
         $obj['list']  = $this->getObjects($criteria, false);
         $obj['count'] = (false !== $obj['list']) ? \count($obj['list']) : 0;
+
         return $obj;
     }
 
@@ -76,9 +74,8 @@ class CategoryHandler extends \XoopsPersistableObjectHandler
      * CategoryHandler::displayAdminListing()
      *
      * @param string $sort
-     * @return void
      */
-    public function displayAdminListing($sort = 'id')
+    public function displayAdminListing($sort = 'id'): void
     {
         echo $this->renderAdminListing($sort);
     }
@@ -92,10 +89,11 @@ class CategoryHandler extends \XoopsPersistableObjectHandler
      */
     public function renderAdminListing($sort = 'id')
     {
-//        if (!\class_exists('Xoopsfaq\Utility')) {
-//            \xoops_load('utility', \basename(\dirname(__DIR__)));
-//        }
+        //        if (!\class_exists('Xoopsfaq\Utility')) {
+        //            \xoops_load('utility', \basename(\dirname(__DIR__)));
+        //        }
 
+        /** @var array $objects */
         $objects = $this->getObj($sort);
 
         $buttons = ['edit', 'delete'];
@@ -139,6 +137,7 @@ class CategoryHandler extends \XoopsPersistableObjectHandler
             $ret .= '  <tr class="txtcenter"><td colspan="4" class="even">' . \_AM_XOOPSFAQ_NOLISTING . '</td></tr>';
         }
         $ret .= '  </tbody>' . '</table>';
+
         return $ret;
     }
 
@@ -146,10 +145,8 @@ class CategoryHandler extends \XoopsPersistableObjectHandler
      * Display the class error(s) encountered
      *
      * @param array|string $errors the error(s) to be displayed
-     *
-     * @return void
      */
-    public function displayError($errors = '')
+    public function displayError($errors = ''): void
     {
         if ('' !== $errors) {
             \xoops_cp_header();
@@ -158,6 +155,5 @@ class CategoryHandler extends \XoopsPersistableObjectHandler
             \xoops_error($errors, \_AM_XOOPSFAQ_ERROR_SUB);
             \xoops_cp_footer();
         }
-        return;
     }
 }

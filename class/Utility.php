@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace XoopsModules\Xoopsfaq;
 
@@ -20,7 +18,6 @@ namespace XoopsModules\Xoopsfaq;
 /**
  * Module:  myQuiz
  *
- * @package      ::    \module\xoopsfaq\class
  * @license      https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @copyright    https://xoops.org 2001-2017 &copy; XOOPS Project
  * @author       ZySpec <zyspec@yahoo.com>
@@ -39,7 +36,6 @@ use XoopsModules\Xoopsfaq\{
 class Utility extends Common\SysUtility
 {
     //--------------- Custom module methods -----------------------------
-
     /**
      * Render the icon links
      *
@@ -49,19 +45,19 @@ class Utility extends Common\SysUtility
      * @param mixed $extra      are any additional HTML attributes desired for the <a> tag
      * @return string
      */
-    public static function renderIconLinks($icon_array = [], $param, $value = null, $extra = null)
+    public static function renderIconLinks($icon_array, $param, $value = null, $extra = null)
     {
         $moduleDirName = \basename(\dirname(__DIR__));
         xoops_loadLanguage('admin', $moduleDirName);
         $ret = '';
         if (null !== $value) {
             foreach ($icon_array as $_op => $icon) {
-                if (false === \strpos($icon, '.')) {
+                if (false === \mb_strpos($icon, '.')) {
                     $iconName = $icon;
                     $iconExt  = 'png';
                 } else {
-                    $iconName = \substr($icon, 0, \strlen($icon) - \strrchr($icon, '.'));
-                    $iconExt  = \substr(\strrchr($icon, '.'), 1);
+                    $iconName = \mb_substr($icon, 0, \mb_strlen($icon) - \mb_strrchr($icon, '.'));
+                    $iconExt  = \mb_substr(\mb_strrchr($icon, '.'), 1);
                 }
                 $url = (!\is_numeric($_op)) ? $_op . '?' . $param . '=' . $value : \xoops_getenv('SCRIPT_NAME') . '?op=' . $iconName . '&amp;' . $param . '=' . $value;
                 if (null !== $extra) {
@@ -72,7 +68,7 @@ class Utility extends Common\SysUtility
                 $ret   .= '<a href="' . $url . '"' . $extra . '>' . $img . '</a>';
             }
         }
+
         return $ret;
     }
-
 }

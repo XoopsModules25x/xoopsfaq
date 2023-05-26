@@ -2,7 +2,7 @@
     <h1 class="head">Help:
         <a class="ui-corner-all tooltip" href="<{$xoops_url}>/modules/xoopsfaq/admin/index.php"
            title="Back to the administration of XOOPS FAQ"> XOOPS FAQ
-            <img src="<{xoAdminIcons home.png}>"
+            <img src="<{xoAdminIcons 'home.png'}>"
                  alt="Back to the Administration of XOOPS FAQ">
         </a></h1>
     <!-- ===== Help Content ======= -->
@@ -12,7 +12,7 @@
     <h5 class="even">Category Group Permissions</h5>
     <p style='margin: 1.4em 0;'>XOOPS FAQ allows the administrator to manage group
         permissions using XOOPS groups. Detailed instructions on configuring the access rights for user groups are available in the
-        <a href="http://goo.gl/adT2i">XOOPS Operations Manual</a></p>
+        <a href="https://goo.gl/adT2i">XOOPS Operations Manual</a></p>
     <p style='margin: 1.4em 0;'>Selecting individual groups or categories - You
         can select individual groups by selecting each desired group with the mouse
         while at the same time holding down the CTRL key (Windows) or the COMMAND / Apple key (MAC).</p>

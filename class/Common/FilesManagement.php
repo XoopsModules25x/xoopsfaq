@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace XoopsModules\Xoopsfaq\Common;
 
@@ -14,7 +14,7 @@ namespace XoopsModules\Xoopsfaq\Common;
 
 /**
  * @copyright   XOOPS Project (https://xoops.org)
- * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license     GNU GPL 2.0 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @author      mamba <mambax7@gmail.com>
  */
 trait FilesManagement
@@ -147,6 +147,7 @@ trait FilesManagement
             }
         }
         $iterator = null;   // clear iterator Obj to close file/directory
+
         return \rmdir($src); // remove the directory & return results
     }
 
@@ -187,6 +188,7 @@ trait FilesManagement
             }
         }
         $iterator = null;   // clear iterator Obj to close file/directory
+
         return \rmdir($src); // remove the directory & return results
     }
 

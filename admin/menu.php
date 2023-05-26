@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -13,7 +13,6 @@
 /**
  * Administration Menu for the Xoops FAQ Module
  *
- * @package   module\xoopsfaq\admin
  * @author    John Neill
  * @author    XOOPS Module Development Team
  * @copyright Copyright (c) 2001-2017 {@link https://xoops.org XOOPS Project}
@@ -31,7 +30,6 @@ use XoopsModules\Xoopsfaq\{
 require \dirname(__DIR__) . '/preloads/autoloader.php';
 
 /** @var \XoopsModules\Xoopsfaq\Helper $helper */
-
 $moduleDirName      = \basename(\dirname(__DIR__));
 $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
@@ -40,7 +38,7 @@ $helper->loadLanguage('modinfo');
 $helper->loadLanguage('common');
 
 // get path to icons
-$pathModIcon32 = XOOPS_URL .   '/modules/' . $moduleDirName . '/assets/images/icons/32/';
+$pathModIcon32 = XOOPS_URL . '/modules/' . $moduleDirName . '/assets/images/icons/32/';
 if (is_object($helper->getModule()) && false !== $helper->getModule()->getInfo('modicons32')) {
     $pathModIcon32 = $helper->url($helper->getModule()->getInfo('modicons32'));
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -15,13 +15,11 @@
  *
  * Module Configuration file
  *
- * @package         module\xoopsfaq\initialization
  * @author          John Neill
  * @author          XOOPS Module Development Team
  * @copyright       https://xoops.org 2001-2017 &copy; XOOPS Project
  * @license         https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  */
-
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 require_once __DIR__ . '/preloads/autoloader.php';
@@ -53,7 +51,7 @@ $modversion = [
     'author_website_name' => 'XOOPS',
     'module_website_url'  => 'https://xoops.org',
     'module_website_name' => 'XOOPS',
-    'min_php'             => '7.3',
+    'min_php'             => '7.4',
     'min_xoops'           => '2.5.10',
     'min_db'              => ['mysql' => '5.5'],
     'min_admin'           => '1.2',

@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace XoopsModules\Xoopsfaq\Common;
 
@@ -14,14 +12,13 @@ namespace XoopsModules\Xoopsfaq\Common;
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-
 /**
  * Class Migrate synchronize existing tables with target schema
  *
  * @category  Migrate
  * @author    Richard Griffith <richard@geekwright.com>
  * @copyright 2016 XOOPS Project (https://xoops.org)
- * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
+ * @license   GNU GPL 2.0 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @link      https://xoops.org
  */
 class Migrate extends \Xmf\Database\Migrate
@@ -32,8 +29,8 @@ class Migrate extends \Xmf\Database\Migrate
 
     /**
      * Migrate constructor.
-     * @throws \RuntimeException
      * @throws \InvalidArgumentException
+     * @throws \RuntimeException
      */
     public function __construct()
     {
@@ -41,8 +38,8 @@ class Migrate extends \Xmf\Database\Migrate
         if (!\class_exists($class)) {
             throw new \RuntimeException("Class '$class' not found");
         }
-        $configurator       = new $class();
-        $this->renameTables = $configurator->renameTables;
+        $configurator        = new $class();
+        $this->renameTables  = $configurator->renameTables;
         $this->renameColumns = $configurator->renameColumns;
 
         $this->moduleDirName = \basename(\dirname(__DIR__, 2));
@@ -101,7 +98,7 @@ class Migrate extends \Xmf\Database\Migrate
         //                $this->tableHandler->addToQueue($sql);
         //            }
         //        }
-                }
+    }
 
     /**
      * rename table if needed
@@ -125,7 +122,7 @@ class Migrate extends \Xmf\Database\Migrate
                 $oldName    = $tableName['from'];
                 $newName    = $tableName['to'];
                 $attributes = $this->tableHandler->getColumnAttributes($tableName, $oldName);
-                if (\is_string($attributes) && false !== \strpos($attributes, ' int(')) {
+                if (\is_string($attributes) && false !== \mb_strpos($attributes, ' int(')) {
                     $this->tableHandler->alterColumn($tableName, $oldName, $attributes, $newName);
                 }
             }

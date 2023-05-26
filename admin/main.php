@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -13,7 +13,6 @@
 /**
  * Admin Main Process File for Xoops FAQ Admin
  *
- * @package   module\xoopsfaq\admin
  * @author    John Neill
  * @author    XOOPS Module Development Team
  * @copyright Copyright (c) 2001-2017 {@link https://xoops.org XOOPS Project}
@@ -25,8 +24,8 @@
 
 use Xmf\Request;
 use XoopsModules\Xoopsfaq\{
-    Contents,
-    Constants
+    Constants,
+    Contents
 };
 
 require_once __DIR__ . '/admin_header.php';
@@ -35,7 +34,6 @@ xoops_cp_header();
 /** @var Xoopsfaq\CategoryHandler $categoryHandler */
 /** @var Xoopsfaq\ContentsHandler $contentsHandler */
 /** @var Xoopsfaq\Helper $helper */
-
 $contentsHandler = $helper->getHandler('Contents');
 $adminObject     = Xmf\Module\Admin::getInstance();
 
@@ -51,7 +49,6 @@ switch ($op) {
             $contentsHandler->displayError(_AM_XOOPSFAQ_ERROR_COULD_NOT_EDIT_CAT);
         }
         break;
-
     case 'delete':
         $ok    = Request::getInt('ok', Constants::CONFIRM_NOT_OK);
         $faqId = Request::getInt('contents_id', Constants::INVALID_FAQ_ID);
@@ -71,7 +68,6 @@ switch ($op) {
             xoops_confirm(['op' => 'delete', 'contents_id' => $faqId, 'ok' => Constants::CONFIRM_OK], basename(__FILE__), _AM_XOOPSFAQ_RUSURE_CONTENTS);
         }
         break;
-
     case 'save':
         if (!$GLOBALS['xoopsSecurity']->check()) {
             $helper->redirect('admin/main.php', Constants::REDIRECT_DELAY_MEDIUM, $GLOBALS['xoopsSecurity']->getErrors(true));
@@ -104,7 +100,6 @@ switch ($op) {
             $contentsHandler->displayError($ret);
         }
         break;
-
     case 'default':
     default:
         $categoryHandler = $helper->getHandler('Category');

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -14,7 +14,6 @@
  * XoopsFAQ module
  * Description: Display user side code, categories, and FAQ answers
  *
- * @package   module\xoopsfaq\frontside
  * @author    John Neill
  * @author    XOOPS Module Development Team
  * @copyright Copyright (c) 2001-2017 {@link https://xoops.org XOOPS Project}
@@ -27,9 +26,9 @@
 use Xmf\Module\Helper\Permission;
 use Xmf\Request;
 use XoopsModules\Xoopsfaq\{
-    Common\Jsonld,
     Category,
     CategoryHandler,
+    Common\Jsonld,
     Constants,
     Helper
 };
@@ -37,7 +36,6 @@ use XoopsModules\Xoopsfaq\{
 /** @var Xoopsfaq\CategoryHandler $categoryHandler */
 /** @var Xoopsfaq\ContentsHandler $contentsHandler */
 /** @var Xoopsfaq\Helper $helper */
-
 require_once __DIR__ . '/header.php';
 
 $moduleDirName = basename(__DIR__);
@@ -90,7 +88,7 @@ if ($catId > Constants::DEFAULT_CATEGORY) {
 
                 //get data for JSON-LD
                 if ($helper->getConfig('generate_jsonld')) {
-                    $content[] =  [
+                    $content[] = [
                         'title'  => $obj->getVar('contents_title'),
                         'answer' => $obj->getVar('contents_contents'),
                     ];
@@ -150,7 +148,7 @@ if ($catId > Constants::DEFAULT_CATEGORY) {
                         $bodyWords               .= ' ' . $content->getVar('contents_title');
                     }
                 }
-                $GLOBALS['xoopsTpl']->append_by_ref('categories', $category);
+                $GLOBALS['xoopsTpl']->appendByRef('categories', $category);
                 unset($category);
             }
         }

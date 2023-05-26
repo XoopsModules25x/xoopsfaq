@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -13,7 +13,6 @@
 /**
  * Admin display footer file
  *
- * @package   module\xoopsfaq\admin
  * @author    XOOPS Module Development Team
  * @copyright Copyright (c) 2001-2017 {@link https://xoops.org XOOPS Project}
  * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
@@ -27,7 +26,6 @@ use Xmf\Module\Admin;
 use XoopsModules\Xoopsfaq\{
     Helper
 };
-
 
 require \dirname(__DIR__, 3) . '/include/cp_header.php';
 require_once \dirname(__DIR__, 3) . '/class/xoopsformloader.php';
@@ -46,4 +44,3 @@ $adminObject = Admin::getInstance();
 $helper->loadLanguage('admin');
 $helper->loadLanguage('modinfo');
 $helper->loadLanguage('common');
-

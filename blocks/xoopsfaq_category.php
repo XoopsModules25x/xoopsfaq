@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -13,7 +13,6 @@
 /**
  * Display/Edit Category Block
  *
- * @package   module\xoopsfaq\blocks
  * @author    ZySpec
  * @author    XOOPS Module Development Team
  * @copyright Copyright (c) 2001-2020 {@link https://xoops.org XOOPS Project}
@@ -37,7 +36,7 @@ use XoopsModules\Xoopsfaq\{
  * @param array $options for display parameters
  *                       [0] = only show cats with active FAQs
  *
- * @return array $block containing category titles and links
+ * @return array containing category titles and links
  */
 function b_xoopsfaq_category_show($options)
 {
@@ -94,6 +93,7 @@ function b_xoopsfaq_category_show($options)
         }
     }
     unset($catObjArray, $categoryHandler);
+
     return $block;
 }
 
@@ -121,5 +121,6 @@ function b_xoopsfaq_category_edit($options)
              . $ychck
              . '></div>'
              . "\n";
+
     return $form;
 }

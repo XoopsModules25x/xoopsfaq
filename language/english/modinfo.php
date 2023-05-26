@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -14,12 +14,10 @@
  * XoopsFAQ module
  * Description: Module Init Language Definitions
  *
- * @package   module\xoopsfaq\language
  * @author    John Neill
  * @author    XOOPS Module Development Team
  * @copyright Copyright (c) 2001-2017 {@link https://xoops.org XOOPS Project}
  * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
- *
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
@@ -98,7 +96,7 @@ define('_MI_XOOPSFAQ_OVERVIEW', 'Overview');
 
 //define('_MI_XOOPSFAQ_HELP_DIR', __DIR__);
 
-//help multi-page
+//help multipage
 define('_MI_XOOPSFAQ_DISCLAIMER', 'Disclaimer');
 define('_MI_XOOPSFAQ_LICENSE', 'License');
 define('_MI_XOOPSFAQ_SUPPORT', 'Support');

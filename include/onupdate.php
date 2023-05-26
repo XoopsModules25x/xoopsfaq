@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -13,7 +13,6 @@
 /**
  * Module: XoopsFAQ
  *
- * @package   module\xoopsfaq\include
  * @author    Richard Griffith <richard@geekwright.com>
  * @author    trabis <lusopoemas@gmail.com>
  * @author    XOOPS Module Development Team
@@ -38,26 +37,24 @@ if ((!defined('XOOPS_ROOT_PATH'))
 /**
  * Pre-installation checks before installation of Xoopsfaq
  *
- * @param \XoopsModule $module
- * @param string       $prev_version version * 100
+ * @param string $prev_version version * 100
  *
  * @return bool success ok to install
  *
  * @see Xoopsfaq\Utility
- *
  */
 function xoops_module_pre_update_xoopsfaq(\XoopsModule $module, $prev_version)
 {
     $xoopsSuccess = Utility::checkVerXoops($module);
     $phpSuccess   = Utility::checkVerPhp($module);
+
     return $xoopsSuccess && $phpSuccess;
 }
 
 /**
  * Upgrade works to update Xoopsfaq from previous versions
  *
- * @param XoopsModule $module
- * @param string      $prev_version version * 100
+ * @param string $prev_version version * 100
  *
  * @return bool
  *
@@ -69,9 +66,9 @@ function xoops_module_update_xoopsfaq(XoopsModule $module, $prev_version)
 {
     $moduleDirName = $module->getVar('dirname');
     $helper        = Helper::getInstance();
-//    if (!class_exists('Xoopsfaq\Utility')) {
-//        xoops_load('utility', $moduleDirName);
-//    }
+    //    if (!class_exists('Xoopsfaq\Utility')) {
+    //        xoops_load('utility', $moduleDirName);
+    //    }
 
     //----------------------------------------------------------------
     // Upgrade for Xoopsfaq < 1.25
@@ -97,6 +94,7 @@ function xoops_module_update_xoopsfaq(XoopsModule $module, $prev_version)
                 // The directory exists so delete it
                 if (false === Utility::rrmdir($old_dir)) {
                     $module->setErrors(sprintf(_AM_XOOPSFAQ_ERROR_BAD_DEL_PATH, $old_dir));
+
                     return false;
                 }
             }
@@ -109,11 +107,12 @@ function xoops_module_update_xoopsfaq(XoopsModule $module, $prev_version)
         //-----------------------------------------------------------------------
         $path       = $helper->path('templates/');
         $unfiltered = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
-        $iterator   = new RegexIterator($unfiltered, "/.*\.html/");
+        $iterator   = new RegexIterator($unfiltered, '/.*\.html/');
         foreach ($iterator as $name => $fObj) {
             if (($fObj->isFile()) && ('index.html' !== $fObj->getFilename())) {
                 if (false === ($success = unlink($fObj->getPathname()))) {
                     $module->setErrors(sprintf(_AM_XOOPSFAQ_ERROR_BAD_REMOVE, $fObj->getPathname()));
+
                     return false;
                 }
             }
@@ -135,5 +134,6 @@ function xoops_module_update_xoopsfaq(XoopsModule $module, $prev_version)
             }
         }
     }
+
     return $success;
 }

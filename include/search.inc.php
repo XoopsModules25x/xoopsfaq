@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -14,7 +14,6 @@
  * XoopsFAQ module
  * Description: Search function for XOOPS FAQ Module
  *
- * @package   module\xoopsfaq\search
  * @author    John Neill
  * @author    XOOPS Module Development Team
  * @copyright Copyright (c) 2001-2017 {@link https://xoops.org XOOPS Project}
@@ -53,7 +52,6 @@ function xoopsfaq_search($queryarray, $andor, $limit, $offset, $userid)
     /** @var Xoopsfaq\CategoryHandler $categoryHandler */
     /** @var Xoopsfaq\ContentsHandler $contentsHandler */
     /** @var Xoopsfaq\Helper $helper */
-
     $helper = Helper::getInstance();
 
     // Find the search term in the Category
@@ -117,5 +115,6 @@ function xoopsfaq_search($queryarray, $andor, $limit, $offset, $userid)
         ];
     }
     unset($contentArray);
+
     return $ret;
 }

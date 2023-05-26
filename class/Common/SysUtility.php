@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace XoopsModules\Xoopsfaq\Common;
 
@@ -18,29 +16,33 @@ namespace XoopsModules\Xoopsfaq\Common;
  */
 
 /**
- *
- * @license      https://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license      GNU GPL 2.0 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @copyright    https://xoops.org 2000-2020 &copy; XOOPS Project
  * @author       ZySpec <zyspec@yahoo.com>
  * @author       Mamba <mambax7@gmail.com>
  */
 
 use Xmf\Request;
-use XoopsFormEditor;
 use XoopsModules\Xoopsfaq\{
     Helper
 };
-
-
 
 /**
  * Class SysUtility
  */
 class SysUtility
 {
-    use VersionChecks;    //checkVerXoops, checkVerPhp Traits
-    use ServerStats;    // getServerStats Trait
-    use FilesManagement;    // Files Management Trait
+    use VersionChecks;
+
+    //checkVerXoops, checkVerPhp Traits
+
+    use ServerStats;
+
+    // getServerStats Trait
+
+    use FilesManagement;
+
+    // Files Management Trait
     //use ModuleStats;    // ModuleStats Trait
 
     //--------------- Common module methods -----------------------------
@@ -62,11 +64,14 @@ class SysUtility
     {
         global $start, $order, $sort;
 
-        $selectView   = '';
-        $helper        = Helper::getInstance();
+        $selectView = '';
+        $helper     = Helper::getInstance();
 
         //$pathModIcon16 = XOOPS_URL . '/modules/' . $moduleDirName . '/' . $helper->getConfig('modicons16');
-        $pathModIcon16 = $helper->url($helper->getModule()->getInfo('modicons16'));
+        $pathModIcon16 = $helper->url(
+            $helper->getModule()
+                   ->getInfo('modicons16')
+        );
 
         $selectView = '<form name="form_switch" id="form_switch" action="' . Request::getString('REQUEST_URI', '', 'SERVER') . '" method="post"><span style="font-weight: bold;">' . $text . '</span>';
         //$sorts =  $sort ==  'asc' ? 'desc' : 'asc';
@@ -134,15 +139,17 @@ class SysUtility
 
         $sql    = 'SELECT COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = "' . $table . '" AND COLUMN_NAME = "' . $columnName . '"';
         $result = $GLOBALS['xoopsDB']->query($sql);
-        if (!$result instanceof \mysqli_result) {
+        if (!$GLOBALS['xoopsDB']->isResultSet($result)) {
             //            trigger_error($GLOBALS['xoopsDB']->error());
             $logger = \XoopsLogger::getInstance();
             $logger->handleError(\E_USER_WARNING, $sql, __FILE__, __LINE__);
+
             return null;
         }
 
         $row      = $GLOBALS['xoopsDB']->fetchBoth($result);
         $enumList = \explode(',', \str_replace("'", '', \mb_substr($row['COLUMN_TYPE'], 5, -6)));
+
         return $enumList;
     }
 
@@ -157,17 +164,17 @@ class SysUtility
      */
     public static function cloneRecord(string $tableName, string $idField, int $id): ?int
     {
-        $newId = null;
+        $newId     = null;
         $tempTable = '';
-        $table = $GLOBALS['xoopsDB']->prefix($tableName);
+        $table     = $GLOBALS['xoopsDB']->prefix($tableName);
         // copy content of the record you wish to clone
-        $sql       = "SELECT * FROM $table WHERE $idField='" . $id . "' ";
+        $sql    = "SELECT * FROM $table WHERE $idField='" . $id . "' ";
         $result = $GLOBALS['xoopsDB']->query($sql);
-        if ($result instanceof \mysqli_result) {
+        if ($GLOBALS['xoopsDB']->isResultSet($result)) {
             $tempTable = $GLOBALS['xoopsDB']->fetchArray($result, \MYSQLI_ASSOC);
         }
 
-         if (!$tempTable) {
+        if (!$tempTable) {
             \trigger_error($GLOBALS['xoopsDB']->error());
         }
         // set the auto-incremented id's value to blank.
@@ -175,11 +182,12 @@ class SysUtility
         // insert cloned copy of the original  record
         $sql    = "INSERT INTO $table (" . \implode(', ', \array_keys($tempTable)) . ") VALUES ('" . \implode("', '", $tempTable) . "')";
         $result = $GLOBALS['xoopsDB']->queryF($sql);
-        if (!$result) {
-            \trigger_error($GLOBALS['xoopsDB']->error());
+        if (!$GLOBALS['xoopsDB']->isResultSet($result)) {
+            \trigger_error(\sprintf(_DB_QUERY_ERROR, $sql) . $GLOBALS['xoopsDB']->error(), E_USER_ERROR);
         }
         // Return the new id
         $newId = $GLOBALS['xoopsDB']->getInsertId();
+
         return $newId;
     }
 
@@ -201,10 +209,10 @@ class SysUtility
      */
     public static function truncateHtml(
         string $text,
-        ?int $length = 100,
+        ?int   $length = 100,
         string $ending = '...',
-        bool $exact = false,
-        bool $considerHtml = true
+        bool   $exact = false,
+        bool   $considerHtml = true
     ): string {
         $openTags = [];
         if ($considerHtml) {
@@ -242,7 +250,7 @@ class SysUtility
                 $contentLength = \mb_strlen(\preg_replace('/&[0-9a-z]{2,8};|&#\d{1,7};|[0-9a-f]{1,6};/i', ' ', $lineMatchings[2]));
                 if ($totalLength + $contentLength > $length) {
                     // the number of characters which are left
-                    $left            = $length - $totalLength;
+                    $left           = $length - $totalLength;
                     $entitiesLength = 0;
                     // search for html entities
                     if (\preg_match_all('/&[0-9a-z]{2,8};|&#\d{1,7};|[0-9a-f]{1,6};/i', $lineMatchings[2], $entities, \PREG_OFFSET_CAPTURE)) {
@@ -261,7 +269,7 @@ class SysUtility
                     // maximum length is reached, so get off the loop
                     break;
                 }
-                $truncate     .= $lineMatchings[2];
+                $truncate    .= $lineMatchings[2];
                 $totalLength += $contentLength;
 
                 // if the maximum length is reached, get off the loop
@@ -295,6 +303,7 @@ class SysUtility
 
         return $truncate;
     }
+
     /**
      * Get correct text editor based on user rights
      *
@@ -351,6 +360,7 @@ class SysUtility
         \trigger_error(__METHOD__ . " is deprecated, use Xmf\Database\Tables instead - instantiated from {$trace[0]['file']} line {$trace[0]['line']},");
 
         $result = $GLOBALS['xoopsDB']->queryF("SHOW COLUMNS FROM   $table LIKE '$fieldname'");
+
         return ($GLOBALS['xoopsDB']->getRowsNum($result) > 0);
     }
 
@@ -384,7 +394,8 @@ class SysUtility
         $GLOBALS['xoopsLogger']->addDeprecated(
             \basename(\dirname(__DIR__, 2)) . ' Module: ' . __FUNCTION__ . ' function is deprecated, please use Xmf\Database\Tables method(s) instead.' . " Called from {$trace[0]['file']}line {$trace[0]['line']}"
         );
-        $result = $GLOBALS['xoopsDB']->queryF("SHOW TABLES LIKE '$tablename'");
+        $sql    = "SHOW TABLES LIKE '$tablename'";
+        $result = self::queryFAndCheck($GLOBALS['xoopsDB'], $sql);
 
         return $GLOBALS['xoopsDB']->getRowsNum($result) > 0;
     }
@@ -397,6 +408,53 @@ class SysUtility
     public static function addField(string $field, string $table)
     {
         global $xoopsDB;
+
         return $xoopsDB->queryF('ALTER TABLE ' . $table . " ADD $field;");
+    }
+
+    /**
+     * Query and check if the result is a valid result set
+     *
+     * @param \XoopsMySQLDatabase $xoopsDB XOOPS Database
+     * @param string              $sql     a valid MySQL query
+     * @param int                 $limit   number of records to return
+     * @param int                 $start   offset of first record to return
+     *
+     * @return \mysqli_result query result
+     */
+    public static function queryAndCheck(\XoopsMySQLDatabase $xoopsDB, string $sql, $limit = 0, $start = 0): \mysqli_result
+    {
+        $result = $xoopsDB->query($sql, $limit, $start);
+
+        if (!$xoopsDB->isResultSet($result)) {
+            throw new \RuntimeException(
+                \sprintf(\_DB_QUERY_ERROR, $sql) . $xoopsDB->error(), \E_USER_ERROR
+            );
+        }
+
+        return $result;
+    }
+
+    /**
+     * QueryF and check if the result is a valid result set
+     *
+     * @param \XoopsMySQLDatabase $xoopsDB XOOPS Database
+     * @param string              $sql     a valid MySQL query
+     * @param int                 $limit   number of records to return
+     * @param int                 $start   offset of first record to return
+     *
+     * @return \mysqli_result query result
+     */
+    public static function queryFAndCheck(\XoopsMySQLDatabase $xoopsDB, string $sql, $limit = 0, $start = 0): \mysqli_result
+    {
+        $result = $xoopsDB->queryF($sql, $limit, $start);
+
+        if (!$xoopsDB->isResultSet($result)) {
+            throw new \RuntimeException(
+                \sprintf(\_DB_QUERY_ERROR, $sql) . $xoopsDB->error(), \E_USER_ERROR
+            );
+        }
+
+        return $result;
     }
 }

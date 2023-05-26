@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -15,7 +15,6 @@
  *
  * Module Configuration file
  *
- * @package         module\xoopsfaq\plugins
  * @author          ZySpec
  * @author          XOOPS Module Development Team
  * @copyright       https://xoops.org 2001-2017 &copy; XOOPS Project
@@ -50,5 +49,6 @@ function b_sitemap_xoopsfaq()
             'url'   => $helper->url('index.php?cat_id=' . $id),
         ];
     }
+
     return $retVal;
 }

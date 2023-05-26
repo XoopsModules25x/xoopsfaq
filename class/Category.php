@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace XoopsModules\Xoopsfaq;
 
@@ -16,23 +16,19 @@ namespace XoopsModules\Xoopsfaq;
 /**
  * XOOPS FAQ Category & Category Handler Class Definitions
  *
- * @package   module\xoopsfaq\class
  * @author    John Neill
  * @author    XOOPS Module Development Team
  * @copyright Copyright (c) 2001-2017 {@link https://xoops.org XOOPS Project}
  * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @since     ::   1.23
- *
  */
 
 use Xmf\Module\Helper\Permission;
 use XoopsFormButtonTray;
 use XoopsFormHidden;
 use XoopsFormText;
-use XoopsModules\Xoopsfaq;
 use XoopsObject;
 use XoopsThemeForm;
-
 
 /**
  * Category
@@ -44,6 +40,10 @@ use XoopsThemeForm;
  */
 class Category extends XoopsObject
 {
+    private $category_id;
+    private $category_title;
+    private $category_order;
+
     /**
      * Constructor
      */
@@ -67,10 +67,8 @@ class Category extends XoopsObject
 
     /**
      * Display the category edit form
-     *
-     * @return void
      */
-    public function displayForm()
+    public function displayForm(): void
     {
         echo $this->renderForm();
     }

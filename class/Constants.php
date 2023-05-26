@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace XoopsModules\Xoopsfaq;
 
@@ -32,13 +32,12 @@ namespace XoopsModules\Xoopsfaq;
  * used to make the code easier to read and to keep values in central
  * location if they need to be changed.  These should not normally need
  * to be modified. If they are to be modified it is recommended to change
- * the value(s) before module installation. Additionally the module may not
+ * the value(s) before module installation. Additionally, the module may not
  * work correctly if trying to upgrade if these values have been changed.
  *
- * @copyright::  {@link http://sourceforge.net/projects/xoops/ The XOOPS Project}
+ * @copyright::  {@link https://xoops.org/ The XOOPS Project}
  * @license  ::    {@link https://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @author   ::     zyspec <zyspec@yahoo.com>
- * @package  ::    xoopsfaq
  * @since    ::      1.40
  **/
 
@@ -51,7 +50,6 @@ namespace XoopsModules\Xoopsfaq;
  * during operation.
  *
  * @author ZySpec <zyspec@yahoo.com>
- *
  */
 interface Constants
 {

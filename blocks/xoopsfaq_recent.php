@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -13,7 +13,6 @@
 /**
  * Recent Term Block file
  *
- * @package   module\xoopsfaq\blocks
  * @author    ZySpec
  * @author    XOOPS Module Development Team
  * @copyright Copyright (c) 2001-2020 {@link https://xoops.org XOOPS Project}
@@ -62,8 +61,8 @@ function b_xoopsfaq_recent_show($options)
     $criteria->setLimit($options[0]);
 
     $options[3] = $options[3] ?? [0];
-    $cTu        = $catsToUse = (false === strpos($options[3], ',')) ? (array)$options[3] : explode(',', $options[3]);
-    if (in_array(0, $catsToUse) || empty($catsToUse)) {
+    $cTu        = $catsToUse = (false === mb_strpos($options[3], ',')) ? (array)$options[3] : explode(',', $options[3]);
+    if (in_array(0, $catsToUse, true) || empty($catsToUse)) {
         // Get a list of all cats
         $categoryHandler = $helper->getHandler('Category');
         $catListArray    = $categoryHandler->getList();
@@ -111,6 +110,7 @@ function b_xoopsfaq_recent_show($options)
             ];
         }
     }
+
     return $block;
 }
 
@@ -139,7 +139,7 @@ function b_xoopsfaq_recent_edit($options)
     $optionArray = array_merge([0 => _MB_XOOPSFAQ_ALL_CATS], $catList);
     $formSelect  = new \XoopsFormSelect('category', 'options[3]', null, 3, true);
     $formSelect->addOptionArray($optionArray);
-    $selOptions = (false === strpos($options[3], ',')) ? $options[3] : explode(',', $options[3]);
+    $selOptions = (false === mb_strpos($options[3], ',')) ? $options[3] : explode(',', $options[3]);
     $formSelect->setValue($selOptions);
     $selectCat = $formSelect->render();
 
@@ -177,5 +177,6 @@ function b_xoopsfaq_recent_edit($options)
             . '&nbsp;&nbsp;'
             . $selectCat
             . '</div>';
+
     return $form;
 }

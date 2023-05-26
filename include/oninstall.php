@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -13,7 +13,6 @@
 /**
  * XoopsFaq installation scripts
  *
- * @package   module\xoopspoll\includes
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
  * @author    ZySpec <zyspec@yahoo.com>
  * @copyright https://xoops.org 2001-2017 XOOPS Project
@@ -30,7 +29,6 @@ use XoopsModules\Xoopsfaq\{
 /**
  * @internal {Make sure you PROTECT THIS FILE}
  */
-
 if ((!defined('XOOPS_ROOT_PATH'))
     || !($GLOBALS['xoopsUser'] instanceof \XoopsUser)
     || !($GLOBALS['xoopsUser']->isAdmin())) {
@@ -38,10 +36,8 @@ if ((!defined('XOOPS_ROOT_PATH'))
 }
 
 /**
- *
  * Prepares system prior to attempting to install module
  *
- * @param XoopsModule $module
  *
  * @return bool true if ready to install, false if not
  */
@@ -50,11 +46,11 @@ function xoops_module_pre_install_xoopsfaq(XoopsModule $module)
     /** @var Xoopsfaq\Utility $utilsClass */
     $xoopsSuccess = Utility::checkVerXoops($module);
     $phpSuccess   = Utility::checkVerPhp($module);
+
     return $xoopsSuccess && $phpSuccess;
 }
 
 /**
- *
  * Performs tasks required during installation of the module
  *
  * @param XoopsModule $module

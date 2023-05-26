@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -13,7 +13,6 @@
 /**
  * Admin index file
  *
- * @package   module\xoopsfaq\admin
  * @author    Raul Recio (aka UNFOR)
  * @author    XOOPS Module Development Team
  * @copyright Copyright (c) 2001-2017 {@link https://xoops.org XOOPS Project}
@@ -24,11 +23,10 @@
 
 use Xmf\Module\Admin;
 use Xmf\Request;
-use Xmf\Yaml;
 use XoopsModules\Xoopsfaq\{
     Common,
-    Constants,
     Common\TestdataButtons,
+    Constants,
     Helper,
     Utility
 };
@@ -36,7 +34,6 @@ use XoopsModules\Xoopsfaq\{
 /** @var Admin $adminObject */
 /** @var Helper $helper */
 /** @var Utility $utility */
-
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
@@ -93,7 +90,6 @@ switch ($op) {
         break;
 }
 //------------- End Test Data Buttons ----------------------------
-
 
 $adminObject->displayIndex();
 echo $utility::getServerStats();

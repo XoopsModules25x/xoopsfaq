@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -13,7 +13,6 @@
 /**
  * Category Admin file
  *
- * @package   module\xoopsfaq\admin
  * @author    John Neill
  * @author    XOOPS Module Development Team
  * @copyright Copyright (c) 2001-2017 {@link https://xoops.org XOOPS Project}
@@ -51,7 +50,6 @@ switch ($op) {
             $categoryHandler->displayError(_AM_XOOPSFAQ_ERROR_COULD_NOT_EDIT_CAT);
         }
         break;
-
     case 'delete':
         $ok    = Request::getInt('ok', Constants::CONFIRM_NOT_OK);
         $catId = Request::getInt('category_id', Constants::DEFAULT_CATEGORY);
@@ -88,7 +86,6 @@ switch ($op) {
             xoops_confirm(['op' => 'delete', 'category_id' => $catId, 'ok' => Constants::CONFIRM_OK], 'category.php', _AM_XOOPSFAQ_RUSURE_CAT);
         }
         break;
-
     case 'save':
         if (($GLOBALS['xoopsSecurity'] instanceof \XoopsSecurity)) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
@@ -116,7 +113,6 @@ switch ($op) {
         }
         $categoryHandler->displayError(_AM_XOOPSFAQ_ERROR_COULD_NOT_ADD_CAT);
         break;
-
     case 'default':
     default:
         $adminObject->displayNavigation(basename(__FILE__));

@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace XoopsModules\Xoopsfaq\Common;
 
@@ -16,21 +14,17 @@ namespace XoopsModules\Xoopsfaq\Common;
 
 /**
  * @copyright   XOOPS Project (https://xoops.org)
- * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license     GNU GPL 2.0 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @author      mamba <mambax7@gmail.com>
  */
 
 use Xmf\Module\Helper;
 
-/**
- *
- */
 trait VersionChecks
 {
     /**
      * Verifies XOOPS version meets minimum requirements for this module
      * @static
-     *
      */
     public static function checkVerXoops(?\XoopsModule $module = null, ?string $requiredVer = null): bool
     {
@@ -51,7 +45,7 @@ trait VersionChecks
 
         if (\version_compare($currentVer, $requiredVer, '<')) {
             $success = false;
-            $module->setErrors(\sprintf(\constant('CO_' . $moduleDirNameUpper . '_ERROR_BAD_XOOPS'), $requiredVer, $currentVer));
+            $module->setErrors(\sprintf(\constant('CO_' . $moduleDirNameUpper . '_' . 'ERROR_BAD_XOOPS'), $requiredVer, $currentVer));
         }
 
         return $success;
@@ -81,7 +75,7 @@ trait VersionChecks
 
         if (false !== $reqVer && '' !== $reqVer) {
             if (\version_compare($verNum, $reqVer, '<')) {
-                $module->setErrors(\sprintf(\constant('CO_' . $moduleDirNameUpper . '_ERROR_BAD_PHP'), $reqVer, $verNum));
+                $module->setErrors(\sprintf(\constant('CO_' . $moduleDirNameUpper . '_' . 'ERROR_BAD_PHP'), $reqVer, $verNum));
                 $success = false;
             }
         }
@@ -90,12 +84,9 @@ trait VersionChecks
     }
 
     /**
-     *
      * compares current module version with the latest GitHub release
      * @static
-     *
      */
-
     public static function checkVerModule(Helper $helper, ?string $source = 'github', ?string $default = 'master'): ?array
     {
         $moduleDirName      = \basename(\dirname(__DIR__, 2));
@@ -114,7 +105,7 @@ trait VersionChecks
                 $curlReturn = \curl_exec($curlHandle);
                 if (false === $curlReturn) {
                     \trigger_error(\curl_error($curlHandle));
-                } elseif (\is_string($curlReturn) && false !== \strpos($curlReturn, 'Not Found')) {
+                } elseif (\is_string($curlReturn) && false !== \mb_strpos($curlReturn, 'Not Found')) {
                     \trigger_error('Repository Not Found: ' . $infoReleasesUrl);
                 } elseif (\is_string($curlReturn)) {
                     $file              = \json_decode($curlReturn, false);
@@ -144,6 +135,7 @@ trait VersionChecks
                 \curl_close($curlHandle);
             }
         }
+
         return $ret;
     }
 }
