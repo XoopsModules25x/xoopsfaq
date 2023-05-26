@@ -52,7 +52,7 @@ function xoopsfaq_rss(int $max = 10)
         $cat_title = '';
     }
 
-    $max      = ((int)$max > 0) ? (int)$max : 10;
+    $max      = ($max > 0) ? $max : 10;
     $criteria = new \CriteriaCompo();
     $criteria->setLimit($max);
     $criteria->add(new \Criteria('contents_active', Constants::ACTIVE, '='));
