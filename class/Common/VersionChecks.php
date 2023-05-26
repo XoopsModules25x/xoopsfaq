@@ -87,8 +87,10 @@ trait VersionChecks
      * compares current module version with the latest GitHub release
      * @static
      */
-    public static function checkVerModule(Helper $helper, ?string $source = 'github', ?string $default = 'master'): ?array
+    public static function checkVerModule(Helper $helper, ?string $source = null, ?string $default = null): ?array
     {
+        $source             ??= 'github';
+        $default            ??= 'master';
         $moduleDirName      = \basename(\dirname(__DIR__, 2));
         $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
         $update             = '';

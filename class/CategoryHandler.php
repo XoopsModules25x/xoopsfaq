@@ -31,7 +31,7 @@ use Xmf\Module\Admin;
  * @author   ::    John Neill
  * @copyright:: Copyright (c) 2009
  */
-class CategoryHandler extends \XoopsPersistableObjectHandler
+final class CategoryHandler extends \XoopsPersistableObjectHandler
 {
     /**
      * Constructor
@@ -46,11 +46,11 @@ class CategoryHandler extends \XoopsPersistableObjectHandler
     /**
      * CategoryHandler::getObj()
      *
-     * @param string $sort order ('id', order', or 'title') - default: id
+     * @param string|null $sort order ('id', order', or 'title') - default: id
      *
-     * @return array|false Category | false on failure
+     * @return array Category | false on failure
      */
-    public function getObj($sort = 'id')
+    public function getObj($sort = null)
     {
         $obj = [];
         if ((null !== $sort) && (!$sort instanceof \CriteriaElement)) {
@@ -73,22 +73,24 @@ class CategoryHandler extends \XoopsPersistableObjectHandler
     /**
      * CategoryHandler::displayAdminListing()
      *
-     * @param string $sort
+     * @param string|null $sort
      */
-    public function displayAdminListing($sort = 'id'): void
+    public function displayAdminListing($sort = null): void
     {
+        $sort ??= 'id';
         echo $this->renderAdminListing($sort);
     }
 
     /**
      * Display a Category listing for administrators
      *
-     * @param string $sort listing order
+     * @param string|null $sort listing order
      *
      * @return string HTML listing for Admin
      */
-    public function renderAdminListing($sort = 'id')
+    public function renderAdminListing($sort = null)
     {
+        $sort ??= 'id';
         //        if (!\class_exists('Xoopsfaq\Utility')) {
         //            \xoops_load('utility', \basename(\dirname(__DIR__)));
         //        }

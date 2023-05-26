@@ -46,8 +46,6 @@ function b_xoopsfaq_recent_show($options)
 
     $myts = \MyTextSanitizer::getInstance();
 
-    /** @var Xoopsfaq\CategoryHandler $categoryHandler */
-    /** @var Xoopsfaq\ContentsHandler $contentsHandler */
     /** @var Xoopsfaq\Helper $helper */
     $helper          = Helper::getInstance();
     $contentsHandler = $helper->getHandler('Contents');

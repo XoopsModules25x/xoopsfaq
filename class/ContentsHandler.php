@@ -37,7 +37,7 @@ use XoopsPersistableObjectHandler;
  * @copyright:: Copyright (c) 2009
  * @access::    public
  */
-class ContentsHandler extends XoopsPersistableObjectHandler
+final class ContentsHandler extends XoopsPersistableObjectHandler
 {
     /**
      * Constructor
@@ -52,12 +52,13 @@ class ContentsHandler extends XoopsPersistableObjectHandler
     /**
      * ContentsHandler::getObj()
      *
-     * @param \CriteriaElement|string $sort sort order ('id', 'cid', 'title', 'publish', or 'weight') default: 'id'
+     * @param \CriteriaElement|string|null $sort sort order ('id', 'cid', 'title', 'publish', or 'weight') default: 'id'
      *
-     * @return array|false Contents object | false on failure
+     * @return array Contents object | false on failure
      */
-    public function getObj($sort = 'id')
+    public function getObj($sort = null)
     {
+        $sort ??= 'id';
         $obj = [];
         if (!$sort instanceof CriteriaElement) {
             $criteria = new CriteriaCompo();
@@ -78,11 +79,12 @@ class ContentsHandler extends XoopsPersistableObjectHandler
     /**
      * ContentsHandler::getPublished()
      *
-     * @param string $id
-     * @return false array of XoopsfaqContent objects | false on failure
+     * @param string|null $id
+     * @return array array of XoopsfaqContent objects
      */
-    public function getPublished($id = '')
+    public function getPublished(?string $id = null)
     {
+        $id ??= '';
         \xoops_load('constants', \basename(\dirname(__DIR__)));
 
         $obj               = [];
@@ -129,28 +131,29 @@ class ContentsHandler extends XoopsPersistableObjectHandler
     /**
      * ContentsHandler::displayAdminListing()
      *
-     * @param string $sort
+     * @param string|null $sort
      */
-    public function displayAdminListing($sort = 'id'): void
+    public function displayAdminListing($sort = null): void
     {
+        $sort ??= 'id';
         echo $this->renderAdminListing($sort);
     }
 
     /**
      * ContentsHandler::renderAdminListing()
      *
-     * @param string $sort
+     * @param string|null $sort
      * @return string html listing of Contents (FAQ) for Admin
      * @see \XoopsModules\Xoopsfaq\Helper
      */
-    public function renderAdminListing($sort = 'id')
+    public function renderAdminListing($sort = null)
     {
+        $sort ??= 'id';
         //        if (!\class_exists('Xoopsfaq\Utility')) {
         //            \xoops_load('utility', \basename(\dirname(__DIR__)));
         //        }
 
         /** @var CategoryHandler $categoryHandler */
-        /** @var Array $objects */
         $objects         = $this->getObj($sort);
         $helper          = Helper::getHelper(\basename(\dirname(__DIR__)));
         $categoryHandler = $helper->getHandler('Category');
@@ -186,7 +189,7 @@ class ContentsHandler extends XoopsPersistableObjectHandler
                . '  </tr>'
                . '  </thead>'
                . '  <tbody>';
-        if ($objects['count'] > 0) {
+        if (is_array($objects) && ($objects['count'] > 0)) {
             $tdClass = 0;
             /** @var \Contents $object */
             foreach ($objects['list'] as $object) {

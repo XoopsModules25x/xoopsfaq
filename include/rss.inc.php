@@ -63,7 +63,7 @@ function xoopsfaq_rss($max = 10)
 
     $retVal = [];
 
-    /** @var XoopsObject $contentObj */
+    /** @var \XoopsObject $contentObj */
     foreach ($contentObjs as $contentObj) {
         $retVal[] = [
             'image'    => '',

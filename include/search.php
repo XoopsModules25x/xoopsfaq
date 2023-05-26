@@ -92,7 +92,7 @@ function xoopsfaq_search($queryarray, $andor, $limit, $offset, $userid)
     $criteria->add(new \Criteria('contents_active', Constants::ACTIVE, '='));
     $criteria->setSort('contents_id');
     $criteria->order = 'DESC';
-    $criteria->setLimit((int)$totalLimit);
+    $criteria->setLimit($totalLimit);
     $criteria->setStart((int)$offset);
 
     if ((is_array($queryarray)) && !empty($queryarray)) {

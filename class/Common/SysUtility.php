@@ -75,7 +75,7 @@ class SysUtility
 
         $selectView = '<form name="form_switch" id="form_switch" action="' . Request::getString('REQUEST_URI', '', 'SERVER') . '" method="post"><span style="font-weight: bold;">' . $text . '</span>';
         //$sorts =  $sort ==  'asc' ? 'desc' : 'asc';
-        if ($form_sort == $sort) {
+        if ($form_sort === $sort) {
             $sel1 = 'asc' === $order ? 'selasc.png' : 'asc.png';
             $sel2 = 'desc' === $order ? 'seldesc.png' : 'desc.png';
         } else {
@@ -165,7 +165,7 @@ class SysUtility
     public static function cloneRecord(string $tableName, string $idField, int $id): ?int
     {
         $newId     = null;
-        $tempTable = '';
+        $tempTable = [];
         $table     = $GLOBALS['xoopsDB']->prefix($tableName);
         // copy content of the record you wish to clone
         $sql    = "SELECT * FROM $table WHERE $idField='" . $id . "' ";
@@ -209,11 +209,12 @@ class SysUtility
      */
     public static function truncateHtml(
         string $text,
-        ?int   $length = 100,
+        ?int   $length = null,
         string $ending = '...',
         bool   $exact = false,
         bool   $considerHtml = true
     ): string {
+        $length ??= 100;
         $openTags = [];
         if ($considerHtml) {
             // if the plain text is shorter than the maximum length, return the whole text
@@ -372,12 +373,12 @@ class SysUtility
     public static function prepareFolder(string $folder): void
     {
         try {
-            if (!@\mkdir($folder) && !\is_dir($folder)) {
-                throw new \RuntimeException(\sprintf('Unable to create the %s directory', $folder));
+            if (!\mkdir($folder) && !\is_dir($folder)) {
+                throw new \RuntimeException(sprintf('Unable to create the %s directory', $folder));
             }
             file_put_contents($folder . '/index.html', '<script>history.go(-1);</script>');
         } catch (\Exception $e) {
-            echo 'Caught exception: ', $e->getMessage(), "\n", '<br>';
+            echo 'Caught exception: ', $e->getMessage(), "<br>\n";
         }
     }
 
@@ -417,13 +418,15 @@ class SysUtility
      *
      * @param \XoopsMySQLDatabase $xoopsDB XOOPS Database
      * @param string              $sql     a valid MySQL query
-     * @param int                 $limit   number of records to return
-     * @param int                 $start   offset of first record to return
+     * @param int|null            $limit   number of records to return
+     * @param int|null            $start   offset of first record to return
      *
      * @return \mysqli_result query result
      */
-    public static function queryAndCheck(\XoopsMySQLDatabase $xoopsDB, string $sql, $limit = 0, $start = 0): \mysqli_result
+    public static function queryAndCheck(\XoopsMySQLDatabase $xoopsDB, string $sql, ?int $limit = null, ?int $start = null): \mysqli_result
     {
+        $limit ??= 0;
+        $start ??= 0;
         $result = $xoopsDB->query($sql, $limit, $start);
 
         if (!$xoopsDB->isResultSet($result)) {

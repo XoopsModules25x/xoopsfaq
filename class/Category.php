@@ -38,7 +38,7 @@ use XoopsThemeForm;
  * @author   ::    John Neill
  * @copyright:: Copyright (c) 2009
  */
-class Category extends XoopsObject
+final class Category extends XoopsObject
 {
     private $category_id;
     private $category_title;
@@ -62,7 +62,7 @@ class Category extends XoopsObject
      */
     public function __toString()
     {
-        return $this->getVar('category_title', 's');
+        return (string)$this->getVar('category_title', 's');
     }
 
     /**

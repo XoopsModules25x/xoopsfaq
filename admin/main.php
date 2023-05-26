@@ -73,10 +73,10 @@ switch ($op) {
             $helper->redirect('admin/main.php', Constants::REDIRECT_DELAY_MEDIUM, $GLOBALS['xoopsSecurity']->getErrors(true));
         }
         $faqId = Request::getInt('contents_id', Constants::INVALID_FAQ_ID);
-        $obj   = (Constants::INVALID_FAQ_ID == $faqId) ? $contentsHandler->create() : $contentsHandler->get($faqId);
+        $obj   = (Constants::INVALID_FAQ_ID === $faqId) ? $contentsHandler->create() : $contentsHandler->get($faqId);
         // @todo - change MASK_ALLOW_RAW to MASK_ALLOW_HTML once module 'requires' XOOPS 2.5.9.1 FINAL with bug fixed
         $contents_contents = Request::getString('contents_contents', '', 'POST', Request::MASK_ALLOW_RAW);
-        if (is_object($obj) && $obj instanceof Contents) {
+        if ($obj instanceof Contents::class) {
             $contents_publish = strtotime(Request::getString('contents_publish', time(), 'POST'));
             $obj->setVars(
                 [

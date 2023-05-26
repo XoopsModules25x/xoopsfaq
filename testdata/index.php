@@ -105,7 +105,7 @@ function loadSampleData(): void
         foreach (array_keys($configurator->copyTestFolders) as $i) {
             $src  = $configurator->copyTestFolders[$i][0];
             $dest = $configurator->copyTestFolders[$i][1];
-            $utility::rcopy($src, $dest);
+            $utility->rcopy($src, $dest);
         }
     }
     \redirect_header('../admin/index.php', 1, \constant('CO_' . $moduleDirNameUpper . '_' . 'LOAD_SAMPLEDATA_SUCCESS'));
