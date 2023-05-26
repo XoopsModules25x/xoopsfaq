@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace XoopsModules\Xoopsfaq\Common;
 
@@ -15,39 +15,37 @@ namespace XoopsModules\Xoopsfaq\Common;
  * Breadcrumb Class
  *
  * @copyright   XOOPS Project (https://xoops.org)
- * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license     GNU GPL 2.0 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @author      lucio <lucio.rota@gmail.com>
- * @package     xoopsfaq
  *
  * Example:
- * $breadcrumb = new PedigreeBreadcrumb();
+ * $breadcrumb = new Breadcrumb();
  * $breadcrumb->addLink( 'bread 1', 'index1.php' );
  * $breadcrumb->addLink( 'bread 2', '' );
  * $breadcrumb->addLink( 'bread 3', 'index3.php' );
  * echo $breadcrumb->render();
  */
-defined('XOOPS_ROOT_PATH') || die('XOOPS Root Path not defined');
 
 /**
  * Class Breadcrumb
  */
 class Breadcrumb
 {
+    /**
+     * @var string
+     */
     public  $dirname;
     private $bread = [];
 
     public function __construct()
     {
-        $this->dirname = basename(dirname(dirname(__DIR__)));
+        $this->dirname = \basename(\dirname(__DIR__, 2));
     }
 
     /**
      * Add link to breadcrumb
-     *
-     * @param string $title
-     * @param string $link
      */
-    public function addLink($title = '', $link = '')
+    final public function addLink(string $title = '', string $link = ''): void
     {
         $this->bread[] = [
             'link'  => $link,
@@ -56,21 +54,33 @@ class Breadcrumb
     }
 
     /**
-     * Render Pedigree BreadCrumb
+     * Render BreadCrumb
      */
-    public function render()
+    final public function render(): void
     {
-        if (!isset($GLOBALS['xoTheme']) || !is_object($GLOBALS['xoTheme'])) {
-            require_once $GLOBALS['xoops']->path('class/theme.php');
+        /*
+        TODO if you want to use the render code below,
+        1) create ./templates/chess_common_breadcrumb.tpl)
+        2) add declaration to  xoops_version.php
+        */
+        /*
+        if (!isset($GLOBALS['xoTheme']) || !\is_object($GLOBALS['xoTheme'])) {
+            require $GLOBALS['xoops']->path('class/theme.php');
+
             $GLOBALS['xoTheme'] = new \xos_opal_Theme();
         }
 
-        require_once $GLOBALS['xoops']->path('class/template.php');
+        require $GLOBALS['xoops']->path('class/template.php');
+
         $breadcrumbTpl = new \XoopsTpl();
+
         $breadcrumbTpl->assign('breadcrumb', $this->bread);
+
         $html = $breadcrumbTpl->fetch('db:' . $this->dirname . '_common_breadcrumb.tpl');
+
         unset($breadcrumbTpl);
 
         return $html;
+        */
     }
 }

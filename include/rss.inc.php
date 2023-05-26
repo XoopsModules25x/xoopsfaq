@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -16,51 +16,55 @@
  *
  * @param int $max
  * @return array
- * @copyright Copyright (c) 2001-2017 {@link http://xoops.org XOOPS Project}
- * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @copyright Copyright (c) 2001-2017 {@link https://xoops.org XOOPS Project}
+ * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  *
  * @see       Xmf\Request
  * @see       \XoopsModules\Xoopsfaq\Helper
- * @package   module\xoopsfaq\rss
  * @author    XOOPS Module Development Team
  */
 
 use XoopsModules\Xoopsfaq;
+use XoopsModules\Xoopsfaq\{
+    Constants,
+    Helper
+};
 
 /**
  * @param int $max
  * @return array
  */
-function xoopsfaq_rss($max = 10)
+function xoopsfaq_rss(int $max = 10)
 {
-    /** @var Xoopsfaq\CategoryHandler $categoryHandler */ /** @var Xoopsfaq\ContentsHandler $contentsHandler */
-    /** @var Xoopsfaq\Helper $helper */
-    $helper          = \XoopsModules\Xoopsfaq\Helper::getInstance();
+    /** @var Xoopsfaq\CategoryHandler $categoryHandler */
+    /** @var Xoopsfaq\ContentsHandler $contentsHandler */
+    $helper          = Helper::getInstance();
     $categoryHandler = $helper->getHandler('Category');
     $contentsHandler = $helper->getHandler('Contents');
-    $catId           = Xmf\Request::getInt('categoryid', Xoopsfaq\Constants::DEFAULT_CATEGORY, 'GET');
-    if ($catId > Xoopsfaq\Constants::DEFAULT_CATEGORY) {
+    $catId           = Xmf\Request::getInt('categoryid', Constants::DEFAULT_CATEGORY, 'GET');
+    $cat_title = '';
+    if ($catId > Constants::DEFAULT_CATEGORY) {
         $categoryObj = $categoryHandler->get($catId);
-        $cat_title   = $categoryObj->getVar('category_title');
-        unset($categoryHandler, $categoryObj);
-    } else {
-        $cat_title = '';
+        if ($categoryObj) {
+            $cat_title = $categoryObj->getVar('category_title');
+            unset($categoryHandler, $categoryObj);
+        }
     }
 
-    $max      = ((int)$max > 0) ? (int)$max : 10;
+    $max      = ($max > 0) ? $max : 10;
     $criteria = new \CriteriaCompo();
     $criteria->setLimit($max);
-    $criteria->add(new \Criteria('contents_active', Xoopsfaq\Constants::ACTIVE, '='));
-    $criteria->add(new \Criteria('contents_publish', Xoopsfaq\Constants::NOT_PUBLISHED, '>'));
+    $criteria->add(new \Criteria('contents_active', Constants::ACTIVE, '='));
+    $criteria->add(new \Criteria('contents_publish', Constants::NOT_PUBLISHED, '>'));
     $criteria->add(new \Criteria('contents_publish', time(), '<='));
-    if ($catId > Xoopsfaq\Constants::DEFAULT_CATEGORY) {
+    if ($catId > Constants::DEFAULT_CATEGORY) {
         $criteria->add(new \Criteria('contents_cid', $catId, '='));
     }
     $contentObjs = $contentsHandler->getAll($criteria);
 
     $retVal = [];
 
-    /** @var XoopsObject $contentObj */
+    /** @var \XoopsObject $contentObj */
     foreach ($contentObjs as $contentObj) {
         $retVal[] = [
             'image'    => '',
@@ -72,5 +76,6 @@ function xoopsfaq_rss($max = 10)
         ];
     }
     unset($contentsHandler, $contentObjs);
+
     return $retVal;
 }

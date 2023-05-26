@@ -1,0 +1,25 @@
+-
+    gperm_groupid: '3'
+    gperm_itemid: '1'
+    gperm_modid: '31'
+    gperm_name: viewcat
+-
+    gperm_groupid: '2'
+    gperm_itemid: '1'
+    gperm_modid: '31'
+    gperm_name: viewcat
+-
+    gperm_groupid: '1'
+    gperm_itemid: '1'
+    gperm_modid: '31'
+    gperm_name: viewcat
+-
+    gperm_groupid: '1'
+    gperm_itemid: '4'
+    gperm_modid: '31'
+    gperm_name: viewcat
+-
+    gperm_groupid: '4'
+    gperm_itemid: '1'
+    gperm_modid: '31'
+    gperm_name: viewcat

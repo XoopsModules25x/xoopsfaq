@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -14,23 +14,29 @@
  * XoopsFAQ module
  * Description: Display user side code, categories, and FAQ answers
  *
- * @package   module\xoopsfaq\frontside
  * @author    John Neill
  * @author    XOOPS Module Development Team
- * @copyright Copyright (c) 2001-2017 {@link http://xoops.org XOOPS Project}
- * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @copyright Copyright (c) 2001-2017 {@link https://xoops.org XOOPS Project}
+ * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  *
  * @see       \XoopsModules\Xoopsfaq\Helper
  * @see       Xmf\Request
  */
 
+use Xmf\Module\Helper\Permission;
 use Xmf\Request;
-use XoopsModules\Xoopsfaq;
+use XoopsModules\Xoopsfaq\{
+    Category,
+    CategoryHandler,
+    Common\Jsonld,
+    Constants,
+    ContentsHandler,
+    Helper
+};
 
-/** @var Xoopsfaq\CategoryHandler $categoryHandler */
-/** @var Xoopsfaq\ContentsHandler $contentsHandler */
-/** @var Xoopsfaq\Helper $helper */
-
+/** @var CategoryHandler $categoryHandler */
+/** @var ContentsHandler $contentsHandler */
+/** @var Helper $helper */
 require_once __DIR__ . '/header.php';
 
 $moduleDirName = basename(__DIR__);
@@ -40,11 +46,11 @@ $contentsHandler = $helper->getHandler('Contents');
 
 $helper->loadLanguage('admin');
 
-$catId = Request::getInt('cat_id', Xoopsfaq\Constants::DEFAULT_CATEGORY, 'GET');
-if ($catId > Xoopsfaq\Constants::DEFAULT_CATEGORY) {
+$catId = Request::getInt('cat_id', Constants::DEFAULT_CATEGORY, 'GET');
+if ($catId > Constants::DEFAULT_CATEGORY) {
     // Check to see if user has permission to view
-    $permHelper = new \Xmf\Module\Helper\Permission($moduleDirName);
-    $permHelper->checkPermissionRedirect('viewcat', $catId, 'index.php', Xoopsfaq\Constants::REDIRECT_DELAY_MEDIUM, _NOPERM);
+    $permHelper = new Permission($moduleDirName);
+    $permHelper->checkPermissionRedirect('viewcat', $catId, 'index.php', Constants::REDIRECT_DELAY_MEDIUM, _NOPERM);
 
     // Prepare the theme/template
     $GLOBALS['xoopsOption']['template_main'] = 'xoopsfaq_category.tpl';
@@ -63,12 +69,12 @@ if ($catId > Xoopsfaq\Constants::DEFAULT_CATEGORY) {
 
     // Display FAQs in a specific category
     $catObj = $categoryHandler->get($catId);
-    if (!empty($catObj) && !$catObj->isNew()) {
+    if ($catObj !== null && !$catObj->isNew()) {
         Xmf\Metagen::assignTitle($catObj->getVar('category_title'));
         $GLOBALS['xoopsTpl']->assign('category_name', $catObj->getVar('category_title'));
 
         // Get a list of the FAQs in this category
-        $contentsObj = $contentsHandler->getPublished($catId);
+        $contentsObj = $contentsHandler->getPublished((string)$catId);
         if (isset($contentsObj['count']) && (int)$contentsObj['count'] > 0) {
             $bodyWords = '';
             /** @var XoopsObject $obj */
@@ -80,14 +86,29 @@ if ($catId > Xoopsfaq\Constants::DEFAULT_CATEGORY) {
                 ];
                 $GLOBALS['xoopsTpl']->append('questions', $question);
                 $bodyWords .= ' ' . $obj->getVar('contents_title') . ' ' . $obj->getVar('contents_contents');
+
+                //get data for JSON-LD
+                if ($helper->getConfig('generate_jsonld')) {
+                    $content[] = [
+                        'title'  => $obj->getVar('contents_title'),
+                        'answer' => $obj->getVar('contents_contents'),
+                    ];
+                }
             }
+
             $keywords = Xmf\Metagen::generateKeywords($bodyWords);
             Xmf\Metagen::assignKeywords($keywords);
+
+            // generate JSON-LD and add to page
+            if ($helper->getConfig('generate_jsonld')) {
+                $jsonld = Jsonld::getJsonld($content);
+                echo $jsonld;
+            }
         }
-        include $GLOBALS['xoops']->path('include/comment_view.php');
+        require $GLOBALS['xoops']->path('include/comment_view.php');
     } else {
         // Passed an invalid cat_id so exit
-        $helper->redirect('index.php', Xoopsfaq\Constants::REDIRECT_DELAY_MEDIUM, _NOPERM);
+        $helper->redirect('index.php', Constants::REDIRECT_DELAY_MEDIUM, _NOPERM);
     }
 } else {
     $GLOBALS['xoopsOption']['template_main'] = 'xoopsfaq_index.tpl';
@@ -105,7 +126,7 @@ if ($catId > Xoopsfaq\Constants::DEFAULT_CATEGORY) {
     $catCriteria->order = 'ASC';
     $objects            = $categoryHandler->getObj($catCriteria);
     if (isset($objects['count']) && ($objects['count'] > 0)) {
-        $permHelper = new \Xmf\Module\Helper\Permission($moduleDirName);
+        $permHelper = new Permission($moduleDirName);
         $bodyWords  = '';
         /** @var \XoopsObject $object */
         foreach ($objects['list'] as $object) {
@@ -116,7 +137,7 @@ if ($catId > Xoopsfaq\Constants::DEFAULT_CATEGORY) {
                     'name' => $object->getVar('category_title'),
                 ];
                 $bodyWords   .= ' ' . $object->getVar('category_title');
-                $contentsObj = $contentsHandler->getPublished($object->getVar('category_id'));
+                $contentsObj = $contentsHandler->getPublished((string)$object->getVar('category_id'));
                 if ($contentsObj['count']) {
                     $category['questions'] = [];
                     /** @var XoopsObject $content */
@@ -128,7 +149,7 @@ if ($catId > Xoopsfaq\Constants::DEFAULT_CATEGORY) {
                         $bodyWords               .= ' ' . $content->getVar('contents_title');
                     }
                 }
-                $GLOBALS['xoopsTpl']->append_by_ref('categories', $category);
+                $GLOBALS['xoopsTpl']->appendByRef('categories', $category);
                 unset($category);
             }
         }

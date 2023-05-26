@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -13,21 +13,23 @@
 /**
  * Module: XoopsFAQ
  *
- * @package   module\xoopsfaq\include
  * @author    Richard Griffith <richard@geekwright.com>
  * @author    trabis <lusopoemas@gmail.com>
  * @author    XOOPS Module Development Team
- * @copyright Copyright (c) 2001-2017 {@link http://xoops.org XOOPS Project}
- * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @copyright Copyright (c) 2001-2017 {@link https://xoops.org XOOPS Project}
+ * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @since     File available since version 1.25
  */
 
-use XoopsModules\Xoopsfaq;
+use XoopsModules\Xoopsfaq\{
+    Helper,
+    Utility
+};
 
 /* @internal {Make sure you PROTECT THIS FILE} */
 
 if ((!defined('XOOPS_ROOT_PATH'))
-    || !($GLOBALS['xoopsUser'] instanceof XoopsUser)
+    || !($GLOBALS['xoopsUser'] instanceof \XoopsUser)
     || !($GLOBALS['xoopsUser']->isAdmin())) {
     exit('Restricted access' . PHP_EOL);
 }
@@ -35,40 +37,38 @@ if ((!defined('XOOPS_ROOT_PATH'))
 /**
  * Pre-installation checks before installation of Xoopsfaq
  *
- * @param \XoopsModule $module
- * @param string       $prev_version version * 100
+ * @param string $prev_version version * 100
  *
  * @return bool success ok to install
  *
- * @see Xoopsfaq\Utility
- *
+ * @see Utility
  */
-function xoops_module_pre_update_xoopsfaq(\XoopsModule $module, $prev_version)
+function xoops_module_pre_update_xoopsfaq(\XoopsModule $module, string $prev_version)
 {
-    $xoopsSuccess = Xoopsfaq\Utility::checkVerXoops($module);
-    $phpSuccess   = Xoopsfaq\Utility::checkVerPHP($module);
+    $xoopsSuccess = Utility::checkVerXoops($module);
+    $phpSuccess   = Utility::checkVerPhp($module);
+
     return $xoopsSuccess && $phpSuccess;
 }
 
 /**
  * Upgrade works to update Xoopsfaq from previous versions
  *
- * @param XoopsModule $module
- * @param string      $prev_version version * 100
+ * @param string $prev_version version * 100
  *
  * @return bool
  *
- * @see Xoopsfaq\Utility
+ * @see Utility
  *
  * @see Xmf\Module\Admin
  */
-function xoops_module_update_xoopsfaq(XoopsModule $module, $prev_version)
+function xoops_module_update_xoopsfaq(XoopsModule $module, string $prev_version)
 {
     $moduleDirName = $module->getVar('dirname');
-    $helper        = \XoopsModules\Xoopsfaq\Helper::getInstance();
-    if (!class_exists('Xoopsfaq\Utility')) {
-        xoops_load('utility', $moduleDirName);
-    }
+    $helper        = Helper::getInstance();
+    //    if (!class_exists('Xoopsfaq\Utility')) {
+    //        xoops_load('utility', $moduleDirName);
+    //    }
 
     //----------------------------------------------------------------
     // Upgrade for Xoopsfaq < 1.25
@@ -92,8 +92,9 @@ function xoops_module_update_xoopsfaq(XoopsModule $module, $prev_version)
             $dirInfo = new SplFileInfo($old_dir);
             if ($dirInfo->isDir()) {
                 // The directory exists so delete it
-                if (false === Xoopsfaq\Utility::rrmdir($old_dir)) {
+                if (!Utility::rrmdir($old_dir)) {
                     $module->setErrors(sprintf(_AM_XOOPSFAQ_ERROR_BAD_DEL_PATH, $old_dir));
+
                     return false;
                 }
             }
@@ -106,11 +107,12 @@ function xoops_module_update_xoopsfaq(XoopsModule $module, $prev_version)
         //-----------------------------------------------------------------------
         $path       = $helper->path('templates/');
         $unfiltered = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
-        $iterator   = new RegexIterator($unfiltered, "/.*\.html/");
+        $iterator   = new RegexIterator($unfiltered, '/.*\.html/');
         foreach ($iterator as $name => $fObj) {
             if (($fObj->isFile()) && ('index.html' !== $fObj->getFilename())) {
                 if (false === ($success = unlink($fObj->getPathname()))) {
                     $module->setErrors(sprintf(_AM_XOOPSFAQ_ERROR_BAD_REMOVE, $fObj->getPathname()));
+
                     return false;
                 }
             }
@@ -132,5 +134,6 @@ function xoops_module_update_xoopsfaq(XoopsModule $module, $prev_version)
             }
         }
     }
+
     return $success;
 }

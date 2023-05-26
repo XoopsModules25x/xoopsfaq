@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -11,51 +12,53 @@
 */
 
 /**
- * Module: Xoopsfaq
+ * Migration for XOOPS modules
  *
- * @category        Module
- * @package         xoopsfaq
- * @author          XOOPS Development Team <https://xoops.org>
- * @copyright       {@link https://xoops.org/ XOOPS Project}
- * @license         GPL 2.0 or later
- * @link            https://xoops.org/
- * @since           2.0.0
+ * @copyright      XOOPS Project  (https://xoops.org)
+ * @license        GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
+ * @author         Richard Griffith <richard@geekwright.com>
+ * @author         Michael Beck <mambax7@gmail.com>
  */
 
+use Xmf\Module\Admin;
 use Xmf\Request;
 use XoopsModules\Xoopsfaq;
+use XoopsModules\Xoopsfaq\{
+    Common\Configurator,
+    Common\Migrate
 
+};
+
+/** @var Admin $adminObject */
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
 $adminObject->displayNavigation(basename(__FILE__));
 
 echo <<<EOF
-<form method="post" class="form-inline">
-<div class="form-group">
-<input name="show" class="btn btn-default" type="submit" value="Show SQL">
-</div>
-<div class="form-group">
-<input name="migrate" class="btn btn-default" type="submit" value="Do Migration">
-</div>
-<div class="form-group">
-<input name="schema" class="btn btn-default" type="submit" value="Write Schema">
-</div>
-</form>
-EOF;
+    <form method="post" class="form-inline">
+    <div class="form-group">
+    <input name="show" class="btn btn-default" type="submit" value="Show SQL">
+    </div>
+    <div class="form-group">
+    <input name="migrate" class="btn btn-default" type="submit" value="Do Migration">
+    </div>
+    <div class="form-group">
+    <input name="schema" class="btn btn-default" type="submit" value="Write Schema">
+    </div>
+    </form>
+    EOF;
 
 //XoopsLoad::load('migrate', 'newbb');
 
-/** @var Xoopsfaq\Common\Configurator $configurator */
-$configurator = new Xoopsfaq\Common\Configurator();
+$configurator = new Configurator();
 
-/** @var \XoopsModules\Xoopsfaq\Common\Migrate $migrator */
-$migrator = new \XoopsModules\Xoopsfaq\Common\Migrate($configurator);
+$migrator = new Migrate($configurator);
 
-$op        = Request::getCmd('op', 'default');
-$opShow    = Request::getCmd('show', null, 'POST');
-$opMigrate = Request::getCmd('migrate', null, 'POST');
-$opSchema  = Request::getCmd('schema', null, 'POST');
+$op        = Request::getCmd('op', 'show');
+$opShow    = Request::getCmd('show', '', 'POST');
+$opMigrate = Request::getCmd('migrate', '', 'POST');
+$opSchema  = Request::getCmd('schema', '', 'POST');
 $op        = !empty($opShow) ? 'show' : $op;
 $op        = !empty($opMigrate) ? 'migrate' : $op;
 $op        = !empty($opSchema) ? 'schema' : $op;
@@ -64,6 +67,7 @@ $message = '';
 
 switch ($op) {
     case 'show':
+    default:
         $queue = $migrator->getSynchronizeDDL();
         if (!empty($queue)) {
             echo "<pre>\n";
@@ -75,15 +79,16 @@ switch ($op) {
         break;
     case 'migrate':
         $migrator->synchronizeSchema();
-        $message = 'Database migrated to current schema.';
+        $message = constant('CO_' . $moduleDirNameUpper . '_' . 'MIGRATE_OK');
         break;
     case 'schema':
-        xoops_confirm(['op' => 'confirmwrite'], 'migrate.php', 'Warning! This is intended for developers only. Confirm write schema file from current database.', 'Confirm');
+        xoops_confirm(['op' => 'confirmwrite'], 'migrate.php', constant('CO_' . $moduleDirNameUpper . '_' . 'MIGRATE_WARNING'), constant('CO_' . $moduleDirNameUpper . '_' . 'CONFIRM'));
         break;
     case 'confirmwrite':
         if ($GLOBALS['xoopsSecurity']->check()) {
             $migrator->saveCurrentSchema();
-            $message = 'Current schema file written';
+
+            $message = constant('CO_' . $moduleDirNameUpper . '_' . 'MIGRATE_SCHEMA_OK');
         }
         break;
 }

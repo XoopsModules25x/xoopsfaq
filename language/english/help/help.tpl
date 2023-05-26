@@ -26,7 +26,7 @@
         be named 'xoopsfaq-master' (or another extended name). Please rename the top-level folder to 'xoopsfaq' (all lowercase,
         without the hyphen or extended name) BEFORE installing the module.</p>
     <p style="margin: 1.4em 0;">Detailed instructions on installing modules are available in the
-        <a href="http://goo.gl/adT2i">XOOPS Operations Manual</a></p>
+        <a href="https://goo.gl/adT2i">XOOPS Operations Manual</a></p>
 
     <h4 class="odd">Operating instructions</h4>
     <p style="margin: 1.4em 0;">This operation and configuration for this module are both very simple:</p>
@@ -40,7 +40,7 @@
         <li>Set the configuration (Preferences) for each block you wish to use and enable the block</li>
     </ol>
     <p style="margin: 1.4em 0;">Detailed instructions on configuring the access rights for XOOPS Group Permissions are available in the
-        <a href="http://goo.gl/adT2i">XOOPS Operations Manual</a></p>
+        <a href="https://goo.gl/adT2i">XOOPS Operations Manual</a></p>
 
     <h4 class="odd">Tutorial</h4>
     <p class="italic" style="margin: 1.4em 0;">Not available yet</p>

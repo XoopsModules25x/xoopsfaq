@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -15,29 +15,27 @@
  *
  * Module Configuration file
  *
- * @package         module\xoopsfaq\initialization
  * @author          John Neill
  * @author          XOOPS Module Development Team
- * @copyright       http://xoops.org 2001-2017 &copy; XOOPS Project
- * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @copyright       https://xoops.org 2001-2017 &copy; XOOPS Project
+ * @license         https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  */
-
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 require_once __DIR__ . '/preloads/autoloader.php';
 
 $moduleDirName      = basename(__DIR__);
-$moduleDirNameUpper = mb_strtoupper($moduleDirName);
+$moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
 // Module configs
 $modversion = [
-    'version'             => 2.01,
-    'module_status'       => 'Alpha 1',
-    'release_date'        => '2020/01/07',
+    'version'             => '2.1.0',
+    'module_status'       => 'beta.1',
+    'release_date'        => '2023/05/25',
     'name'                => _MI_XOOPSFAQ_NAME,
     'description'         => _MI_XOOPSFAQ_DESC,
     'author'              => 'John Neill, Kazumi Ono',
-    'credits'             => 'The Xoops Module Development Team, ZySpec, Mamba',
+    'credits'             => 'The Xoops Module Development Team, ZySpec, Mamba, Geekwright',
     'license'             => 'GNU GPL 2.0',
     'license_url'         => 'www.gnu.org/licenses/gpl-2.0.html/',
     'official'            => 0,
@@ -53,10 +51,10 @@ $modversion = [
     'author_website_name' => 'XOOPS',
     'module_website_url'  => 'https://xoops.org',
     'module_website_name' => 'XOOPS',
-    'min_php'             => '5.5',
+    'min_php'             => '7.4',
     'min_xoops'           => '2.5.10',
     'min_db'              => ['mysql' => '5.5'],
-    'min_admin'           => '1.1',
+    'min_admin'           => '1.2',
 ];
 
 // ------------------- Help files ------------------- //
@@ -98,7 +96,7 @@ $modversion['system_menu'] = 1;
 // Module Main
 $modversion['hasMain'] = 1;
 
-// Blocks
+// ------------------- Blocks ------------------- //
 $modversion['blocks'] = [
     [
         'file'        => 'xoopsfaq_rand.php',
@@ -169,6 +167,15 @@ $modversion['config'][] = [
     'valuetype'   => 'text',
     'options'     => $editorList,
     'default'     => 'dhtmltextarea',
+];
+
+$modversion['config'][] = [
+    'name'        => 'generate_jsonld',
+    'title'       => 'CO_' . $moduleDirNameUpper . '_' . 'GENERATE_JSONLD',
+    'description' => 'CO_' . $moduleDirNameUpper . '_' . 'GENERATE_JSONLD_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1,
 ];
 
 /**

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -14,7 +14,6 @@
  * @license         GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author          XOOPS Project <www.xoops.org> <www.xoops.ir>
  */
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Class XoopsfaqCorePreload
@@ -22,11 +21,10 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
 class XoopsfaqCorePreload extends \XoopsPreloadItem
 {
     // to add PSR-4 autoloader
-
     /**
      * @param $args
      */
-    public static function eventCoreIncludeCommonEnd($args)
+    public static function eventCoreIncludeCommonEnd($args): void
     {
         require_once __DIR__ . '/autoloader.php';
     }

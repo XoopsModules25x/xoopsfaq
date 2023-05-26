@@ -1,0 +1,16 @@
+-
+    category_id: '1'
+    category_title: XOOPS
+    category_order: '0'
+-
+    category_id: '2'
+    category_title: 'XOOPS DB'
+    category_order: '0'
+-
+    category_id: '3'
+    category_title: PHP
+    category_order: '0'
+-
+    category_id: '4'
+    category_title: 'International Test'
+    category_order: '0'

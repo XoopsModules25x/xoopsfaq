@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -10,18 +10,18 @@
  */
 
 /**
- * @copyright    XOOPS Project https://xoops.org/
- * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package
- * @since
+ * @copyright    XOOPS Project (https://xoops.org)
+ * @license      GNU GPL 2.0 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @author       XOOPS Development Team
  */
 
-$moduleDirName      = basename(dirname(__DIR__));
-$moduleDirNameUpper = mb_strtoupper($moduleDirName);
+use Xmf\Module\Admin;
+
+$moduleDirName      = \basename(\dirname(__DIR__));
+$moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
 return (object)[
-    'name'           => mb_strtoupper($moduleDirName) . ' ModuleConfigurator',
+    'name'           => $moduleDirNameUpper . ' Module Configurator',
     'paths'          => [
         'dirname'    => $moduleDirName,
         'admin'      => XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/admin',
@@ -75,14 +75,15 @@ return (object)[
         '/tcpdf',
     ],
 
-    'renameTables' => [//         'XX_archive'     => 'ZZZZ_archive',
+    'renameTables'  => [//         'XX_archive'     => 'ZZZZ_archive',
     ],
-    'moduleStats'  => [
+    'renameColumns' => [//        'extcal_event' => ['from' => 'event_etablissement', 'to' => 'event_location'],
+    ],
+    'moduleStats'   => [
         //            'totalcategories' => $helper->getHandler('Category')->getCategoriesCount(-1),
         //            'totalitems'      => $helper->getHandler('Item')->getItemsCount(),
         //            'totalsubmitted'  => $helper->getHandler('Item')->getItemsCount(-1, [Constants::PUBLISHER_STATUS_SUBMITTED]),
     ],
-    'modCopyright' => "<a href='https://xoops.org' title='XOOPS Project' target='_blank'>
-                     <img src='" . constant($moduleDirNameUpper . '_AUTHOR_LOGOIMG') . "' alt='XOOPS Project'></a>",
+    'modCopyright'  => "<a href='https://xoops.org' title='XOOPS Project' target='_blank'>
+                     <img src='" . Admin::iconUrl('xoopsmicrobutton.gif') . "' alt='XOOPS Project'></a>",
 ];
-

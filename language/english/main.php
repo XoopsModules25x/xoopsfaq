@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -14,14 +14,12 @@
  * XoopsFAQ module
  * Description: Xoops FAQ module user language defines
  *
- * @package   module\xoopsfaq\language
  * @author    John Neill
  * @author    XOOPS Module Development Team
- * @copyright Copyright (c) 2001-2017 {@link http://xoops.org XOOPS Project}
- * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
- *
+ * @copyright Copyright (c) 2001-2017 {@link https://xoops.org XOOPS Project}
+ * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  */
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * Xoops FAQ Main Page
@@ -35,5 +33,3 @@ define('_MD_XOOPSFAQ_BACK_TO_INDEX', 'Back to Index');
 define('_MD_XOOPSFAQ_NO_FAQS', 'There are no FAQs in this category.');
 define('_MD_XOOPSFAQ_NO_CATS', 'There are no categories defined');
 define('_MD_XOOPSFAQ_CAT_LISTING', 'FAQ Category Listing');
-
-

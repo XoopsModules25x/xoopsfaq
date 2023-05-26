@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -13,7 +13,6 @@
 /**
  * Recent Term Block file
  *
- * @package   module\xoopsfaq\blocks
  * @author    ZySpec
  * @author    XOOPS Module Development Team
  * @copyright Copyright (c) 2001-2020 {@link https://xoops.org XOOPS Project}
@@ -24,7 +23,12 @@
  * @see       MyTextSanitizer
  */
 
-use XoopsModules\Xoopsfaq;
+use Xmf\Module\Helper\Permission;
+use XoopsModules\Xoopsfaq\{
+    Constants,
+    CategoryHandler,
+    Helper
+};
 
 /**
  * Display the most recent FAQs added
@@ -37,28 +41,27 @@ use XoopsModules\Xoopsfaq;
  *
  * @return array contains recent FAQ(s) parameters
  */
-function b_xoopsfaq_recent_show($options)
+function b_xoopsfaq_recent_show(array $options)
 {
-    $moduleDirName = basename(dirname(__DIR__));
+    $moduleDirName = \basename(\dirname(__DIR__));
 
     $myts = \MyTextSanitizer::getInstance();
 
-    /** @var Xoopsfaq\CategoryHandler $categoryHandler */ /** @var Xoopsfaq\ContentsHandler $contentsHandler */
-    /** @var Xoopsfaq\Helper $helper */
-    $helper          = \XoopsModules\Xoopsfaq\Helper::getInstance();
+    /** @var Helper $helper */
+    $helper          = Helper::getInstance();
     $contentsHandler = $helper->getHandler('Contents');
-    $permHelper      = new \Xmf\Module\Helper\Permission($moduleDirName);
+    $permHelper      = new Permission($moduleDirName);
     $block           = [];
 
     $criteria = new \CriteriaCompo();
-    $criteria->add(new \Criteria('contents_active', Xoopsfaq\Constants::ACTIVE, '='));
+    $criteria->add(new \Criteria('contents_active', Constants::ACTIVE, '='));
     $criteria->setSort('contents_publish DESC, contents_weight');
     $criteria->order = 'ASC';
     $criteria->setLimit($options[0]);
 
-    $options[3] = isset($options[3]) ? $options[3] : [0];
-    $cTu        = $catsToUse = (false === strpos($options[3], ',')) ? (array)$options[3] : explode(',', $options[3]);
-    if (in_array(0, $catsToUse) || empty($catsToUse)) {
+    $options[3] = $options[3] ?? [0];
+    $cTu        = $catsToUse = (false === mb_strpos($options[3], ',')) ? (array)$options[3] : explode(',', $options[3]);
+    if (in_array(0, $catsToUse, true) || empty($catsToUse)) {
         // Get a list of all cats
         $categoryHandler = $helper->getHandler('Category');
         $catListArray    = $categoryHandler->getList();
@@ -106,6 +109,7 @@ function b_xoopsfaq_recent_show($options)
             ];
         }
     }
+
     return $block;
 }
 
@@ -120,21 +124,21 @@ function b_xoopsfaq_recent_show($options)
  *
  * @return string HTML to display to get input from user
  */
-function b_xoopsfaq_recent_edit($options)
+function b_xoopsfaq_recent_edit(array $options)
 {
-    $moduleDirName = basename(dirname(__DIR__));
+    $moduleDirName = \basename(\dirname(__DIR__));
     xoops_load('XoopsFormSelect');
 
-    /** @var Xoopsfaq\CategoryHandler $categoryHandler */
-    /** @var Xoopsfaq\Helper $helper */
-    $helper          = \XoopsModules\Xoopsfaq\Helper::getInstance();
+    /** @var CategoryHandler $categoryHandler */
+    /** @var Helper $helper */
+    $helper          = Helper::getInstance();
     $categoryHandler = $helper->getHandler('Category');
 
     $catList     = $categoryHandler->getList();
     $optionArray = array_merge([0 => _MB_XOOPSFAQ_ALL_CATS], $catList);
     $formSelect  = new \XoopsFormSelect('category', 'options[3]', null, 3, true);
     $formSelect->addOptionArray($optionArray);
-    $selOptions = (false === strpos($options[3], ',')) ? $options[3] : explode(',', $options[3]);
+    $selOptions = (false === mb_strpos($options[3], ',')) ? $options[3] : explode(',', $options[3]);
     $formSelect->setValue($selOptions);
     $selectCat = $formSelect->render();
 
@@ -172,5 +176,6 @@ function b_xoopsfaq_recent_edit($options)
             . '&nbsp;&nbsp;'
             . $selectCat
             . '</div>';
+
     return $form;
 }

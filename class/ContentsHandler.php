@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace XoopsModules\Xoopsfaq;
 
@@ -16,34 +16,35 @@ namespace XoopsModules\Xoopsfaq;
 /**
  * Contents (FAQ) and Handler Class Definitions
  *
- * @package   module\xoopsfaq\class\contents
  * @author    John Neill
  * @author    XOOPS Module Development Team
- * @copyright Copyright (c) 2001-2017 {@link http://xoops.org XOOPS Project}
- * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @copyright Copyright (c) 2001-2017 {@link https://xoops.org XOOPS Project}
+ * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @since     ::   1.23
  */
 
-use XoopsModules\Xoopsfaq;
-
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+use Criteria;
+use CriteriaCompo;
+use CriteriaElement;
+use Xmf\Module\Admin;
+use XoopsDatabase;
+use XoopsPersistableObjectHandler;
 
 /**
  * ContentsHandler
  *
- * @package  ::   xoopsfaq
  * @author   ::    John Neill
  * @copyright:: Copyright (c) 2009
  * @access::    public
  */
-class ContentsHandler extends \XoopsPersistableObjectHandler
+final class ContentsHandler extends XoopsPersistableObjectHandler
 {
     /**
      * Constructor
      *
      * @param mixed $db
      */
-    public function __construct(\XoopsDatabase $db = null)
+    public function __construct(XoopsDatabase $db = null)
     {
         parent::__construct($db, 'xoopsfaq_contents', Contents::class, 'contents_id', 'contents_title');
     }
@@ -51,53 +52,56 @@ class ContentsHandler extends \XoopsPersistableObjectHandler
     /**
      * ContentsHandler::getObj()
      *
-     * @param \CriteriaElement|string sort order ('id', 'cid', 'title', 'publish', or 'weight') default: 'id'
+     * @param \CriteriaElement|string|null $sort sort order ('id', 'cid', 'title', 'publish', or 'weight') default: 'id'
      *
-     * @return mixed Contents object | false on failure
+     * @return array Contents object
      */
-    public function getObj($sort = 'id')
+    public function getObj($sort = null): array
     {
-        $obj = false;
-        if (!$sort instanceof \CriteriaElement) {
-            $criteria = new \CriteriaCompo();
-            $sort     = in_array(mb_strtolower($sort), ['id', 'cid', 'title', 'publish', 'weight']) ? 'contents_' . mb_strtolower($sort) : 'contents_id';
+        $sort ??= 'id';
+        $obj = [];
+        if ($sort instanceof CriteriaElement) {
+            $criteria = $sort;
+        } else {
+            $criteria = new CriteriaCompo();
+            $sort     = \in_array(mb_strtolower($sort), ['id', 'cid', 'title', 'publish', 'weight'], true) ? 'contents_' . \mb_strtolower($sort) : 'contents_id';
             $criteria->setSort($sort);
             $criteria->order = 'ASC';
             $criteria->setStart(0);
             $criteria->setLimit(0);
-        } else {
-            $criteria = $sort;
         }
         $obj['list']  = $this->getObjects($criteria, false);
-        $obj['count'] = (false !== $obj['list']) ? count($obj['list']) : 0;
+        $obj['count'] = (false != $obj['list']) ? \count($obj['list']) : 0;
+
         return $obj;
     }
 
     /**
      * ContentsHandler::getPublished()
      *
-     * @param string $id
-     * @return mixed array of XoopsfaqContent objects | false on failure
+     * @param string|null $id
+     * @return array array of XoopsfaqContent objects
      */
-    public function getPublished($id = '')
+    public function getPublished(?string $id = null): array
     {
-        xoops_load('constants', basename(dirname(__DIR__)));
+        $id ??= '';
+        \xoops_load('constants', \basename(\dirname(__DIR__)));
 
-        $obj               = false;
-        $criteriaPublished = new \CriteriaCompo();
-        $criteriaPublished->add(new \Criteria('contents_publish', Xoopsfaq\Constants::NOT_PUBLISHED, '>'));
-        $criteriaPublished->add(new \Criteria('contents_publish', time(), '<='));
+        $obj               = [];
+        $criteriaPublished = new CriteriaCompo();
+        $criteriaPublished->add(new Criteria('contents_publish', Constants::NOT_PUBLISHED, '>'));
+        $criteriaPublished->add(new Criteria('contents_publish', \time(), '<='));
 
-        $criteria = new \CriteriaCompo(new \Criteria('contents_active', Xoopsfaq\Constants::ACTIVE));
+        $criteria = new CriteriaCompo(new Criteria('contents_active', Constants::ACTIVE));
         if (!empty($id)) {
-            $criteria->add(new \Criteria('contents_cid', $id, '='));
+            $criteria->add(new Criteria('contents_cid', $id, '='));
         }
         $criteria->add($criteriaPublished);
         $criteria->order = 'ASC';
         $criteria->setSort('contents_weight');
 
         $obj['list']  = $this->getObjects($criteria, false);
-        $obj['count'] = (false !== $obj['list']) ? count($obj['list']) : 0;
+        $obj['count'] = (false != $obj['list']) ? \count($obj['list']) : 0;
 
         return $obj;
     }
@@ -107,18 +111,18 @@ class ContentsHandler extends \XoopsPersistableObjectHandler
      *
      * @return array contains category ids
      */
-    public function getCategoriesIdsWithContent()
+    public function getCategoriesIdsWithContent(): array
     {
-        $ret = [];
-        $sql = 'SELECT contents_cid ';
-        $sql .= 'FROM `' . $this->table . '` ';
-        $sql .= 'WHERE (contents_active =\'' . Xoopsfaq\Constants::ACTIVE . '\') ';
-        $sql .= 'GROUP BY contents_cid';
-        if (!$result = $this->db->query($sql)) {
-            return $ret;
-        }
-        while (false !== ($myrow = $this->db->fetchArray($result))) {
-            $ret[$myrow['contents_cid']] = $myrow['contents_cid'];
+        $ret    = [];
+        $sql    = 'SELECT contents_cid ';
+        $sql    .= 'FROM `' . $this->table . '` ';
+        $sql    .= 'WHERE (contents_active =\'' . Constants::ACTIVE . '\') ';
+        $sql    .= 'GROUP BY contents_cid';
+        $result = $this->db->query($sql);
+        if ($this->db->isResultSet($result)) {
+            while (false !== ($myrow = $this->db->fetchArray($result))) {
+                $ret[$myrow['contents_cid']] = $myrow['contents_cid'];
+            }
         }
 
         return $ret;
@@ -127,31 +131,31 @@ class ContentsHandler extends \XoopsPersistableObjectHandler
     /**
      * ContentsHandler::displayAdminListing()
      *
-     * @param string $sort
-     * @return void
+     * @param string|null $sort
      */
-    public function displayAdminListing($sort = 'id')
+    public function displayAdminListing(?string $sort = null): void
     {
+        $sort ??= 'id';
         echo $this->renderAdminListing($sort);
     }
 
     /**
      * ContentsHandler::renderAdminListing()
      *
-     * @param string $sort
+     * @param string|null $sort
      * @return string html listing of Contents (FAQ) for Admin
      * @see \XoopsModules\Xoopsfaq\Helper
-     *
      */
-    public function renderAdminListing($sort = 'id')
+    public function renderAdminListing($sort = null): string
     {
-        if (!class_exists('Xoopsfaq\Utility')) {
-            xoops_load('utility', basename(dirname(__DIR__)));
-        }
+        $sort ??= 'id';
+        //        if (!\class_exists('Xoopsfaq\Utility')) {
+        //            \xoops_load('utility', \basename(\dirname(__DIR__)));
+        //        }
 
         /** @var CategoryHandler $categoryHandler */
         $objects         = $this->getObj($sort);
-        $helper          = \XoopsModules\Xoopsfaq\Helper::getHelper(basename(dirname(__DIR__)));
+        $helper          = Helper::getHelper(\basename(\dirname(__DIR__)));
         $categoryHandler = $helper->getHandler('Category');
         $catFields       = ['category_id', 'category_title'];
         $catArray        = $categoryHandler->getAll(null, $catFields, false);
@@ -162,36 +166,36 @@ class ContentsHandler extends \XoopsPersistableObjectHandler
                . '  <thead>'
                . '  <tr class="center">'
                . '    <th class="width5">'
-               . _AM_XOOPSFAQ_CONTENTS_ID
+               . \_AM_XOOPSFAQ_CONTENTS_ID
                . '</th>'
                . '    <th class="width5">'
-               . _AM_XOOPSFAQ_CONTENTS_ACTIVE
+               . \_AM_XOOPSFAQ_CONTENTS_ACTIVE
                . '</th>'
                . '    <th class="width5">'
-               . _AM_XOOPSFAQ_CONTENTS_WEIGHT
+               . \_AM_XOOPSFAQ_CONTENTS_WEIGHT
                . '</th>'
                . '    <th class="left">'
-               . _AM_XOOPSFAQ_CONTENTS_TITLE
+               . \_AM_XOOPSFAQ_CONTENTS_TITLE
                . '</th>'
                . '    <th class="left">'
-               . _AM_XOOPSFAQ_CATEGORY_TITLE
+               . \_AM_XOOPSFAQ_CATEGORY_TITLE
                . '</th>'
                . '    <th>'
-               . _AM_XOOPSFAQ_CONTENTS_PUBLISH
+               . \_AM_XOOPSFAQ_CONTENTS_PUBLISH
                . '</th>'
                . '    <th class="width20">'
-               . _AM_XOOPSFAQ_ACTIONS
+               . \_AM_XOOPSFAQ_ACTIONS
                . '</th>'
                . '  </tr>'
                . '  </thead>'
                . '  <tbody>';
-        if ($objects['count'] > 0) {
+        if (\is_array($objects) && ($objects['count'] > 0)) {
             $tdClass = 0;
             /** @var \Contents $object */
             foreach ($objects['list'] as $object) {
                 $thisCatId        = $object->getVar('contents_cid');
                 $thisCatTitle     = $catArray[$thisCatId]['category_title'];
-                $thisContentTitle = '<a href="' . $helper->url('index.php?cat_id=' . $thisCatId . '#q' . $object->getVar('contents_id')) . '" title="' . _AM_XOOPSFAQ_CONTENTS_VIEW . '">' . $object->getVar('contents_title') . '</a>';
+                $thisContentTitle = '<a href="' . $helper->url('index.php?cat_id=' . $thisCatId . '#q' . $object->getVar('contents_id')) . '" title="' . \_AM_XOOPSFAQ_CONTENTS_VIEW . '">' . $object->getVar('contents_title') . '</a>';
                 ++$tdClass;
                 $dispClass = ($tdClass % 1) ? 'even' : 'odd';
                 $ret       .= '  <tr class="center middle">'
@@ -223,17 +227,18 @@ class ContentsHandler extends \XoopsPersistableObjectHandler
                               . '    <td class="'
                               . $dispClass
                               . '">'
-                              . $object->getPublished(_SHORTDATESTRING)
+                              . $object->getPublished(\_SHORTDATESTRING)
                               . '</td>'
                               . '    <td class="'
                               . $dispClass
                               . '">';
-                $ret       .= Xoopsfaq\Utility::renderIconLinks($buttons, 'contents_id', $object->getVar('contents_id')) . '</td>' . '  </tr>';
+                $ret       .= Utility::renderIconLinks($buttons, 'contents_id', $object->getVar('contents_id')) . '</td>' . '  </tr>';
             }
         } else {
-            $ret .= '  <tr class="center"><td colspan="7" class="even">' . _AM_XOOPSFAQ_NOLISTING . '</td></tr>';
+            $ret .= '  <tr class="center"><td colspan="7" class="even">' . \_AM_XOOPSFAQ_NOLISTING . '</td></tr>';
         }
         $ret .= '  </tbody>' . '</table>';
+
         return $ret;
     }
 
@@ -242,19 +247,16 @@ class ContentsHandler extends \XoopsPersistableObjectHandler
      *
      * @param array|string $errors will display a page with the error(s)
      *
-     * @return void
      * @see \Xmf\Module\Admin
-     *
      */
-    public function displayError($errors = '')
+    public function displayError($errors = ''): void
     {
         if ('' !== $errors) {
-            xoops_cp_header();
-            $moduleAdmin = \Xmf\Module\Admin::getInstance();
-            $moduleAdmin->displayNavigation(basename(__FILE__));
-            xoops_error($errors, _AM_XOOPSFAQ_ERROR_SUB);
-            xoops_cp_footer();
+            \xoops_cp_header();
+            $moduleAdmin = Admin::getInstance();
+            $moduleAdmin->displayNavigation(\basename(__FILE__));
+            \xoops_error($errors, \_AM_XOOPSFAQ_ERROR_SUB);
+            \xoops_cp_footer();
         }
-        return;
     }
 }

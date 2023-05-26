@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -13,7 +13,6 @@
 /**
  * Display/Edit Category Block
  *
- * @package   module\xoopsfaq\blocks
  * @author    ZySpec
  * @author    XOOPS Module Development Team
  * @copyright Copyright (c) 2001-2020 {@link https://xoops.org XOOPS Project}
@@ -24,7 +23,12 @@
  * @see       \MyTextSanitizer
  */
 
-use XoopsModules\Xoopsfaq;
+use Xmf\Module\Helper\Permission;
+use XoopsModules\Xoopsfaq\{
+    CategoryHandler,
+    ContentsHandler,
+    Helper
+};
 
 /**
  * Show FAQ Categories Block
@@ -34,18 +38,19 @@ use XoopsModules\Xoopsfaq;
  * @param array $options for display parameters
  *                       [0] = only show cats with active FAQs
  *
- * @return array $block containing category titles and links
+ * @return array containing category titles and links
  */
-function b_xoopsfaq_category_show($options)
+function b_xoopsfaq_category_show(array $options)
 {
-    $moduleDirName = basename(dirname(__DIR__));
+    $moduleDirName = \basename(\dirname(__DIR__));
 
     $myts = \MyTextSanitizer::getInstance();
 
-    /** @var Xoopsfaq\CategoryHandler $categoryHandler */ /** @var Xoopsfaq\ContentsHandler $contentsHandler */
-    /** @var Xoopsfaq\Helper $helper */
-    $helper          = \XoopsModules\Xoopsfaq\Helper::getInstance();
-    $permHelper      = new \Xmf\Module\Helper\Permission($moduleDirName);
+    /** @var CategoryHandler $categoryHandler */
+    /** @var ContentsHandler $contentsHandler */
+    /** @var Helper $helper */
+    $helper          = Helper::getInstance();
+    $permHelper      = new Permission($moduleDirName);
     $categoryHandler = $helper->getHandler('Category');
     $block           = [];
 
@@ -90,6 +95,7 @@ function b_xoopsfaq_category_show($options)
         }
     }
     unset($catObjArray, $categoryHandler);
+
     return $block;
 }
 
@@ -101,7 +107,7 @@ function b_xoopsfaq_category_show($options)
  *
  * @return string HTML to display to get input from user
  */
-function b_xoopsfaq_category_edit($options)
+function b_xoopsfaq_category_edit(array $options)
 {
     $ychck = (isset($options[0]) && ($options[0] > 0)) ? ' checked' : '';
     $nchck = !empty($ychck) ? '' : ' checked';
@@ -117,5 +123,6 @@ function b_xoopsfaq_category_edit($options)
              . $ychck
              . '></div>'
              . "\n";
+
     return $form;
 }

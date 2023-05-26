@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -13,31 +13,35 @@
 /**
  * Administration Menu for the Xoops FAQ Module
  *
- * @package   module\xoopsfaq\admin
  * @author    John Neill
  * @author    XOOPS Module Development Team
- * @copyright Copyright (c) 2001-2017 {@link http://xoops.org XOOPS Project}
- * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @copyright Copyright (c) 2001-2017 {@link https://xoops.org XOOPS Project}
+ * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @since     ::   1.23
  *
  * @see       \Xmf\Module\Admin
  */
 
 use Xmf\Module\Admin;
-use XoopsModules\Xoopsfaq;
+use XoopsModules\Xoopsfaq\{
+    Helper
+};
 
-require dirname(__DIR__) . '/preloads/autoloader.php';
+require \dirname(__DIR__) . '/preloads/autoloader.php';
 
 /** @var \XoopsModules\Xoopsfaq\Helper $helper */
-$helper = Xoopsfaq\Helper::getInstance();
+$moduleDirName      = \basename(\dirname(__DIR__));
+$moduleDirNameUpper = \mb_strtoupper($moduleDirName);
+
+$helper = Helper::getInstance();
 $helper->loadLanguage('modinfo');
 $helper->loadLanguage('common');
 
 // get path to icons
-if (is_object($helper->getModule())) {
-    $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+$pathModIcon32 = XOOPS_URL . '/modules/' . $moduleDirName . '/assets/images/icons/32/';
+if (is_object($helper->getModule()) && false !== $helper->getModule()->getInfo('modicons32')) {
+    $pathModIcon32 = $helper->url($helper->getModule()->getInfo('modicons32'));
 }
-
 
 $adminmenu[] = [
     'title' => _MI_XOOPSFAQ_MENU_ADMIN_INDEX,
@@ -60,7 +64,7 @@ $adminmenu[] = [
     'icon'  => Admin::menuIconPath('mail_foward.png'),
 ];
 
-if ($helper->getConfig('displayDeveloperTools')) {
+if (is_object($helper->getModule()) && $helper->getConfig('displayDeveloperTools')) {
     $adminmenu[] = [
         'title' => _MI_XOOPSFAQ_MENU_ADMIN_MIGRATE,
         'link'  => 'admin/migrate.php',
