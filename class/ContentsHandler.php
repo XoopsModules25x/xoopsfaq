@@ -60,15 +60,15 @@ final class ContentsHandler extends XoopsPersistableObjectHandler
     {
         $sort ??= 'id';
         $obj = [];
-        if (!$sort instanceof CriteriaElement) {
+        if ($sort instanceof CriteriaElement) {
+            $criteria = $sort;
+        } else {
             $criteria = new CriteriaCompo();
             $sort     = \in_array(mb_strtolower($sort), ['id', 'cid', 'title', 'publish', 'weight'], true) ? 'contents_' . \mb_strtolower($sort) : 'contents_id';
             $criteria->setSort($sort);
             $criteria->order = 'ASC';
             $criteria->setStart(0);
             $criteria->setLimit(0);
-        } else {
-            $criteria = $sort;
         }
         $obj['list']  = $this->getObjects($criteria, false);
         $obj['count'] = (false !== $obj['list']) ? \count($obj['list']) : 0;

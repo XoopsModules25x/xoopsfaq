@@ -52,12 +52,12 @@ class Utility extends Common\SysUtility
         $ret = '';
         if (null !== $value) {
             foreach ($icon_array as $_op => $icon) {
-                if (false === \mb_strpos($icon, '.')) {
-                    $iconName = $icon;
-                    $iconExt  = 'png';
-                } else {
+                if (false !== \mb_strpos($icon, '.')) {
                     $iconName = \mb_substr($icon, 0, \mb_strlen($icon) - \mb_strrchr($icon, '.'));
                     $iconExt  = \mb_substr(\mb_strrchr($icon, '.'), 1);
+                } else {
+                    $iconName = $icon;
+                    $iconExt  = 'png';
                 }
                 $url = (!\is_numeric($_op)) ? $_op . '?' . $param . '=' . $value : \xoops_getenv('SCRIPT_NAME') . '?op=' . $iconName . '&amp;' . $param . '=' . $value;
                 if (null !== $extra) {
