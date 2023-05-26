@@ -26,6 +26,7 @@
 use Xmf\Module\Helper\Permission;
 use XoopsModules\Xoopsfaq\{
     Constants,
+    CategoryHandler,
     Helper
 };
 
@@ -40,13 +41,13 @@ use XoopsModules\Xoopsfaq\{
  *
  * @return array contains recent FAQ(s) parameters
  */
-function b_xoopsfaq_recent_show($options)
+function b_xoopsfaq_recent_show(array $options)
 {
     $moduleDirName = \basename(\dirname(__DIR__));
 
     $myts = \MyTextSanitizer::getInstance();
 
-    /** @var Xoopsfaq\Helper $helper */
+    /** @var Helper $helper */
     $helper          = Helper::getInstance();
     $contentsHandler = $helper->getHandler('Contents');
     $permHelper      = new Permission($moduleDirName);
@@ -123,13 +124,13 @@ function b_xoopsfaq_recent_show($options)
  *
  * @return string HTML to display to get input from user
  */
-function b_xoopsfaq_recent_edit($options)
+function b_xoopsfaq_recent_edit(array $options)
 {
     $moduleDirName = \basename(\dirname(__DIR__));
     xoops_load('XoopsFormSelect');
 
-    /** @var Xoopsfaq\CategoryHandler $categoryHandler */
-    /** @var Xoopsfaq\Helper $helper */
+    /** @var CategoryHandler $categoryHandler */
+    /** @var Helper $helper */
     $helper          = Helper::getInstance();
     $categoryHandler = $helper->getHandler('Category');
 

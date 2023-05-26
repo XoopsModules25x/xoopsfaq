@@ -53,7 +53,7 @@ class Helper extends \Xmf\Module\Helper
     /**
      * @return string
      */
-    public function getDirname(): string
+    final public function getDirname(): string
     {
         return $this->dirname;
     }
@@ -65,7 +65,7 @@ class Helper extends \Xmf\Module\Helper
      *
      * @return bool|\XoopsObjectHandler|\XoopsPersistableObjectHandler
      */
-    public function getHandler($name)
+    final public function getHandler($name)
     {
         $ret = false;
 

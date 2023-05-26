@@ -98,7 +98,7 @@ final class Contents extends \XoopsObject
     public function renderForm()
     {
         /** @var CategoryHandler $categoryHandler */
-        /** @var Xoopsfaq\Helper $helper */
+        /** @var Helper $helper */
         $helper          = Helper::getHelper($this->dirname);
         $categoryHandler = $helper->getHandler('Category');
         $catCount        = $categoryHandler->getCount();

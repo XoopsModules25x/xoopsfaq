@@ -71,7 +71,7 @@ final class ContentsHandler extends XoopsPersistableObjectHandler
             $criteria->setLimit(0);
         }
         $obj['list']  = $this->getObjects($criteria, false);
-        $obj['count'] = (false !== $obj['list']) ? \count($obj['list']) : 0;
+        $obj['count'] = (false != $obj['list']) ? \count($obj['list']) : 0;
 
         return $obj;
     }
@@ -101,7 +101,7 @@ final class ContentsHandler extends XoopsPersistableObjectHandler
         $criteria->setSort('contents_weight');
 
         $obj['list']  = $this->getObjects($criteria, false);
-        $obj['count'] = (false !== $obj['list']) ? \count($obj['list']) : 0;
+        $obj['count'] = (false != $obj['list']) ? \count($obj['list']) : 0;
 
         return $obj;
     }
@@ -133,7 +133,7 @@ final class ContentsHandler extends XoopsPersistableObjectHandler
      *
      * @param string|null $sort
      */
-    public function displayAdminListing($sort = null): void
+    public function displayAdminListing(?string $sort = null): void
     {
         $sort ??= 'id';
         echo $this->renderAdminListing($sort);

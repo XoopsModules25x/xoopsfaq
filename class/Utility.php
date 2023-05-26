@@ -45,7 +45,7 @@ class Utility extends Common\SysUtility
      * @param mixed $extra      are any additional HTML attributes desired for the <a> tag
      * @return string
      */
-    public static function renderIconLinks($icon_array, $param, $value = null, $extra = null): string
+    public static function renderIconLinks(array $icon_array, $param, $value = null, $extra = null): string
     {
         $moduleDirName = \basename(\dirname(__DIR__));
         xoops_loadLanguage('admin', $moduleDirName);

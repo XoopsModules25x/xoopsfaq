@@ -136,7 +136,7 @@ class Migrate extends \Xmf\Database\Migrate
      *   table and column renames
      *   data conversions
      */
-    protected function preSyncActions(): void
+    final protected function preSyncActions(): void
     {
         // change 'bb' table prefix to 'newbb'
         $this->changePrefix();

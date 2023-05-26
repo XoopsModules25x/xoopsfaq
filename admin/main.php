@@ -25,15 +25,18 @@
 use Xmf\Request;
 use XoopsModules\Xoopsfaq\{
     Constants,
-    Contents
+    Contents,
+    CategoryHandler,
+    ContentsHandler,
+    Helper
 };
 
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
-/** @var Xoopsfaq\CategoryHandler $categoryHandler */
-/** @var Xoopsfaq\ContentsHandler $contentsHandler */
-/** @var Xoopsfaq\Helper $helper */
+/** @var CategoryHandler $categoryHandler */
+/** @var ContentsHandler $contentsHandler */
+/** @var Helper $helper */
 $contentsHandler = $helper->getHandler('Contents');
 $adminObject     = Xmf\Module\Admin::getInstance();
 
@@ -76,7 +79,7 @@ switch ($op) {
         $obj   = (Constants::INVALID_FAQ_ID === $faqId) ? $contentsHandler->create() : $contentsHandler->get($faqId);
         // @todo - change MASK_ALLOW_RAW to MASK_ALLOW_HTML once module 'requires' XOOPS 2.5.9.1 FINAL with bug fixed
         $contents_contents = Request::getString('contents_contents', '', 'POST', Request::MASK_ALLOW_RAW);
-        if ($obj instanceof Contents::class) {
+        if ($obj instanceof Contents) {
             $contents_publish = strtotime(Request::getString('contents_publish', time(), 'POST'));
             $obj->setVars(
                 [

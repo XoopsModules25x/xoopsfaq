@@ -24,7 +24,7 @@ trait FilesManagement
      *
      * @param string $folder The full path of the directory to check
      */
-    public static function createFolder(string $folder): void
+    final public static function createFolder(string $folder): void
     {
         try {
             if (!\is_dir($folder)) {
@@ -39,12 +39,12 @@ trait FilesManagement
         }
     }
 
-    public static function copyFile(string $file, string $folder): bool
+    final public static function copyFile(string $file, string $folder): bool
     {
         return \copy($file, $folder);
     }
 
-    public static function recurseCopy(string $src, string $dst): void
+    final public static function recurseCopy(string $src, string $dst): void
     {
         $dir = \opendir($src);
         //        @mkdir($dst);
@@ -77,7 +77,7 @@ trait FilesManagement
      *
      * @uses \Xmf\Module\Helper::getHelper()
      */
-    public static function deleteDirectory(string $src): bool
+    final public static function deleteDirectory(string $src): bool
     {
         // Only continue if user is a 'global' Admin
         if (!($GLOBALS['xoopsUser'] instanceof \XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
@@ -122,7 +122,7 @@ trait FilesManagement
      *
      * @return bool true on success
      */
-    public static function rrmdir(string $src): bool
+    final public static function rrmdir(string $src): bool
     {
         // Only continue if user is a 'global' Admin
         if (!($GLOBALS['xoopsUser'] instanceof \XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
@@ -163,7 +163,7 @@ trait FilesManagement
      *
      * @return bool true on success
      */
-    public static function rmove(string $src, string $dest): bool
+    final public static function rmove(string $src, string $dest): bool
     {
         // Only continue if user is a 'global' Admin
         if (!($GLOBALS['xoopsUser'] instanceof \XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
@@ -207,7 +207,7 @@ trait FilesManagement
      *
      * @uses \Xmf\Module\Helper::getHelper()
      */
-    public function rcopy(string $src, string $dest): bool
+    final public function rcopy(string $src, string $dest): bool
     {
         // Only continue if user is a 'global' Admin
         if (!($GLOBALS['xoopsUser'] instanceof \XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {

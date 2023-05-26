@@ -38,10 +38,10 @@ function xoops_module_uninstall_xoopsfaq(\XoopsModule $module)
 
     $moduleDirName      = \basename(\dirname(__DIR__));
     $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
-    /** @var Xoopsfaq\Helper $helper */
+    /** @var Helper $helper */
     $helper = Helper::getInstance();
 
-    /** @var Xoopsfaq\Utility $utility */
+    /** @var Utility $utility */
     $utility = new Utility();
 
     $success = true;

@@ -26,6 +26,8 @@
 
 use XoopsModules\Xoopsfaq\{
     Constants,
+    CategoryHandler,
+    ContentsHandler,
     Helper
 };
 
@@ -33,11 +35,11 @@ use XoopsModules\Xoopsfaq\{
  * @param int $max
  * @return array
  */
-function xoopsfaq_rss($max = 10)
+function xoopsfaq_rss(int $max = 10)
 {
-    /** @var Xoopsfaq\CategoryHandler $categoryHandler */
-    /** @var Xoopsfaq\ContentsHandler $contentsHandler */
-    /** @var Xoopsfaq\Helper $helper */
+    /** @var CategoryHandler $categoryHandler */
+    /** @var ContentsHandler $contentsHandler */
+    /** @var Helper $helper */
     $helper          = Helper::getInstance();
     $categoryHandler = $helper->getHandler('Category');
     $contentsHandler = $helper->getHandler('Contents');

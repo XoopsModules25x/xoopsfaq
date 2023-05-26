@@ -30,12 +30,13 @@ use XoopsModules\Xoopsfaq\{
     CategoryHandler,
     Common\Jsonld,
     Constants,
+    ContentsHandler,
     Helper
 };
 
-/** @var Xoopsfaq\CategoryHandler $categoryHandler */
-/** @var Xoopsfaq\ContentsHandler $contentsHandler */
-/** @var Xoopsfaq\Helper $helper */
+/** @var CategoryHandler $categoryHandler */
+/** @var ContentsHandler $contentsHandler */
+/** @var Helper $helper */
 require_once __DIR__ . '/header.php';
 
 $moduleDirName = basename(__DIR__);
@@ -73,7 +74,7 @@ if ($catId > Constants::DEFAULT_CATEGORY) {
         $GLOBALS['xoopsTpl']->assign('category_name', $catObj->getVar('category_title'));
 
         // Get a list of the FAQs in this category
-        $contentsObj = $contentsHandler->getPublished($catId);
+        $contentsObj = $contentsHandler->getPublished((string)$catId);
         if (isset($contentsObj['count']) && (int)$contentsObj['count'] > 0) {
             $bodyWords = '';
             /** @var XoopsObject $obj */
@@ -136,7 +137,7 @@ if ($catId > Constants::DEFAULT_CATEGORY) {
                     'name' => $object->getVar('category_title'),
                 ];
                 $bodyWords   .= ' ' . $object->getVar('category_title');
-                $contentsObj = $contentsHandler->getPublished($object->getVar('category_id'));
+                $contentsObj = $contentsHandler->getPublished((string)$object->getVar('category_id'));
                 if ($contentsObj['count']) {
                     $category['questions'] = [];
                     /** @var XoopsObject $content */

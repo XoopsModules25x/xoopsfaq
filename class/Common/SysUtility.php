@@ -443,13 +443,15 @@ class SysUtility
      *
      * @param \XoopsMySQLDatabase $xoopsDB XOOPS Database
      * @param string              $sql     a valid MySQL query
-     * @param int                 $limit   number of records to return
-     * @param int                 $start   offset of first record to return
+     * @param int|null            $limit   number of records to return
+     * @param int|null            $start   offset of first record to return
      *
      * @return \mysqli_result query result
      */
-    public static function queryFAndCheck(\XoopsMySQLDatabase $xoopsDB, string $sql, $limit = 0, $start = 0): \mysqli_result
+    public static function queryFAndCheck(\XoopsMySQLDatabase $xoopsDB, string $sql, ?int $limit = null, ?int $start = null): \mysqli_result
     {
+        $limit ??= 0;
+        $start ??= 0;
         $result = $xoopsDB->queryF($sql, $limit, $start);
 
         if (!$xoopsDB->isResultSet($result)) {

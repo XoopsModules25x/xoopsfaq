@@ -41,9 +41,9 @@ if ((!defined('XOOPS_ROOT_PATH'))
  *
  * @return bool success ok to install
  *
- * @see Xoopsfaq\Utility
+ * @see Utility
  */
-function xoops_module_pre_update_xoopsfaq(\XoopsModule $module, $prev_version)
+function xoops_module_pre_update_xoopsfaq(\XoopsModule $module, string $prev_version)
 {
     $xoopsSuccess = Utility::checkVerXoops($module);
     $phpSuccess   = Utility::checkVerPhp($module);
@@ -58,11 +58,11 @@ function xoops_module_pre_update_xoopsfaq(\XoopsModule $module, $prev_version)
  *
  * @return bool
  *
- * @see Xoopsfaq\Utility
+ * @see Utility
  *
  * @see Xmf\Module\Admin
  */
-function xoops_module_update_xoopsfaq(XoopsModule $module, $prev_version)
+function xoops_module_update_xoopsfaq(XoopsModule $module, string $prev_version)
 {
     $moduleDirName = $module->getVar('dirname');
     $helper        = Helper::getInstance();

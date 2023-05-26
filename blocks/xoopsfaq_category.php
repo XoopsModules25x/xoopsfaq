@@ -25,6 +25,8 @@
 
 use Xmf\Module\Helper\Permission;
 use XoopsModules\Xoopsfaq\{
+    CategoryHandler,
+    ContentsHandler,
     Helper
 };
 
@@ -38,15 +40,15 @@ use XoopsModules\Xoopsfaq\{
  *
  * @return array containing category titles and links
  */
-function b_xoopsfaq_category_show($options)
+function b_xoopsfaq_category_show(array $options)
 {
     $moduleDirName = \basename(\dirname(__DIR__));
 
     $myts = \MyTextSanitizer::getInstance();
 
-    /** @var Xoopsfaq\CategoryHandler $categoryHandler */
-    /** @var Xoopsfaq\ContentsHandler $contentsHandler */
-    /** @var Xoopsfaq\Helper $helper */
+    /** @var CategoryHandler $categoryHandler */
+    /** @var ContentsHandler $contentsHandler */
+    /** @var Helper $helper */
     $helper          = Helper::getInstance();
     $permHelper      = new Permission($moduleDirName);
     $categoryHandler = $helper->getHandler('Category');
@@ -105,7 +107,7 @@ function b_xoopsfaq_category_show($options)
  *
  * @return string HTML to display to get input from user
  */
-function b_xoopsfaq_category_edit($options)
+function b_xoopsfaq_category_edit(array $options)
 {
     $ychck = (isset($options[0]) && ($options[0] > 0)) ? ' checked' : '';
     $nchck = !empty($ychck) ? '' : ' checked';

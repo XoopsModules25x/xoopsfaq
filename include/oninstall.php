@@ -43,7 +43,7 @@ if ((!defined('XOOPS_ROOT_PATH'))
  */
 function xoops_module_pre_install_xoopsfaq(XoopsModule $module)
 {
-    /** @var Xoopsfaq\Utility $utilsClass */
+    /** @var Utility $utilsClass */
     $xoopsSuccess = Utility::checkVerXoops($module);
     $phpSuccess   = Utility::checkVerPhp($module);
 
@@ -57,7 +57,7 @@ function xoops_module_pre_install_xoopsfaq(XoopsModule $module)
  *
  * @return bool true if installation successful, false if not
  */
-function xoops_module_install_xoopsfaq($module)
+function xoops_module_install_xoopsfaq(\XoopsModule $module)
 {
     return true;
 }

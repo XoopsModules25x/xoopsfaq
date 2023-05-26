@@ -24,6 +24,8 @@
 
 use XoopsModules\Xoopsfaq\{
     Constants,
+    CategoryHandler,
+    ContentsHandler,
     Helper
 };
 
@@ -49,9 +51,9 @@ function xoopsfaq_search($queryarray, $andor, $limit, $offset, $userid)
         return $ret;
     }
 
-    /** @var Xoopsfaq\CategoryHandler $categoryHandler */
-    /** @var Xoopsfaq\ContentsHandler $contentsHandler */
-    /** @var Xoopsfaq\Helper $helper */
+    /** @var CategoryHandler $categoryHandler */
+    /** @var ContentsHandler $contentsHandler */
+    /** @var Helper $helper */
     $helper = Helper::getInstance();
 
     // Find the search term in the Category

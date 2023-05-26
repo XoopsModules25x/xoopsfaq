@@ -46,7 +46,7 @@ final class CategoryHandler extends \XoopsPersistableObjectHandler
     /**
      * CategoryHandler::getObj()
      *
-     * @param string|null $sort order ('id', order', or 'title') - default: id
+     * @param \CriteriaElement|string|null $sort order ('id', order', or 'title') - default: id
      *
      * @return array Category
      */
@@ -65,7 +65,7 @@ final class CategoryHandler extends \XoopsPersistableObjectHandler
             $criteria = $sort;
         }
         $obj['list']  = $this->getObjects($criteria, false);
-        $obj['count'] = (false !== $obj['list']) ? \count($obj['list']) : 0;
+        $obj['count'] = (false != $obj['list']) ? \count($obj['list']) : 0;
 
         return $obj;
     }
@@ -75,7 +75,7 @@ final class CategoryHandler extends \XoopsPersistableObjectHandler
      *
      * @param string|null $sort
      */
-    public function displayAdminListing($sort = null): void
+    public function displayAdminListing(?string $sort = null): void
     {
         $sort ??= 'id';
         echo $this->renderAdminListing($sort);
@@ -88,7 +88,7 @@ final class CategoryHandler extends \XoopsPersistableObjectHandler
      *
      * @return string HTML listing for Admin
      */
-    public function renderAdminListing($sort = null): string
+    public function renderAdminListing(?string $sort = null): string
     {
         $sort ??= 'id';
         //        if (!\class_exists('Xoopsfaq\Utility')) {

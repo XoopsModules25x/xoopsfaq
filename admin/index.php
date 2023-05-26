@@ -24,8 +24,10 @@
 use Xmf\Module\Admin;
 use Xmf\Request;
 use XoopsModules\Xoopsfaq\{
+    CategoryHandler,
     Common,
     Common\TestdataButtons,
+    ContentsHandler,
     Constants,
     Helper,
     Utility
@@ -37,8 +39,8 @@ use XoopsModules\Xoopsfaq\{
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
-/** @var Xoopsfaq\CategoryHandler $categoryHandler */
-/** @var Xoopsfaq\ContentsHandler $contentsHandler */
+/** @var CategoryHandler $categoryHandler */
+/** @var ContentsHandler $contentsHandler */
 
 //-----------------------
 $moduleDirName      = \basename(\dirname(__DIR__));

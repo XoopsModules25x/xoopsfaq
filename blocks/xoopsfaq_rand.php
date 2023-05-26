@@ -26,6 +26,8 @@
 use Xmf\Module\Helper\Permission;
 use XoopsModules\Xoopsfaq\{
     Constants,
+    CategoryHandler,
+    ContentsHandler,
     Helper
 };
 
@@ -37,14 +39,14 @@ use XoopsModules\Xoopsfaq\{
  *              [1] - comma separated list of categories to use/select from
  * @return array contains random FAQ parameters
  */
-function b_xoopsfaq_random_show($options)
+function b_xoopsfaq_random_show(array $options)
 {
     $moduleDirName = \basename(\dirname(__DIR__));
     $myts          = \MyTextSanitizer::getInstance();
 
-    /** @var Xoopsfaq\CategoryHandler $categoryHandler */
-    /** @var Xoopsfaq\ContentsHandler $contentsHandler */
-    /** @var Xoopsfaq\Helper $helper */
+    /** @var CategoryHandler $categoryHandler */
+    /** @var ContentsHandler $contentsHandler */
+    /** @var Helper $helper */
     $helper          = Helper::getInstance();
     $permHelper      = new Permission($moduleDirName);
     $contentsHandler = $helper->getHandler('Contents');
@@ -109,13 +111,13 @@ function b_xoopsfaq_random_show($options)
  *              [1] - comma separated list of categories to use/select from
  * @return string HTML entities to display for user input
  */
-function b_xoopsfaq_rand_edit($options)
+function b_xoopsfaq_rand_edit(array $options)
 {
     $moduleDirName = \basename(\dirname(__DIR__));
     xoops_load('XoopsFormSelect');
 
-    /** @var Xoopsfaq\CategoryHandler $categoryHandler */
-    /** @var Xoopsfaq\Helper $helper */
+    /** @var CategoryHandler $categoryHandler */
+    /** @var Helper $helper */
     $helper          = Helper::getInstance();
     $categoryHandler = $helper->getHandler('Category');
 

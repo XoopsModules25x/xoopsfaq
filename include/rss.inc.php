@@ -34,7 +34,7 @@ use XoopsModules\Xoopsfaq\{
  * @param int $max
  * @return array
  */
-function xoopsfaq_rss($max = 10)
+function xoopsfaq_rss(int $max = 10)
 {
     /** @var Xoopsfaq\CategoryHandler $categoryHandler */
     /** @var Xoopsfaq\ContentsHandler $contentsHandler */
@@ -42,14 +42,13 @@ function xoopsfaq_rss($max = 10)
     $categoryHandler = $helper->getHandler('Category');
     $contentsHandler = $helper->getHandler('Contents');
     $catId           = Xmf\Request::getInt('categoryid', Constants::DEFAULT_CATEGORY, 'GET');
+    $cat_title = '';
     if ($catId > Constants::DEFAULT_CATEGORY) {
         $categoryObj = $categoryHandler->get($catId);
         if ($categoryObj) {
             $cat_title = $categoryObj->getVar('category_title');
             unset($categoryHandler, $categoryObj);
         }
-    } else {
-        $cat_title = '';
     }
 
     $max      = ((int)$max > 0) ? (int)$max : 10;
