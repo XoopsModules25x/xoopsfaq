@@ -44,12 +44,13 @@ function xoopsfaq_rss(int $max = 10)
     $categoryHandler = $helper->getHandler('Category');
     $contentsHandler = $helper->getHandler('Contents');
     $catId           = Xmf\Request::getInt('categoryid', Constants::DEFAULT_CATEGORY, 'GET');
+    $cat_title       = '';
     if ($catId > Constants::DEFAULT_CATEGORY) {
         $categoryObj = $categoryHandler->get($catId);
-        $cat_title   = $categoryObj->getVar('category_title');
-        unset($categoryHandler, $categoryObj);
-    } else {
-        $cat_title = '';
+        if ($categoryObj) {
+            $cat_title = $categoryObj->getVar('category_title');
+            unset($categoryHandler, $categoryObj);
+        }
     }
 
     $max      = ($max > 0) ? $max : 10;
