@@ -44,8 +44,10 @@ function xoopsfaq_rss($max = 10)
     $catId           = Xmf\Request::getInt('categoryid', Constants::DEFAULT_CATEGORY, 'GET');
     if ($catId > Constants::DEFAULT_CATEGORY) {
         $categoryObj = $categoryHandler->get($catId);
-        $cat_title   = $categoryObj->getVar('category_title');
-        unset($categoryHandler, $categoryObj);
+        if ($categoryObj) {
+            $cat_title = $categoryObj->getVar('category_title');
+            unset($categoryHandler, $categoryObj);
+        }
     } else {
         $cat_title = '';
     }
