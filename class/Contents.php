@@ -117,7 +117,7 @@ final class Contents extends \XoopsObject
         $form->addElement(new \XoopsFormHidden('contents_id', $this->getVar('contents_id', 'e')));
 
         // Active
-        $contents_active = new \XoopsFormRadioYN(\_AM_XOOPSFAQ_E_CONTENTS_ACTIVE, 'contents_active', $this->getVar('contents_active', 'e'), ' ' . _YES, ' ' . _NO);
+        $contents_active = new \XoopsFormRadioYN(\_AM_XOOPSFAQ_E_CONTENTS_ACTIVE, 'contents_active', $this->getVar('contents_active', 'e'), ' ' . \_YES, ' ' . \_NO);
         $contents_active->setDescription(\_AM_XOOPSFAQ_E_CONTENTS_ACTIVE_DESC);
         $form->addElement($contents_active, false);
 
@@ -196,7 +196,7 @@ final class Contents extends \XoopsObject
         $contents_publish->setDescription(\_AM_XOOPSFAQ_E_CONTENTS_PUBLISH_DESC);
         $form->addElement($contents_publish);
 
-        $form->addElement(new \XoopsFormButtonTray('contents_form', _SUBMIT, 'submit'));
+        $form->addElement(new \XoopsFormButtonTray('contents_form', \_SUBMIT, 'submit'));
 
         return $form->render();
     }
@@ -209,9 +209,9 @@ final class Contents extends \XoopsObject
     public function getActiveIcon(): string
     {
         if ($this->getVar('contents_active') > Constants::INACTIVE) {
-            $icon = '<img src="' . Admin::iconUrl('green.gif', '16') . '" alt="' . _YES . '">';
+            $icon = '<img src="' . Admin::iconUrl('green.gif', '16') . '" alt="' . \_YES . '">';
         } else {
-            $icon = '<img src="' . Admin::iconUrl('red.gif', '16') . '" alt="' . _NO . '">';
+            $icon = '<img src="' . Admin::iconUrl('red.gif', '16') . '" alt="' . \_NO . '">';
         }
 
         return $icon;

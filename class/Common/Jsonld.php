@@ -29,7 +29,7 @@ class Jsonld
             $jsonld[]             = $schema;
         }
 
-        $out .= '<script type="application/ld+json">' . json_encode($jsonld, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>';
+        $out .= '<script type="application/ld+json">' . json_encode($jsonld, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES) . '</script>';
 
         return $out;
     }

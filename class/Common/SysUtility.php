@@ -183,7 +183,7 @@ class SysUtility
         $sql    = "INSERT INTO $table (" . \implode(', ', \array_keys($tempTable)) . ") VALUES ('" . \implode("', '", $tempTable) . "')";
         $result = $GLOBALS['xoopsDB']->queryF($sql);
         if (!$GLOBALS['xoopsDB']->isResultSet($result)) {
-            \trigger_error(\sprintf(_DB_QUERY_ERROR, $sql) . $GLOBALS['xoopsDB']->error(), E_USER_ERROR);
+            \trigger_error(\sprintf(\_DB_QUERY_ERROR, $sql) . $GLOBALS['xoopsDB']->error(), \E_USER_ERROR);
         }
         // Return the new id
         $newId = $GLOBALS['xoopsDB']->getInsertId();
@@ -374,7 +374,7 @@ class SysUtility
     {
         try {
             if (!\mkdir($folder) && !\is_dir($folder)) {
-                throw new \RuntimeException(sprintf('Unable to create the %s directory', $folder));
+                throw new \RuntimeException(\sprintf('Unable to create the %s directory', $folder));
             }
             file_put_contents($folder . '/index.html', '<script>history.go(-1);</script>');
         } catch (\Exception $e) {

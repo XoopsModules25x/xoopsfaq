@@ -98,7 +98,7 @@ final class Category extends XoopsObject
         $category_order->setDescription(\_AM_XOOPSFAQ_E_CATEGORY_ORDER_DESC);
         $form->addElement($category_order, false);
         $form->addElement($permHelper->getGroupSelectFormForItem('viewcat', $this->getVar('category_id'), \_AM_XOOPSFAQ_CATEGORY_GROUP_PERMS, '', Constants::INCLUDE_ANNON));
-        $form->addElement(new XoopsFormButtonTray('category_form', _SUBMIT, 'submit'));
+        $form->addElement(new XoopsFormButtonTray('category_form', \_SUBMIT, 'submit'));
 
         return $form->render();
     }

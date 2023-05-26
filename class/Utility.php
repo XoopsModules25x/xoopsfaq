@@ -48,7 +48,7 @@ class Utility extends Common\SysUtility
     public static function renderIconLinks(array $icon_array, $param, $value = null, $extra = null): string
     {
         $moduleDirName = \basename(\dirname(__DIR__));
-        xoops_loadLanguage('admin', $moduleDirName);
+        \xoops_loadLanguage('admin', $moduleDirName);
         $ret = '';
         if (null !== $value) {
             foreach ($icon_array as $_op => $icon) {

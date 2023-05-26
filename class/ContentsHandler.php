@@ -189,7 +189,7 @@ final class ContentsHandler extends XoopsPersistableObjectHandler
                . '  </tr>'
                . '  </thead>'
                . '  <tbody>';
-        if (is_array($objects) && ($objects['count'] > 0)) {
+        if (\is_array($objects) && ($objects['count'] > 0)) {
             $tdClass = 0;
             /** @var \Contents $object */
             foreach ($objects['list'] as $object) {
@@ -227,7 +227,7 @@ final class ContentsHandler extends XoopsPersistableObjectHandler
                               . '    <td class="'
                               . $dispClass
                               . '">'
-                              . $object->getPublished(_SHORTDATESTRING)
+                              . $object->getPublished(\_SHORTDATESTRING)
                               . '</td>'
                               . '    <td class="'
                               . $dispClass
